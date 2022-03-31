@@ -14,7 +14,7 @@ int	map_check_file_extension(char *filename, char *ext)
 	int	j;
 
 	if (ext[0] != '.')
-		return (error_message_exit("Invalid file extension");
+		error_message_exit("Invalid file extension");
 	i = ft_strlen(filename) - ft_strlen(ext);
 	j = 0;
 	while (filename[i + j] && ext[j])
@@ -28,8 +28,9 @@ int	map_check_file_extension(char *filename, char *ext)
 
 int map_check(t_cub *cub)
 {
-	//check NO/SO/WE/EA
+	//check NO/SO/WE/EA identifier
+	//check texture paths
+	//check ceiling and floor format
 	//check if map is walled
-	//check 
-
+	//check valid character; 0, 1, NSWE	
 }

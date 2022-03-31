@@ -69,7 +69,7 @@ typedef struct s_map
 /*
 structure for raycaster?
 distance
-height
+height...
 
 */
 
