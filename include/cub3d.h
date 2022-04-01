@@ -7,7 +7,8 @@
 # include <fcntl.h>
 # include <math.h>
 # include <limits.h>
-# include "libft.h"
+# include "../libft/libft.h"
+# include "../mlx/mlx.h"
 
 # define TILE_SIZE			32
 # define BUFFER_SIZE		1
@@ -88,6 +89,11 @@ void	init_game();
 void	init_game_img();
 void	init_mlx_and_window();
 void	init_map_value();
+
+
+/* get_next_line */
+int	get_next_line(int fd, char **line);
+
 
 
 #endif

@@ -8,7 +8,7 @@ int	game_loop(t_cub *cub)
 	{
 		//put window;
 	}
-	
+	return 0;
 }
 
 int main(int argc, char **argv)
