@@ -6,7 +6,7 @@
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:19:01 by selee             #+#    #+#             */
-/*   Updated: 2022/04/04 16:34:18 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/04/04 16:56:57 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,21 +58,18 @@ void	map_read_file(t_cub *cub, char *map_file)
 
 	i = 0;
 	fd = open(map_file, O_RDONLY);
-	
 	while (get_next_line(fd, &line) > 0)
 	{
-		printf("check\n");
 		j = 0;
 		while (j < cub->map.column_count)
 		{
-			printf("check c: %c", line[j]);
 			cub->map.array[i][j] = line[j];
 			j++;
 		}
 		i++;
 		free(line);
 	}
-	// free(line); // error message "pointer being freed was not allocated"
+	free(line); // error message "pointer being freed was not allocated"
 	close(fd);
 }
 

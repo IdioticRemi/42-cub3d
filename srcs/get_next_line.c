@@ -6,7 +6,7 @@
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:19:06 by selee             #+#    #+#             */
-/*   Updated: 2022/04/04 16:19:08 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/04/04 16:56:22 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	get_next_line(int fd, char **line)
 	static char	*stores[OPEN_MAX] = {NULL};
 	int			size_read;
 
-	if ((fd > 0) || (fd >= OPEN_MAX) || (!line) || (BUFFER_SIZE <= 0))
+	if ((fd < 0) || (fd >= OPEN_MAX) || (!line) || (BUFFER_SIZE <= 0))
 		return (-1);
 	var_init(&stores[fd], &size_read, &new_line);
 	while (size_read > 0 && !new_line)

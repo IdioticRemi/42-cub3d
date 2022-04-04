@@ -6,7 +6,7 @@
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:18:58 by selee             #+#    #+#             */
-/*   Updated: 2022/04/04 16:31:51 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/04/04 16:58:25 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,16 +67,16 @@ int	map_is_walled(t_cub *cub)
 	col = cub->map.column_count;
 	printf("row: %d | col: %d\n", row, col);
 	i = 0;
-	while (i <= col)
+	while (i < col)
 	{
-		if (cub->map.array[0][i] != '1' || cub->map.array[row][i] != '1')
+		if (cub->map.array[0][i] != '1' || cub->map.array[row - 1][i] != '1')
 			return (0);
 		i++;
 	}
 	i = 0;
-	while (i <= row)
+	while (i < row)
 	{
-		if (cub->map.array[i][0] != '1' || cub->map.array[i][col] != '1')
+		if (cub->map.array[i][0] != '1' || cub->map.array[i][col - 1] != '1')
 			return (0);
 		i++;
 	}
