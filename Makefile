@@ -30,15 +30,11 @@ CLIB		=	-I ./mlx -L ./mlx -lmlx -framework OpenGL -framework AppKit
 
 all:	$(NAME)
 
-$(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c $(LIBFT)/libft.h $(INC)/cub3d.h
-	$(CC) $(CFLAGS) -c $< -o $@ -Iinclude -Ilibft
-	# -c $< -Ilibft -o $@
+$(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c libft/libft.h include/cub3d.h
+	$(CC) $(CFLAGS) -c $< -Iinclude -Ilibft -o $@ 
 
-# $(NAME):	init $(OBJS) $(LIBFT_FILE) 
-# 	$(CC) $(CFLAGS) $(CLIB) $(SRCS) -I $(INC) $(LIBFT_FILE) -o $(NAME)
-
-$(NAME):	init ${OBJS} include/cub3d.h | libft/libft.a | mlx/mlx.h
-			${GCCF} ${CLIB} $(OBJS) $(LIBFT_FILE) -o $(NAME)
+$(NAME):	init $(OBJS) $(LIBFT_FILE)
+	$(CC) $(CFLAGS) $(CLIB) $(SRCS) -I $(INC) $(LIBFT_FILE) -o $(NAME)
 
 init:
 	@ mkdir -p objs
