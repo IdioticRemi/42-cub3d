@@ -67,6 +67,13 @@ typedef struct s_map
 	t_texture	texture;
 } t_map;
 
+typedef struct s_tile
+{
+	t_image	wall;
+	t_image	exit;
+	t_image	space;
+}	t_tile;
+
 /*
 structure for raycaster?
 distance
@@ -80,6 +87,7 @@ typedef struct s_cub
 	void		*win;
 	// t_player	player;
 	t_map		map;
+	t_tile		tile;
 
 	int			status;
 } t_cub;
@@ -94,6 +102,21 @@ void	init_map_value();
 /* get_next_line */
 int	get_next_line(int fd, char **line);
 
+/* display */
+void	put_map_to_win(t_cub *cub);
 
+/* error */
+void	error_message_exit(char *message);
+
+/* exit */
+int	exit_hook(void);
+
+/* free */
+void	free_map_arr(t_cub *cub);
+
+/* map */
+int	map_check_file_extension(char *filename, char *ext);
+void	map_read_and_check(t_cub *cub, char *map_path);
+void	map_check_format(t_cub *cub);
 
 #endif

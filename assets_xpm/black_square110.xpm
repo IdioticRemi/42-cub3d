@@ -1,0 +1,26 @@
+/* XPM */
+static char *house32[] = {
+/* columns rows colors chars-per-pixel */
+"110 18 2 1 ",
+"   c black",
+".  c #000000",
+/* pixels */
+"                                                                                                              ",
+"                                                                                                              ",
+"                                                                                                              ",
+"                                                                                                              ",
+"                                                                                                              ",
+"                                                                                                              ",
+"                                                                                                              ",
+"                                                                                                              ",
+"                                                                                                              ",
+"                                                                                                              ",
+"                                                                                                              ",
+"                                                                                                              ",
+"                                                                                                              ",
+"                                                                                                              ",
+"                                                                                                              ",
+"                                                                                                              ",
+"                                                                                                              ",
+"                                                                                                              "
+};

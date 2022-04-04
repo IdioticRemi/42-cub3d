@@ -4,11 +4,17 @@ INC			=	include
 SRC_DIR		=	srcs
 OBJ_DIR		=	objs
 
-SRC			=	error.c			\
-				main.c			\
+SRC			=	main.c			\
+				display.c		\
+				error.c			\
+				exit.c			\
+				free.c			\
 				get_next_line.c	\
 				init_game.c		\
+				init_img.c		\
 				map_check.c		\
+				map_compo.c		\
+				map_read.c		\
 
 SRCS		=	$(addprefix $(SRC_DIR)/, $(SRC))
 OBJS		=	$(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))

@@ -6,7 +6,7 @@ void	clean_free(void **data)
 	*data = NULL;
 }
 
-void	var_init(char **store, int *size_read, char **new_line)
+void	cub_init(char **store, int *size_read, char **new_line)
 {
 	if (!*store)
 		*store = ft_strdup("");
@@ -51,7 +51,7 @@ int	get_next_line(int fd, char **line)
 
 	if ((fd > 0) || (fd >= OPEN_MAX) || (!line) || (BUFFER_SIZE <= 0))
 		return (-1);
-	var_init(&stores[fd], &size_read, &new_line);
+	cub_init(&stores[fd], &size_read, &new_line);
 	while (size_read > 0 && !new_line)
 	{
 		size_read = 0;
