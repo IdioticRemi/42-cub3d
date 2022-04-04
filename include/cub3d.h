@@ -81,11 +81,21 @@ height...
 
 */
 
+typedef struct s_player
+{
+	int			x;
+	int			y;
+	int			x_start;
+	int			y_start;
+	t_image		image;
+}	t_player;
+
+
 typedef struct s_cub
 {
 	void		*mlx;
 	void		*win;
-	// t_player	player;
+	t_player	player;
 	t_map		map;
 	t_tile		tile;
 
@@ -118,5 +128,9 @@ void	free_map_arr(t_cub *cub);
 int	map_check_file_extension(char *filename, char *ext);
 void	map_read_and_check(t_cub *cub, char *map_path);
 void	map_check_format(t_cub *cub);
+
+/* event */
+int	key_input(int keycode, t_cub *cub);
+void	move_to_directions(t_cub *cub, int direction);
 
 #endif
