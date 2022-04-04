@@ -89,7 +89,6 @@ typedef struct s_player
 	t_image		image;
 }	t_player;
 
-
 typedef struct s_cub
 {
 	void		*mlx;
@@ -97,7 +96,6 @@ typedef struct s_cub
 	t_player	player;
 	t_map		map;
 	t_tile		tile;
-
 	int			status;
 } t_cub;
 
@@ -113,6 +111,7 @@ int	get_next_line(int fd, char **line);
 
 /* display */
 void	put_map_to_win(t_cub *cub);
+void	put_player_pixel(t_cub *cub);
 
 /* error */
 void	error_message_exit(char *message);
