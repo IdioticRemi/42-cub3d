@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display.c                                          :+:      :+:    :+:   */
+/*   player_position.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/04 16:18:51 by selee             #+#    #+#             */
-/*   Updated: 2022/04/04 16:25:49 by selee            ###   ########lyon.fr   */
+/*   Created: 2022/04/04 16:19:10 by selee             #+#    #+#             */
+/*   Updated: 2022/04/04 16:19:12 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	put_player_to_win(t_cub *cub)
-{
-	mlx_put_image_to_window(cub->mlx, cub->win,
-		cub->player.image.ptr, cub->player.x * TILE_SIZE,
-		cub->player.y * TILE_SIZE);
-}
-
-void	put_map_to_win(t_cub *cub)
-{
+void	player_get_coord(t_cub *cub)
+{	
 	int		i;
 	int		j;
 
@@ -29,12 +22,14 @@ void	put_map_to_win(t_cub *cub)
 	{
 		j = 0;
 		while (j < cub->map.column_count)
-		{		
-			mlx_put_image_to_window(cub->mlx, cub->win,
-				cub->tile.space.ptr, j * TILE_SIZE, i * TILE_SIZE);
-			if (cub->map.array[i][j] == '1')
-				mlx_put_image_to_window(cub->mlx, cub->win,
-					cub->tile.wall.ptr, j * TILE_SIZE, i * TILE_SIZE);
+		{
+			if (cub->map.array[i][j] == 'P')
+			{
+				cub->player.x_start = j;
+				cub->player.y_start = i;
+				cub->player.x = j;
+				cub->player.y = i;
+			}
 			j++;
 		}
 		i++;

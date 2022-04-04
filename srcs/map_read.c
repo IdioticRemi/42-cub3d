@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_read.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/04 16:19:01 by selee             #+#    #+#             */
+/*   Updated: 2022/04/04 16:34:18 by selee            ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	map_count_row_column(t_cub *cub, int fd)
@@ -46,21 +58,21 @@ void	map_read_file(t_cub *cub, char *map_file)
 
 	i = 0;
 	fd = open(map_file, O_RDONLY);
+	
 	while (get_next_line(fd, &line) > 0)
 	{
-		// if (!(map_is_rectangular(cub, ft_strlen(line))))
-		// 	error_message_exit("Map is not rectangular");
+		printf("check\n");
 		j = 0;
 		while (j < cub->map.column_count)
 		{
+			printf("check c: %c", line[j]);
 			cub->map.array[i][j] = line[j];
-			// map_count_compo(cub, line[j]);
 			j++;
 		}
 		i++;
 		free(line);
 	}
-	free(line);
+	// free(line); // error message "pointer being freed was not allocated"
 	close(fd);
 }
 
@@ -75,6 +87,6 @@ void	map_read_and_check(t_cub *cub, char *map_path)
 	map_malloc(cub, fd);
 	close(fd);
 	map_read_file(cub, map_path);
-	// player_get_coord(cub);
+	player_get_coord(cub);
 	map_check_format(cub);
 }

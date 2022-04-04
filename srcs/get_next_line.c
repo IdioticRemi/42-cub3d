@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/04 16:19:06 by selee             #+#    #+#             */
+/*   Updated: 2022/04/04 16:19:08 by selee            ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	clean_free(void **data)
@@ -6,7 +18,7 @@ void	clean_free(void **data)
 	*data = NULL;
 }
 
-void	cub_init(char **store, int *size_read, char **new_line)
+void	var_init(char **store, int *size_read, char **new_line)
 {
 	if (!*store)
 		*store = ft_strdup("");
@@ -51,7 +63,7 @@ int	get_next_line(int fd, char **line)
 
 	if ((fd > 0) || (fd >= OPEN_MAX) || (!line) || (BUFFER_SIZE <= 0))
 		return (-1);
-	cub_init(&stores[fd], &size_read, &new_line);
+	var_init(&stores[fd], &size_read, &new_line);
 	while (size_read > 0 && !new_line)
 	{
 		size_read = 0;
@@ -67,4 +79,3 @@ int	get_next_line(int fd, char **line)
 	}
 	return (return_result(new_line, &stores[fd], line));
 }
-

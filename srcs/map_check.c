@@ -1,12 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_check.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/04 16:18:58 by selee             #+#    #+#             */
+/*   Updated: 2022/04/04 16:31:51 by selee            ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
-
-//check identifier and save to the structure
-// int		check_element(t_cub *cub, int fd)
-// {
-// 	read from the file and check identifier
-// 	malloc structure's _path array;
-
-// }
 
 void	map_cout_row_column(t_cub *cub, int fd)
 {
@@ -46,17 +50,6 @@ int	map_check_file_extension(char *filename, char *ext)
 	return (1);
 }
 
-// int map_check(t_cub *cub)
-// {
-	
-// 	//check NO/SO/WE/EA identifier
-// 	//check texture paths
-// 	//check ceiling and floor format
-// 	//check if map is walled
-// 	//check valid character; 0, 1, NSWE	
-// }
-
-
 int	map_is_rectangular(t_cub *cub, int line_length)
 {
 	if (line_length != cub->map.column_count)
@@ -72,17 +65,18 @@ int	map_is_walled(t_cub *cub)
 
 	row = cub->map.row_count;
 	col = cub->map.column_count;
+	printf("row: %d | col: %d\n", row, col);
 	i = 0;
-	while (i < col)
+	while (i <= col)
 	{
-		if (cub->map.array[0][i] != '1' || cub->map.array[row - 1][i] != '1')
+		if (cub->map.array[0][i] != '1' || cub->map.array[row][i] != '1')
 			return (0);
 		i++;
 	}
 	i = 0;
-	while (i < row)
+	while (i <= row)
 	{
-		if (cub->map.array[i][0] != '1' || cub->map.array[i][col - 1] != '1')
+		if (cub->map.array[i][0] != '1' || cub->map.array[i][col] != '1')
 			return (0);
 		i++;
 	}

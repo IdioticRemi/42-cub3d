@@ -130,7 +130,10 @@ void	map_read_and_check(t_cub *cub, char *map_path);
 void	map_check_format(t_cub *cub);
 
 /* event */
-int	key_input(int keycode, t_cub *cub);
+int		key_input(int keycode, t_cub *cub);
 void	move_to_directions(t_cub *cub, int direction);
+int		player_touched_wall(t_cub *cub, int direction);
+
+void	player_get_coord(t_cub *cub);
 
 #endif

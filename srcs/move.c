@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   move.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/04 16:19:26 by selee             #+#    #+#             */
+/*   Updated: 2022/04/04 16:19:28 by selee            ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	move_north(t_cub *cub)
@@ -22,7 +34,7 @@ void	move_east(t_cub *cub)
 
 void	move_to_directions(t_cub *cub, int direction)
 {
-	if (!player_touched wall(cub, direction))
+	if (!player_touched_wall(cub, direction))
 	{
 		if (direction == DIR_NO)
 			move_north(cub);

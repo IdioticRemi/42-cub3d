@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_img.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/04 16:19:19 by selee             #+#    #+#             */
+/*   Updated: 2022/04/04 16:19:23 by selee            ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "cub3d.h"
 
@@ -9,9 +20,6 @@ void	init_tile_img(t_cub *cub)
 	cub->tile.space.ptr = mlx_xpm_file_to_image(cub->mlx,
 			"./assets_xpm/blakc_square32.xpm", &(cub->tile.space.width),
 			&(cub->tile.space.height));
-	// cub->tile.exit.ptr = mlx_xpm_file_to_image(cub->mlx,
-	// 		"./assets_xpm/house32.xpm", &(cub->tile.exit.width),
-	// 		&(cub->tile.exit.height));
 }
 
 void	init_game_img(t_cub *cub)
