@@ -2,7 +2,7 @@
 static char *house32[] = {
 /* columns rows colors chars-per-pixel */
 "32 32 1 1 ",
-"   c #f7d331",
+"   c #ffffff",
 /* pixels */
 "                                                                ",
 "                                                                ",

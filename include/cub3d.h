@@ -70,7 +70,6 @@ typedef struct s_map
 typedef struct s_tile
 {
 	t_image	wall;
-	t_image	exit;
 	t_image	space;
 }	t_tile;
 

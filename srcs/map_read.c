@@ -6,7 +6,7 @@
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:19:01 by selee             #+#    #+#             */
-/*   Updated: 2022/04/04 16:56:57 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/04/04 17:10:00 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	map_read_file(t_cub *cub, char *map_file)
 		i++;
 		free(line);
 	}
-	free(line); // error message "pointer being freed was not allocated"
+	free(line);
 	close(fd);
 }
 

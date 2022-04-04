@@ -6,7 +6,7 @@
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:18:56 by selee             #+#    #+#             */
-/*   Updated: 2022/04/04 16:50:54 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/04/04 17:11:03 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		error_message_exit("Invalid argument");
 	map_path = argv[1];
-	cub.status = GAME_START;
+	cub.status = GAME_PLAY;
 	map_check_file_extension(map_path, ".ber");
 	map_read_and_check(&cub, map_path);
 	init_game(&cub);
