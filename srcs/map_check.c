@@ -6,7 +6,7 @@
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:18:58 by selee             #+#    #+#             */
-/*   Updated: 2022/04/04 16:58:25 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/04/05 18:05:48 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ int	map_is_walled(t_cub *cub)
 
 	row = cub->map.row_count;
 	col = cub->map.column_count;
-	printf("row: %d | col: %d\n", row, col);
 	i = 0;
 	while (i < col)
 	{
