@@ -6,11 +6,20 @@
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:19:26 by selee             #+#    #+#             */
-/*   Updated: 2022/04/05 18:02:02 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/04/05 18:16:19 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+/*
+
+◦ The left and right arrow keys of the keyboard must allow you to look left and
+right in the maze.
+◦ The W, A, S, and D keys must allow you to move the point of view through
+the maze.
+
+*/
 
 void	move_north(t_cub *cub)
 {

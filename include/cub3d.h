@@ -13,6 +13,8 @@
 # define TILE_SIZE			32
 # define BUFFER_SIZE		1
 
+# define PI					3.1415926535
+
 /* TEMP */
 # define BLACK				0x000000
 # define WHITE				0xffffff
@@ -81,10 +83,13 @@ typedef struct s_tile
 
 typedef struct s_player
 {
-	int			x;
-	int			y;
-	int			x_start;
-	int			y_start;
+	float		x;
+	float		y;
+	float		x_start;
+	float		y_start;
+	float		delta_x;
+	float		delta_y;
+	float		angle;
 	t_image		image;
 }	t_player;
 
