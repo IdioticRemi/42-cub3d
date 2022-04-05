@@ -6,7 +6,7 @@
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:19:10 by selee             #+#    #+#             */
-/*   Updated: 2022/04/04 18:37:41 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/04/05 16:15:03 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	player_get_coord(t_cub *cub)
 		j = 0;
 		while (j < cub->map.column_count)
 		{
-			if (cub->map.array[i][j] == 'N')
+			if (cub->map.array[i][j] == 'P')
 			{
 				cub->player.x_start = j;
 				cub->player.y_start = i;

@@ -10,8 +10,13 @@
 # include "../libft/libft.h"
 # include "../mlx/mlx.h"
 
-# define TILE_SIZE			32
+# define TILE_SIZE			64
 # define BUFFER_SIZE		1
+
+/* TEMP */
+# define BLACK				0x000000
+# define WHITE				0xffffff
+# define YELLOW				0xf7d331
 
 /* KEYS */
 # define KEY_ESC			53
@@ -73,13 +78,6 @@ typedef struct s_tile
 	t_image	space;
 }	t_tile;
 
-/*
-structure for raycaster?
-distance
-height...
-
-*/
-
 typedef struct s_player
 {
 	int			x;
@@ -97,6 +95,14 @@ typedef struct s_cub
 	t_map		map;
 	t_tile		tile;
 	int			status;
+	int			win_height;
+	int			win_width;
+	double		pos_x;
+	double		pos_y;
+	double		dir_x;
+	double		dir_y;
+	double		plane_x;
+	double		plane_y;
 } t_cub;
 
 /* init */
@@ -104,6 +110,7 @@ void	init_game();
 void	init_game_img();
 void	init_mlx_and_window();
 void	init_map_value();
+void	init_player_value(t_cub *cub);
 
 
 /* get_next_line */
@@ -112,6 +119,8 @@ int	get_next_line(int fd, char **line);
 /* display */
 void	put_map_to_win(t_cub *cub);
 void	put_player_pixel(t_cub *cub);
+void	put_map_grid(t_cub *cub); //test function
+void	put_player_to_win(t_cub *cub);
 
 /* error */
 void	error_message_exit(char *message);

@@ -6,11 +6,16 @@
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:19:19 by selee             #+#    #+#             */
-/*   Updated: 2022/04/04 17:11:35 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/04/05 17:08:44 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	init_player_img(t_cub *cub)
+{
+	cub->player.image.ptr = mlx_xpm_file_to_image(cub->mlx, "./assets_xpm/player_test.xpm", &(cub->player.image.width), &(cub->player.image.height)); 
+}
 
 void	init_tile_img(t_cub *cub)
 {
@@ -24,5 +29,6 @@ void	init_tile_img(t_cub *cub)
 
 void	init_game_img(t_cub *cub)
 {
+	init_player_img(cub);
 	init_tile_img(cub);
 }
