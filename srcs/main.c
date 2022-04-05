@@ -6,7 +6,7 @@
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:18:56 by selee             #+#    #+#             */
-/*   Updated: 2022/04/05 17:11:48 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/04/05 17:58:38 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	game_loop(t_cub *cub)
 {
 	if (cub->status == GAME_PLAY)
 	{
-		// put_map_to_win(cub);
+		put_map_to_win(cub);
 		put_map_grid(cub);
 		put_player_to_win(cub);
 		// put_player_pixel(cub);

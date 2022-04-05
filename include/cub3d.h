@@ -10,13 +10,14 @@
 # include "../libft/libft.h"
 # include "../mlx/mlx.h"
 
-# define TILE_SIZE			64
+# define TILE_SIZE			32
 # define BUFFER_SIZE		1
 
 /* TEMP */
 # define BLACK				0x000000
 # define WHITE				0xffffff
 # define YELLOW				0xf7d331
+# define GRAY				0x808485
 
 /* KEYS */
 # define KEY_ESC			53
