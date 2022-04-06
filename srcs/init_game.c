@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: seoyounglee <seoyounglee@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:18:46 by selee             #+#    #+#             */
-/*   Updated: 2022/04/05 16:59:08 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/04/06 19:14:55 by seoyounglee      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	init_mlx_and_win(t_cub *cub)
 }
 void	init_player_value(t_cub *cub) //グリッドの真ん中に見えるように
 {
-	cub->player.x = cub->player.x_start * TILE_SIZE  + (TILE_SIZE / 2);
-	cub->player.y = cub->player.y_start * TILE_SIZE + (TILE_SIZE / 2);
+	cub->player.x = cub->player.x_start * TILE_SIZE; // + (TILE_SIZE / 2);
+	cub->player.y = cub->player.y_start * TILE_SIZE; //+ (TILE_SIZE / 2);
 	
 }
 

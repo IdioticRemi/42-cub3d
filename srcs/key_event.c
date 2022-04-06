@@ -1,23 +1,33 @@
 #include "cub3d.h"
 
-int	key_input(int keycode, t_cub *cub)
+int	key_movement(t_cub *cub, int keycode)
 {
 	if (cub->status == GAME_PLAY)
 	{
-		if (keycode == KEY_W || keycode == KEY_UP)
+		if (keycode == KEY_W)
 			move_to_directions(cub, DIR_NO);
-		else if (keycode == KEY_S || keycode == KEY_DOWN)
+		else if (keycode == KEY_S)
 			move_to_directions(cub, DIR_SO);
-		else if (keycode == KEY_A || keycode == KEY_LEFT)
+		else if (keycode == KEY_A)
 			move_to_directions(cub, DIR_WE);
-		else if (keycode == KEY_D || keycode == KEY_RIGHT)
+		else if (keycode == KEY_D)
 			move_to_directions(cub, DIR_EA);
+		else if (keycode == KEY_LEFT)
+			rotate_left(cub);
+		else if (keycode == KEY_RIGHT)
+			rotate_right(cub);
 	}
+	return (0);
+}
 
+int	key_input(int keycode, t_cub *cub)
+{
+	if (cub->status == GAME_PLAY)
+		key_movement(cub, keycode);
 	if (keycode == KEY_ESC)
 	{
 		free_map_arr(cub);
-		exit(0);
+		exit(EXIT_SUCCESS);
 	}
 	return (0);
 }

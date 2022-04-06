@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi_base.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: seoyounglee <seoyounglee@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 12:44:50 by selee             #+#    #+#             */
-/*   Updated: 2021/08/13 12:44:53 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/04/06 18:38:28 by seoyounglee      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,12 @@ int	ft_atoi_base(char *str, char *base)
 	int		nbr;
 	int		sign;
 	int		i;
-	int		j;
+	// int		j;
 
 	nbr = 0;
 	sign = 1;
 	i = 0;
-	j = 0;
+	// j = 0;
 	if (ft_base_check(base) == 0)
 		return (0);
 	while ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')

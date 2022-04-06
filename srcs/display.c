@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: seoyounglee <seoyounglee@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:18:51 by selee             #+#    #+#             */
-/*   Updated: 2022/04/05 18:04:19 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/04/06 20:47:02 by seoyounglee      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void	put_player_to_win(t_cub *cub)
 		cub->player.y);
 }
 
-// void	put_player_pixel(t_cub *cub)
-// {
-// 	mlx_pixel_put(cub->mlx, cub->win, cub->player.x, cub->player.y, YELLOW);
-// }
+void	put_player_pixel(t_cub *cub)
+{
+	mlx_pixel_put(cub->mlx, cub->win, cub->player.x, cub->player.y, YELLOW);
+}
 
 void	put_map_to_win(t_cub *cub)
 {

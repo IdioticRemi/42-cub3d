@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: seoyounglee <seoyounglee@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:18:56 by selee             #+#    #+#             */
-/*   Updated: 2022/04/05 18:02:30 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/04/06 20:52:36 by seoyounglee      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ int	game_loop(t_cub *cub)
 	{
 		put_map_to_win(cub);
 		put_map_grid(cub);
-		put_player_to_win(cub);
+		// put_player_to_win(cub);
+		put_player_pixel(cub);
+		draw_line(cub, cub->player.x, cub->player.y, cub->player.y + 50, YELLOW);
 	}
 	return (0);
 }

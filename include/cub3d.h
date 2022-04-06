@@ -90,6 +90,13 @@ typedef struct s_player
 	float		delta_x;
 	float		delta_y;
 	float		angle;
+	
+	double		pos_x;
+	double		pos_y;
+	double		dir_x;
+	double		dir_y;
+	double		plane_x;
+	double		plane_y;
 	t_image		image;
 }	t_player;
 
@@ -103,12 +110,6 @@ typedef struct s_cub
 	int			status;
 	int			win_height;
 	int			win_width;
-	double		pos_x;
-	double		pos_y;
-	double		dir_x;
-	double		dir_y;
-	double		plane_x;
-	double		plane_y;
 } t_cub;
 
 /* init */
@@ -127,6 +128,7 @@ void	put_map_to_win(t_cub *cub);
 void	put_player_pixel(t_cub *cub);
 void	put_map_grid(t_cub *cub); //test function
 void	put_player_to_win(t_cub *cub);
+void	draw_line(t_cub *cub, int x, int y1, int y2, int color);
 
 /* error */
 void	error_message_exit(char *message);
@@ -138,7 +140,7 @@ int	exit_hook(void);
 void	free_map_arr(t_cub *cub);
 
 /* map */
-int	map_check_file_extension(char *filename, char *ext);
+int		map_check_file_extension(char *filename, char *ext);
 void	map_read_and_check(t_cub *cub, char *map_path);
 void	map_check_format(t_cub *cub);
 
@@ -148,5 +150,8 @@ void	move_to_directions(t_cub *cub, int direction);
 int		player_touched_wall(t_cub *cub, int direction);
 
 void	player_get_coord(t_cub *cub);
+
+void	rotate_left(t_cub *cub);
+void	rotate_right(t_cub *cub);
 
 #endif
