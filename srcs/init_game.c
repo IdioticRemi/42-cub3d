@@ -6,7 +6,7 @@
 /*   By: seoyounglee <seoyounglee@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:18:46 by selee             #+#    #+#             */
-/*   Updated: 2022/04/07 18:56:40 by seoyounglee      ###   ########lyon.fr   */
+/*   Updated: 2022/04/07 22:26:24 by seoyounglee      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	init_player_value(t_cub *cub) //グリッドの真ん中に見えるよう�
 	
 	/* temp init -- to be changed according to conditions*/
 
-	cub->player.dir_x = -1.0;
+	cub->player.dir_x = 1.0;
 	cub->player.dir_y = 0.0;
 	cub->player.plane_x = 0;
 	cub->player.plane_y = 0.66;
@@ -50,8 +50,10 @@ void	init_player_value(t_cub *cub) //グリッドの真ん中に見えるよう�
 	printf("colum: %d | row: %d\n", cub->map.column_count, cub->map.row_count);
 	printf("startX: %f | startY: %f\n", cub->player.x_start, cub->player.y_start);
 	printf("posX: %f | posY: %f\n", cub->player.pos_x, cub->player.pos_y);
-	printf("x: %f | y: %f\n", cub->player.x, cub->player.y);
+	// printf("x: %f | y: %f\n", cub->player.x, cub->player.y);
 }
+
+
 
 void	init_game(t_cub *cub)
 {

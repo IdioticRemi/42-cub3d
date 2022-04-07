@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collision.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: seoyounglee <seoyounglee@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:18:49 by selee             #+#    #+#             */
-/*   Updated: 2022/04/05 18:03:49 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/04/07 19:16:33 by seoyounglee      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int	player_touched_wall(t_cub *cub, int direction)
 	int		i;
 	int		j;
 
-	i = cub->player.y;
-	j = cub->player.x;
+	i = cub->player.pos_y;
+	j = cub->player.pos_x;
 
 	return ((direction == DIR_NO && cub->map.array[i - 1][j] == '1')
 		|| (direction == DIR_SO && cub->map.array[i + 1][j] == '1')

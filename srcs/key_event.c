@@ -12,10 +12,10 @@ int	key_movement(t_cub *cub, int keycode)
 			move_to_directions(cub, DIR_WE);
 		else if (keycode == KEY_D)
 			move_to_directions(cub, DIR_EA);
-		else if (keycode == KEY_LEFT)
-			rotate_left(cub);
-		else if (keycode == KEY_RIGHT)
-			rotate_right(cub);
+		// else if (keycode == KEY_LEFT)
+		// 	rotate_left(cub);
+		// else if (keycode == KEY_RIGHT)
+		// 	rotate_right(cub);
 	}
 	return (0);
 }

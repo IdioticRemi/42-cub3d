@@ -83,26 +83,34 @@ typedef struct s_tile //create texture structure instead
 	t_image	space;
 }	t_tile;
 
+typedef struct s_fov
+{
+	float		dir_x;
+	float		dir_y;
+	float		plane_x;
+	float		plane_y;
+	float		move_speed;
+	float		rotate_speed;
+}	t_fov;
+
 typedef struct s_player
 {
 	// float		x;
 	// float		y;
+	// float		delta_x;
+	// float		delta_y;
+	// t_image		image; //remove
 	float		x_start;
 	float		y_start;
-	float		delta_x;
-	float		delta_y;
-	float		angle;
-	
-	double		pos_x;
-	double		pos_y;
-	double		dir_x;
-	double		dir_y;
-	double		plane_x;
-	double		plane_y;
 
-	double		move_speed;
-	double		rotate_speed;
-	// t_image		image; //remove
+	float		pos_x;
+	float		pos_y;
+	float		dir_x;
+	float		dir_y;
+	float		plane_x;
+	float		plane_y;
+	float		move_speed;
+	float		rotate_speed;
 }	t_player;
 
 typedef struct s_cub
@@ -134,6 +142,8 @@ void	put_player_pixel(t_cub *cub);
 void	put_map_grid(t_cub *cub); //test function
 void	put_player_to_win(t_cub *cub);
 void	draw_line(t_cub *cub, int x, int y1, int y2, int color);
+void	cast_rays(t_cub *cub);
+void	put_ray(t_cub *cub);
 
 /* error */
 void	error_message_exit(char *message);

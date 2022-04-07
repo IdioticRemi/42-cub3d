@@ -6,18 +6,18 @@
 /*   By: seoyounglee <seoyounglee@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:18:51 by selee             #+#    #+#             */
-/*   Updated: 2022/04/07 18:44:53 by seoyounglee      ###   ########lyon.fr   */
+/*   Updated: 2022/04/07 23:39:14 by seoyounglee      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	put_player_to_win(t_cub *cub)
-{
-	mlx_put_image_to_window(cub->mlx, cub->win,
-		cub->player.image.ptr, cub->player.x,
-		cub->player.y);
-}
+// void	put_player_to_win(t_cub *cub)
+// {
+// 	mlx_put_image_to_window(cub->mlx, cub->win,
+// 		cub->player.image.ptr, cub->player.x,
+// 		cub->player.y);
+// }
 
 void	put_player_pixel(t_cub *cub)
 {
