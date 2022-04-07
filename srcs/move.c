@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: seoyounglee <seoyounglee@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:19:26 by selee             #+#    #+#             */
-/*   Updated: 2022/04/05 18:16:19 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/04/07 18:42:43 by seoyounglee      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,22 @@ the maze.
 
 void	move_north(t_cub *cub)
 {
-	cub->player.y--;
+	cub->player.pos_y--;
 }
 
 void	move_south(t_cub *cub)
 {
-	cub->player.y++;
+	cub->player.pos_y++;
 }
 
 void	move_west(t_cub *cub)
 {
-	cub->player.x--;
+	cub->player.pos_x--;
 }
 
 void	move_east(t_cub *cub)
 {
-	cub->player.x++;
+	cub->player.pos_x++;
 }
 
 void	move_to_directions(t_cub *cub, int direction)

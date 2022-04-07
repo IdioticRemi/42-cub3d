@@ -6,7 +6,7 @@
 /*   By: seoyounglee <seoyounglee@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:18:51 by selee             #+#    #+#             */
-/*   Updated: 2022/04/06 20:47:02 by seoyounglee      ###   ########lyon.fr   */
+/*   Updated: 2022/04/07 18:44:53 by seoyounglee      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	put_player_to_win(t_cub *cub)
 
 void	put_player_pixel(t_cub *cub)
 {
-	mlx_pixel_put(cub->mlx, cub->win, cub->player.x, cub->player.y, YELLOW);
+	mlx_pixel_put(cub->mlx, cub->win, cub->player.pos_x, cub->player.pos_y, RED);
 }
 
 void	put_map_to_win(t_cub *cub)

@@ -6,7 +6,7 @@
 /*   By: seoyounglee <seoyounglee@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:18:56 by selee             #+#    #+#             */
-/*   Updated: 2022/04/06 20:52:36 by seoyounglee      ###   ########lyon.fr   */
+/*   Updated: 2022/04/07 18:51:04 by seoyounglee      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,21 @@ int	game_loop(t_cub *cub)
 	{
 		put_map_to_win(cub);
 		put_map_grid(cub);
-		// put_player_to_win(cub);
 		put_player_pixel(cub);
-		draw_line(cub, cub->player.x, cub->player.y, cub->player.y + 50, YELLOW);
+		draw_line(cub, cub->player.pos_x, cub->player.pos_y, cub->player.pos_y + 10, YELLOW);
 	}
 	return (0);
 }
+
+int	main_loop(t_cub *cub)
+{
+	for (int x = 0; x < cub->win_width; x++)
+	{
+		double cameraX = 2 * x / (double)cub->win_width - 1;
+		double
+	}
+}
+
 
 int	main(int argc, char **argv)
 {

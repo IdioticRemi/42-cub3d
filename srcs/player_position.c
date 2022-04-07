@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_position.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: seoyounglee <seoyounglee@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:19:10 by selee             #+#    #+#             */
-/*   Updated: 2022/04/05 16:15:03 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/04/07 18:43:24 by seoyounglee      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	player_get_coord(t_cub *cub)
 			{
 				cub->player.x_start = j;
 				cub->player.y_start = i;
-				cub->player.x = j;
-				cub->player.y = i;
+				// cub->player.x = j;
+				// cub->player.y = i;
 			}
 			j++;
 		}

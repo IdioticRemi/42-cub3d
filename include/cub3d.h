@@ -15,11 +15,13 @@
 
 # define PI					3.1415926535
 
-/* TEMP */
+/* COLORS FOR TESTS */
 # define BLACK				0x000000
 # define WHITE				0xffffff
 # define YELLOW				0xf7d331
 # define GRAY				0x808485
+# define RED				0xff0000
+# define GREEN				0xecffdc
 
 /* KEYS */
 # define KEY_ESC			53
@@ -75,7 +77,7 @@ typedef struct s_map
 	t_texture	texture;
 } t_map;
 
-typedef struct s_tile
+typedef struct s_tile //create texture structure instead
 {
 	t_image	wall;
 	t_image	space;
@@ -83,8 +85,8 @@ typedef struct s_tile
 
 typedef struct s_player
 {
-	float		x;
-	float		y;
+	// float		x;
+	// float		y;
 	float		x_start;
 	float		y_start;
 	float		delta_x;
@@ -97,7 +99,10 @@ typedef struct s_player
 	double		dir_y;
 	double		plane_x;
 	double		plane_y;
-	t_image		image;
+
+	double		move_speed;
+	double		rotate_speed;
+	// t_image		image; //remove
 }	t_player;
 
 typedef struct s_cub
