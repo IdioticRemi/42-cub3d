@@ -29,6 +29,7 @@ void	put_ray(t_cub *cub)
 	{
 		p.pos_x += cos(p.dir_x);
 		p.pos_y += sin(p.dir_y);
-		mlx_pixel_put(cub->mlx, cub->win, p.pos_x, p.pos_y, GREEN);
+		mlx_pixel_put(cub->mlx, cub->win, p.pos_x, p.pos_y, BLUE);
 	}
 }
+

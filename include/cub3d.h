@@ -22,6 +22,7 @@
 # define GRAY				0x808485
 # define RED				0xff0000
 # define GREEN				0xecffdc
+# define BLUE				0x58cced
 
 /* KEYS */
 # define KEY_ESC			53
