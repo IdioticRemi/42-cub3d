@@ -11,19 +11,11 @@ void	draw_line(t_cub *cub, int x, int y1, int y2, int color)
 	}
 }
 
-// void	cast_rays(t_cub *cub)
-// {
-// 	int i = 0;
-
-// 	while (i < )
-// 	draw_line(cub, cub->player.dir_x, cub->player.dir_y, cub->player.dir_y + 50, GREEN);
-
-// }
-
+/*
 void	put_ray(t_cub *cub)
 {
 	t_player	p;
-	p = cub->player;
+	p = cub->player; 
 
 	while (cub->map.array[(int)(p.pos_y / TILE_SIZE)][(int)(p.pos_x / TILE_SIZE)] != '1')
 	{
@@ -32,4 +24,21 @@ void	put_ray(t_cub *cub)
 		mlx_pixel_put(cub->mlx, cub->win, p.pos_x, p.pos_y, BLUE);
 	}
 }
+*/
 
+void	put_ray(t_cub *cub)
+{
+	int i;
+
+	i = 0;
+	while (i < cub->win_width)
+	{
+		double cameraX = 2 * i / (double)cub->win_width - 1;
+		double rayDirX = cub->player.dir_x + cub->player.plane_x * cameraX;
+		double rayDirY = cub->player.dir_y + cub->player.plane_y * cameraX;
+
+
+
+		i++;
+	}
+}
