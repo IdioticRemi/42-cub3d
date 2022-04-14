@@ -6,7 +6,7 @@
 /*   By: seoyounglee <seoyounglee@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:19:10 by selee             #+#    #+#             */
-/*   Updated: 2022/04/07 18:43:24 by seoyounglee      ###   ########lyon.fr   */
+/*   Updated: 2022/04/12 20:55:27 by seoyounglee      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,14 @@ void	player_get_coord(t_cub *cub)
 		j = 0;
 		while (j < cub->map.column_count)
 		{
-			if (cub->map.array[i][j] == 'P')
+			if (cub->map.array[i][j] == 'N'
+				||cub->map.array[i][j] == 'S'
+				||cub->map.array[i][j] == 'W'
+				||cub->map.array[i][j] == 'E')
 			{
+				cub->map.start_dir = cub->map.array[i][j];
 				cub->player.x_start = j;
 				cub->player.y_start = i;
-				// cub->player.x = j;
-				// cub->player.y = i;
 			}
 			j++;
 		}

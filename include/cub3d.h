@@ -23,6 +23,7 @@
 # define RED				0xff0000
 # define GREEN				0xecffdc
 # define BLUE				0x58cced
+# define PINK				0xff69b4
 
 /* KEYS */
 # define KEY_ESC			53
@@ -75,7 +76,7 @@ typedef struct s_map
 	char		**array;
 	int			row_count;
 	int			column_count;
-	t_texture	texture;
+	char		start_dir;
 } t_map;
 
 typedef struct s_tile //create texture structure instead
@@ -84,6 +85,7 @@ typedef struct s_tile //create texture structure instead
 	t_image	space;
 }	t_tile;
 
+/*
 typedef struct s_fov
 {
 	float		dir_x;
@@ -93,6 +95,7 @@ typedef struct s_fov
 	float		move_speed;
 	float		rotate_speed;
 }	t_fov;
+*/
 
 typedef struct s_player
 {
@@ -100,7 +103,6 @@ typedef struct s_player
 	// float		y;
 	// float		delta_x;
 	// float		delta_y;
-	// t_image		image; //remove
 	float		x_start;
 	float		y_start;
 

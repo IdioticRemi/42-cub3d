@@ -6,18 +6,11 @@
 /*   By: seoyounglee <seoyounglee@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:18:51 by selee             #+#    #+#             */
-/*   Updated: 2022/04/07 23:39:14 by seoyounglee      ###   ########lyon.fr   */
+/*   Updated: 2022/04/14 23:57:37 by seoyounglee      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-// void	put_player_to_win(t_cub *cub)
-// {
-// 	mlx_put_image_to_window(cub->mlx, cub->win,
-// 		cub->player.image.ptr, cub->player.x,
-// 		cub->player.y);
-// }
 
 void	put_player_pixel(t_cub *cub)
 {
@@ -55,7 +48,7 @@ void	put_map_grid(t_cub *cub)
 	while (i < cub->map.row_count)
 	{
 		j = 0;
-		while (j <= cub->win_width)
+		while (j <= cub->win_width / 2) //あとで２消す
 		{
 			mlx_pixel_put(cub->mlx, cub->win, j, i * (cub->win_height / cub->map.row_count), GRAY);
 			j++;
@@ -68,7 +61,7 @@ void	put_map_grid(t_cub *cub)
 		j = 0;
 		while (j <= cub->win_height)
 		{
-			mlx_pixel_put(cub->mlx, cub->win, i * (cub->win_width / cub->map.column_count), j, GRAY);
+			mlx_pixel_put(cub->mlx, cub->win, i * ((cub->win_width / 2 /*あとで２消す*/) / cub->map.column_count), j, GRAY);
 			j++;
 		}
 		i++;
