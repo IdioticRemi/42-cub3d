@@ -98,29 +98,36 @@ typedef struct s_fov
 */
 
 typedef struct s_player
+{	
+	float		x_start;
+	float		y_start;
+	float		pos_x;
+	float		pos_y;
+
+}	t_player;
+
+
+typedef struct s_fov
 {
 	// float		x;
 	// float		y;
 	// float		delta_x;
 	// float		delta_y;
-	float		x_start;
-	float		y_start;
 
-	float		pos_x;
-	float		pos_y;
 	float		dir_x;
 	float		dir_y;
 	float		plane_x;
 	float		plane_y;
 	float		move_speed;
 	float		rotate_speed;
-}	t_player;
+}	t_fov;
 
 typedef struct s_cub
 {
 	void		*mlx;
 	void		*win;
 	t_player	player;
+	t_fov		fov;
 	t_map		map;
 	t_tile		tile;
 	int			status;

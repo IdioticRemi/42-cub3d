@@ -6,7 +6,7 @@
 /*   By: seoyounglee <seoyounglee@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:19:26 by selee             #+#    #+#             */
-/*   Updated: 2022/04/12 19:50:19 by seoyounglee      ###   ########lyon.fr   */
+/*   Updated: 2022/04/15 00:59:01 by seoyounglee      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,12 @@ void	move_east(t_cub *cub)
 
 void	move_to_directions(t_cub *cub, int direction)
 {
-	// if (!player_touched_wall(cub, direction))
-	// {
-		if (direction == DIR_NO)
-			move_north(cub);
-		else if (direction == DIR_SO)
-			move_south(cub);
-		else if (direction == DIR_WE)
-			move_west(cub);
-		else if (direction == DIR_EA)
-			move_east(cub);
-	// }
+	if (direction == DIR_NO)
+		move_north(cub);
+	else if (direction == DIR_SO)
+		move_south(cub);
+	else if (direction == DIR_WE)
+		move_west(cub);
+	else if (direction == DIR_EA)
+		move_east(cub);
 }

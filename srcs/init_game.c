@@ -6,7 +6,7 @@
 /*   By: seoyounglee <seoyounglee@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:18:46 by selee             #+#    #+#             */
-/*   Updated: 2022/04/14 22:49:59 by seoyounglee      ###   ########lyon.fr   */
+/*   Updated: 2022/04/15 01:00:30 by seoyounglee      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ void	init_mlx_and_win(t_cub *cub)
 void	init_player_direction(t_cub *cub)
 {
 	if (cub->map.start_dir == 'N')
-		cub->player.dir_y = -1;
+		cub->fov.dir_y = -1;
 	else if (cub->map.start_dir == 'S')
-		cub->player.dir_y = 1;
+		cub->fov.dir_y = 1;
 	else if (cub->map.start_dir == 'W')
-		cub->player.dir_x = 1;
+		cub->fov.dir_x = -1;
 	else if (cub->map.start_dir == 'E')
-		cub->player.dir_x = -1;	
+		cub->fov.dir_x = 1;	
 }
 
 void	init_player_value(t_cub *cub) //グリッドの真ん中に見えるように
@@ -47,15 +47,15 @@ void	init_player_value(t_cub *cub) //グリッドの真ん中に見えるよう�
 	cub->player.pos_y = cub->player.y_start * TILE_SIZE;//(cub->win_height / cub->map.row_count);
 	
 	/* temp init -- to be changed according to conditions*/
-	cub->player.dir_x = 0.0;
-	cub->player.dir_y = 0.0;
+	cub->fov.dir_x = 0.0;
+	cub->fov.dir_y = 0.0;
 	init_player_direction(cub);
 
-	cub->player.plane_x = 0;
-	// cub->player.plane_y = 0.66;
-	cub->player.plane_y = 0;
-	cub->player.move_speed = 0.05;
-	cub->player.rotate_speed = 0.05;
+	cub->fov.plane_x = 0;
+	cub->fov.plane_y = 0.66;
+	// cub->player.plane_y = 0;
+	cub->fov.move_speed = 0.05;
+	cub->fov.rotate_speed = 0.05;
 	/***********************/
 
 	
