@@ -6,17 +6,20 @@
 /*   By: seoyounglee <seoyounglee@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:18:46 by selee             #+#    #+#             */
-/*   Updated: 2022/04/15 23:30:24 by seoyounglee      ###   ########lyon.fr   */
+/*   Updated: 2022/04/16 00:14:48 by seoyounglee      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	init_map_value(t_cub *cub)
+void	init_game_img(t_cub *cub) /* temporary; to be modified later */
 {
-	cub->map.array = NULL;
-	cub->map.row_count = 0;
-	cub->map.column_count = 0;
+	cub->tile.wall.ptr = mlx_xpm_file_to_image(cub->mlx,
+			"./assets_xpm/white_square32.xpm", &(cub->tile.wall.width),
+			&(cub->tile.wall.height));
+	cub->tile.space.ptr = mlx_xpm_file_to_image(cub->mlx,
+			"./assets_xpm/black_square32.xpm", &(cub->tile.space.width),
+			&(cub->tile.space.height));
 }
 
 void	init_mlx_and_win(t_cub *cub)
@@ -27,39 +30,26 @@ void	init_mlx_and_win(t_cub *cub)
 	cub->win = mlx_new_window(cub->mlx, cub->win_width, cub->win_height, "cub3d");
 }
 
-void	init_player_direction(t_cub *cub)
+t_vector	set_fov_direction(t_cub *cub)
 {
-	if (cub->map.start_dir == 'N')
-		cub->fov.dir.y = -1;
-	else if (cub->map.start_dir == 'S')
-		cub->fov.dir.y = 1;
-	else if (cub->map.start_dir == 'W')
-		cub->fov.dir.x = -1;
-	else if (cub->map.start_dir == 'E')
-		cub->fov.dir.x = 1;	
-}
+	t_vector ret;
 
-void	init_player_value(t_cub *cub)
-{
-	cub->player.pos = set_vector(cub->player.start_coord.x * GRID_SIZE, cub->player.start_coord.y * GRID_SIZE);
-
-	/* temp init -- to be changed according to conditions*/
-	cub->fov.dir = set_vector(0.0, 0.0);
-	init_player_direction(cub);
-
-	cub->fov.plane = set_vector(0.0, 0.66);
-	cub->fov.move_speed = 0.05;
-	cub->fov.rot_angle = 0.05;
-	/***********************/
-
-	printf("win_width: %d | win_height: %d\n", cub->win_width, cub->win_height);
-	printf("colum: %d | row: %d\n", cub->map.column_count, cub->map.row_count);
-	printf("startX: %f | startY: %f\n", cub->player.start_coord.x, cub->player.start_coord.y);
-	printf("posX: %f | posY: %f\n", cub->player.pos.x, cub->player.pos.y);
+	ret = cub->fov.dir;
+	if (cub->player.start_dir == 'N')
+		ret = set_vector(0.0, -1.0);
+	else if (cub->player.start_dir == 'S')
+		ret = set_vector(0.0, 1.0);
+	else if (cub->player.start_dir == 'W')
+		ret = set_vector(-1.0, 0.0);
+	else if (cub->player.start_dir == 'E')
+		ret = set_vector(1.0, 0.0);
+	return (ret);
 }
 
 void	init_game(t_cub *cub)
 {
+	init_struct_player(cub);
+	init_struct_fov(cub);
 	init_mlx_and_win(cub);
-	init_player_value(cub);
+	init_game_img(cub);
 }

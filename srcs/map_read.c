@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_read.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: seoyounglee <seoyounglee@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:19:01 by selee             #+#    #+#             */
-/*   Updated: 2022/04/04 17:10:00 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/04/16 00:14:39 by seoyounglee      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,8 @@ void	map_read_and_check(t_cub *cub, char *map_path)
 	fd = open(map_path, O_RDONLY);
 	if (fd < 0)
 		error_message_exit("File open failed");
-	init_map_value(cub);
 	map_malloc(cub, fd);
 	close(fd);
 	map_read_file(cub, map_path);
-	player_get_coord(cub);
 	map_check_format(cub);
 }

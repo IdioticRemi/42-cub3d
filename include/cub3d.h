@@ -75,7 +75,7 @@ typedef struct s_map
 	char		**array;
 	int			row_count;
 	int			column_count;
-	char		start_dir;
+	// char		start_dir;
 } t_map;
 
 typedef struct s_tile
@@ -87,7 +87,8 @@ typedef struct s_tile
 
 typedef struct s_player
 {	
-	t_vector	start_coord;
+	char		start_dir;
+	t_vector	start_grid;
 	t_vector	pos;
 }	t_player;
 
@@ -95,6 +96,7 @@ typedef struct s_fov
 {
 	float		x;
 	float		y;
+	int			fov;
 	t_vector	dir;
 	t_vector	plane;
 	int			angle;
@@ -139,6 +141,17 @@ void	init_mlx_and_window();
 void	init_map_value();
 void	init_player_value(t_cub *cub);
 
+/* init struct */
+void	init_struct_img(t_cub *cub);
+void	init_struct_texture(t_cub *cub);
+void	init_struct_map(t_cub *cub);
+void	init_struct_player(t_cub *cub);
+void	init_struct_fov(t_cub *cub);
+void	init_struct_ray(t_cub *cub);
+void	init_struct_cub(t_cub *cub);
+void	init_struct(t_cub *cub);
+
+t_vector	set_fov_direction(t_cub *cub);
 
 /* get_next_line */
 int	get_next_line(int fd, char **line);

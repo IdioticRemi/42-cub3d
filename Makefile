@@ -12,7 +12,7 @@ SRC			=	main.c				\
 				free.c				\
 				get_next_line.c		\
 				init_game.c			\
-				init_img.c			\
+				init_struct.c		\
 				key_event.c			\
 				map_check.c			\
 				map_compo.c			\

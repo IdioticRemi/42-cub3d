@@ -16,8 +16,8 @@ void	player_get_coord(t_cub *cub)
 				||cub->map.array[i][j] == 'W'
 				||cub->map.array[i][j] == 'E')
 			{
-				cub->map.start_dir = cub->map.array[i][j];
-				cub->player.start_coord = set_vector(j, i);
+				cub->player.start_dir = cub->map.array[i][j];
+				cub->player.start_grid = set_vector(j, i);
 			}
 			j++;
 		}
