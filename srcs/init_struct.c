@@ -22,18 +22,14 @@ void	init_struct_map(t_cub *cub)
 
 void	init_struct_player(t_cub *cub)
 {
-	cub->player.x_start = 0;
-	cub->player.y_start = 0;
-	cub->player.pos_x = 0;
-	cub->player.pos_y = 0;
+	cub->player.start_pos = set_vector(0, 0);
+	cub->player.pos = set_vector(0, 0);
 }
 
 void	init_struct_fov(t_cub *cub)
 {
-	cub->fov.dir_x = 0;
-	cub->fov.dir_y = 0;
-	cub->fov.plane_x = 0;
-	cub->fov.plane_y = 0;
+	cub->fov.dir = set_vector(0, 0);
+	cub->fov.plane = set_vector(0, 0);
 	cub->fov.move_speed = 0;
 	cub->fov.rotate_speed = 0;
 }

@@ -93,11 +93,8 @@ typedef struct s_tile
 
 typedef struct s_player
 {	
-	float		x_start;
-	float		y_start;
-	float		pos_x;
-	float		pos_y;
-
+	t_vector	start_pos;
+	t_vector	pos;
 }	t_player;
 
 
@@ -105,10 +102,8 @@ typedef struct s_fov
 {
 	float		x;
 	float		y;
-	float		dir_x;
-	float		dir_y;
-	float		plane_x;
-	float		plane_y;
+	t_vector	dir;
+	t_vector	plane;
 	int			angle;
 	float		move_speed;
 	float		rotate_speed;
@@ -116,11 +111,10 @@ typedef struct s_fov
 
 typedef struct s_ray
 {
-	float	dir_x;
-	float	dir_y;
-
+	t_vector	dir;
 	float	side_distX;
 	float	side_distY;
+	
 	float	delta_distX;
 	float	delta_distY;
 	int		step_x;

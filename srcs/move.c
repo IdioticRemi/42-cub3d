@@ -6,7 +6,7 @@
 /*   By: seoyounglee <seoyounglee@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:19:26 by selee             #+#    #+#             */
-/*   Updated: 2022/04/15 00:59:01 by seoyounglee      ###   ########lyon.fr   */
+/*   Updated: 2022/04/15 22:26:43 by seoyounglee      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,22 @@ the maze.
 
 void	move_north(t_cub *cub)
 {
-	cub->player.pos_y--;
+	cub->player.pos.y--;
 }
 
 void	move_south(t_cub *cub)
 {
-	cub->player.pos_y++;
+	cub->player.pos.y++;
 }
 
 void	move_west(t_cub *cub)
 {
-	cub->player.pos_x--;
+	cub->player.pos.x--;
 }
 
 void	move_east(t_cub *cub)
 {
-	cub->player.pos_x++;
+	cub->player.pos.x++;
 }
 
 void	move_to_directions(t_cub *cub, int direction)

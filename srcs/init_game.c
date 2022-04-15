@@ -6,7 +6,7 @@
 /*   By: seoyounglee <seoyounglee@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:18:46 by selee             #+#    #+#             */
-/*   Updated: 2022/04/15 01:20:22 by seoyounglee      ###   ########lyon.fr   */
+/*   Updated: 2022/04/15 22:35:43 by seoyounglee      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,40 +30,34 @@ void	init_mlx_and_win(t_cub *cub)
 void	init_player_direction(t_cub *cub)
 {
 	if (cub->map.start_dir == 'N')
-		cub->fov.dir_y = -1;
+		cub->fov.dir.y = -1;
 	else if (cub->map.start_dir == 'S')
-		cub->fov.dir_y = 1;
+		cub->fov.dir.y = 1;
 	else if (cub->map.start_dir == 'W')
-		cub->fov.dir_x = -1;
+		cub->fov.dir.x = -1;
 	else if (cub->map.start_dir == 'E')
-		cub->fov.dir_x = 1;	
+		cub->fov.dir.x = 1;	
 }
 
 void	init_player_value(t_cub *cub) //グリッドの真ん中に見えるように
 {
-	// cub->player.x = cub->player.x_start * TILE_SIZE; // + (TILE_SIZE / 2);
+	// cub->player.x = cub->player.start_pos.x * TILE_SIZE; // + (TILE_SIZE / 2);
 	// cub->player.y = cub->player.y_start * TILE_SIZE; //+ (TILE_SIZE / 2);
-	cub->player.pos_x = cub->player.x_start * TILE_SIZE;//(cub->win_width / cub->map.column_count);
-	cub->player.pos_y = cub->player.y_start * TILE_SIZE;//(cub->win_height / cub->map.row_count);
-	
+	cub->player.pos = set_vector(cub->player.start_pos.x * TILE_SIZE, cub->player.start_pos.y * TILE_SIZE);
+
 	/* temp init -- to be changed according to conditions*/
-	cub->fov.dir_x = 0.0;
-	cub->fov.dir_y = 0.0;
+	cub->fov.dir = set_vector(0.0, 0.0);
 	init_player_direction(cub);
 
-	cub->fov.plane_x = 0;
-	cub->fov.plane_y = 0.66;
-	// cub->player.plane_y = 0;
+	cub->fov.plane = set_vector(0.0, 0.66);
 	cub->fov.move_speed = 0.05;
 	cub->fov.rotate_speed = 0.05;
 	/***********************/
 
-	
 	printf("win_width: %d | win_height: %d\n", cub->win_width, cub->win_height);
 	printf("colum: %d | row: %d\n", cub->map.column_count, cub->map.row_count);
-	printf("startX: %f | startY: %f\n", cub->player.x_start, cub->player.y_start);
-	printf("posX: %f | posY: %f\n", cub->player.pos_x, cub->player.pos_y);
-	// printf("x: %f | y: %f\n", cub->player.x, cub->player.y);
+	printf("startX: %f | startY: %f\n", cub->player.start_pos.x, cub->player.start_pos.y);
+	printf("posX: %f | posY: %f\n", cub->player.pos.x, cub->player.pos.y);
 }
 
 void	init_game(t_cub *cub)
