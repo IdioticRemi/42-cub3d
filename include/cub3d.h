@@ -52,7 +52,7 @@
 # define GAME_CONTINUE		3
 # define GAME_END			4
 
-
+/*
 typedef struct s_image
 {
 	void	*ptr;
@@ -60,6 +60,7 @@ typedef struct s_image
 	int		height;
 	int		width;
 } t_image;
+*/
 
 typedef struct s_texture
 {
@@ -67,8 +68,8 @@ typedef struct s_texture
 	char	*so_path;
 	char	*we_path;
 	char	*ea_path;
-	int		floor[3];
-	int		ceiling[3];
+	int		floor;
+	int		ceiling;
 }	t_texture;
 
 typedef struct s_map
@@ -78,24 +79,6 @@ typedef struct s_map
 	int			column_count;
 	char		start_dir;
 } t_map;
-
-typedef struct s_tile //create texture structure instead
-{
-	t_image	wall;
-	t_image	space;
-}	t_tile;
-
-/*
-typedef struct s_fov
-{
-	float		dir_x;
-	float		dir_y;
-	float		plane_x;
-	float		plane_y;
-	float		move_speed;
-	float		rotate_speed;
-}	t_fov;
-*/
 
 typedef struct s_player
 {	
@@ -111,9 +94,6 @@ typedef struct s_fov
 {
 	// float		x;
 	// float		y;
-	// float		delta_x;
-	// float		delta_y;
-
 	float		dir_x;
 	float		dir_y;
 	float		plane_x;
@@ -122,14 +102,29 @@ typedef struct s_fov
 	float		rotate_speed;
 }	t_fov;
 
+typedef struct s_ray
+{
+	float	dir_x;
+	float	dir_y;
+
+	float	side_distX;
+	float	side_distY;
+	float	delta_distX;
+	float	delta_distY;
+	int		step_x;
+	int		step_y;
+	int		hit;
+}	t_ray;
+
 typedef struct s_cub
 {
 	void		*mlx;
 	void		*win;
+	t_texture	texture;
 	t_player	player;
 	t_fov		fov;
+	t_ray		ray;
 	t_map		map;
-	t_tile		tile;
 	int			status;
 	int			win_height;
 	int			win_width;
