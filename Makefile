@@ -5,7 +5,7 @@ SRC_DIR		=	srcs
 OBJ_DIR		=	objs
 
 SRC			=	main.c				\
-				2d_raycaster.c		\
+				raycaster.c		\
 				collision.c			\
 				display.c			\
 				error.c				\
