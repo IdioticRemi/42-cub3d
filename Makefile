@@ -15,7 +15,7 @@ SRC			=	main.c				\
 				init_struct.c		\
 				key_event.c			\
 				map_check.c			\
-				map_compo.c			\
+				map_color_info.c	\
 				map_read.c			\
 				player_position.c	\
 				vector_utils.c		\

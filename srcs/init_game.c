@@ -6,7 +6,7 @@
 /*   By: seoyounglee <seoyounglee@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:18:46 by selee             #+#    #+#             */
-/*   Updated: 2022/04/16 00:14:48 by seoyounglee      ###   ########lyon.fr   */
+/*   Updated: 2022/04/16 00:27:59 by seoyounglee      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void	init_mlx_and_win(t_cub *cub)
 	cub->win = mlx_new_window(cub->mlx, cub->win_width, cub->win_height, "cub3d");
 }
 
-t_vector	set_fov_direction(t_cub *cub)
+t_vect	set_fov_direction(t_cub *cub)
 {
-	t_vector ret;
+	t_vect ret;
 
 	ret = cub->fov.dir;
 	if (cub->player.start_dir == 'N')

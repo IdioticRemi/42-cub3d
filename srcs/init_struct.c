@@ -1,7 +1,5 @@
 #include "cub3d.h"
 
-/* not used yet */
-
 void	init_struct_img(t_cub *cub);
 
 void	init_struct_texture(t_cub *cub)

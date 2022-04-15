@@ -1,8 +1,8 @@
 #include "cub3d.h"
 
-t_vector	set_fov_plane(t_map	*map, int width)
+t_vect	set_fov_plane(t_map	*map, int width)
 {
-	t_vector ret;
+	t_vect ret;
 
 	
 

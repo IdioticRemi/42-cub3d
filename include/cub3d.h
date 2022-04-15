@@ -46,11 +46,11 @@
 # define GAME_CONTINUE		3
 # define GAME_END			4
 
-typedef struct s_vector
+typedef struct s_vect
 {
 	float	x;
 	float	y;
-}	t_vector;
+}	t_vect;
 
 typedef struct s_image
 {
@@ -75,7 +75,6 @@ typedef struct s_map
 	char		**array;
 	int			row_count;
 	int			column_count;
-	// char		start_dir;
 } t_map;
 
 typedef struct s_tile
@@ -88,8 +87,8 @@ typedef struct s_tile
 typedef struct s_player
 {	
 	char		start_dir;
-	t_vector	start_grid;
-	t_vector	pos;
+	t_vect	start_grid;
+	t_vect	pos;
 }	t_player;
 
 typedef struct s_fov
@@ -97,8 +96,8 @@ typedef struct s_fov
 	float		x;
 	float		y;
 	int			fov;
-	t_vector	dir;
-	t_vector	plane;
+	t_vect	dir;
+	t_vect	plane;
 	int			angle;
 	float		move_speed;
 	float		rot_angle;
@@ -106,7 +105,7 @@ typedef struct s_fov
 
 typedef struct s_ray
 {
-	t_vector	dir;
+	t_vect	dir;
 	float	side_distX;
 	float	side_distY;
 	
@@ -139,9 +138,7 @@ void	init_game();
 void	init_game_img();
 void	init_mlx_and_window();
 void	init_map_value();
-void	init_player_value(t_cub *cub);
 
-/* init struct */
 void	init_struct_img(t_cub *cub);
 void	init_struct_texture(t_cub *cub);
 void	init_struct_map(t_cub *cub);
@@ -151,7 +148,7 @@ void	init_struct_ray(t_cub *cub);
 void	init_struct_cub(t_cub *cub);
 void	init_struct(t_cub *cub);
 
-t_vector	set_fov_direction(t_cub *cub);
+t_vect	set_fov_direction(t_cub *cub);
 
 /* get_next_line */
 int	get_next_line(int fd, char **line);
@@ -169,7 +166,7 @@ void	put_ray(t_cub *cub);
 void	error_message_exit(char *message);
 
 /* exit */
-int	exit_hook(void);
+int		exit_hook(void);
 
 /* free */
 void	free_map_arr(t_cub *cub);
@@ -184,12 +181,13 @@ int		key_input(int keycode, t_cub *cub);
 void	player_get_coord(t_cub *cub);
 void	rotate(t_cub *cub, float rot_angle);
 
+/* raycaster */
 void	raycaster(t_cub *cub);
 
 /* vector utils*/
-t_vector	set_vector(float x, float y);
-t_vector	vector_add(t_vector vec, t_vector to_add);
-t_vector	vector_subs(t_vector vec, t_vector to_sub);
-t_vector	vector_multi(t_vector vec, float num);
+t_vect	set_vector(float x, float y);
+t_vect	vector_add(t_vect vec, t_vect to_add);
+t_vect	vector_subs(t_vect vec, t_vect to_sub);
+t_vect	vector_multi(t_vect vec, float num);
 
 #endif
