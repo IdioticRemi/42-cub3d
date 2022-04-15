@@ -52,7 +52,7 @@
 # define GAME_CONTINUE		3
 # define GAME_END			4
 
-/*
+
 typedef struct s_image
 {
 	void	*ptr;
@@ -60,7 +60,7 @@ typedef struct s_image
 	int		height;
 	int		width;
 } t_image;
-*/
+
 
 typedef struct s_texture
 {
@@ -80,6 +80,13 @@ typedef struct s_map
 	char		start_dir;
 } t_map;
 
+typedef struct s_tile
+{
+	t_image		wall;
+	t_image		exit;
+	t_image		space;
+} t_tile;
+
 typedef struct s_player
 {	
 	float		x_start;
@@ -92,8 +99,8 @@ typedef struct s_player
 
 typedef struct s_fov
 {
-	// float		x;
-	// float		y;
+	float		x;
+	float		y;
 	float		dir_x;
 	float		dir_y;
 	float		plane_x;
@@ -114,6 +121,8 @@ typedef struct s_ray
 	int		step_x;
 	int		step_y;
 	int		hit;
+	int		side_hit;
+	float	perpWallDist;
 }	t_ray;
 
 typedef struct s_cub
@@ -122,6 +131,7 @@ typedef struct s_cub
 	void		*win;
 	t_texture	texture;
 	t_player	player;
+	t_tile		tile;
 	t_fov		fov;
 	t_ray		ray;
 	t_map		map;
@@ -173,5 +183,7 @@ void	player_get_coord(t_cub *cub);
 
 void	rotate_left(t_cub *cub);
 void	rotate_right(t_cub *cub);
+
+void	raycaster(t_cub *cub);
 
 #endif
