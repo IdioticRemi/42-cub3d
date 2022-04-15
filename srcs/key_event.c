@@ -1,21 +1,29 @@
 #include "cub3d.h"
 
+void	rotate(t_cub *cub, float rot_angle)
+{
+	t_fov	f;
+	f = cub->fov;
+	cub->fov.dir.x = f.dir.x * cos(rot_angle) - f.dir.y * sin(rot_angle);
+	cub->fov.dir.y = f.dir.x * sin(rot_angle) + f.dir.y * cos(rot_angle);
+}
+
 int	key_movement(t_cub *cub, int keycode)
 {
 	if (cub->status == GAME_PLAY)
 	{
 		if (keycode == KEY_W)
-			move_to_directions(cub, DIR_NO);
+			cub->player.pos.y--;
 		else if (keycode == KEY_S)
-			move_to_directions(cub, DIR_SO);
+			cub->player.pos.y++;
 		else if (keycode == KEY_A)
-			move_to_directions(cub, DIR_WE);
+			cub->player.pos.x--;
 		else if (keycode == KEY_D)
-			move_to_directions(cub, DIR_EA);
+			cub->player.pos.x++;
 		else if (keycode == KEY_LEFT)
-			rotate_left(cub);
+			rotate(cub, -cub->fov.rot_angle);
 		else if (keycode == KEY_RIGHT)
-			rotate_right(cub);
+			rotate(cub, cub->fov.rot_angle);
 	}
 	return (0);
 }

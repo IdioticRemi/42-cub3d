@@ -106,7 +106,7 @@ typedef struct s_fov
 	t_vector	plane;
 	int			angle;
 	float		move_speed;
-	float		rotate_speed;
+	float		rot_angle;
 }	t_fov;
 
 typedef struct s_ray
@@ -175,13 +175,8 @@ void	map_check_format(t_cub *cub);
 
 /* event */
 int		key_input(int keycode, t_cub *cub);
-void	move_to_directions(t_cub *cub, int direction);
-int		player_touched_wall(t_cub *cub, int direction);
-
 void	player_get_coord(t_cub *cub);
-
-void	rotate_left(t_cub *cub);
-void	rotate_right(t_cub *cub);
+void	rotate(t_cub *cub, float rot_angle);
 
 void	raycaster(t_cub *cub);
 

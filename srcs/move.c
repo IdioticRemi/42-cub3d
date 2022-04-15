@@ -6,49 +6,16 @@
 /*   By: seoyounglee <seoyounglee@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:19:26 by selee             #+#    #+#             */
-/*   Updated: 2022/04/15 22:26:43 by seoyounglee      ###   ########lyon.fr   */
+/*   Updated: 2022/04/15 23:12:26 by seoyounglee      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-/*
-
-◦ The left and right arrow keys of the keyboard must allow you to look left and
-right in the maze.
-◦ The W, A, S, and D keys must allow you to move the point of view through
-the maze.
-
-*/
-
-void	move_north(t_cub *cub)
+void	rotate(t_cub *cub, float rot_angle)
 {
-	cub->player.pos.y--;
-}
-
-void	move_south(t_cub *cub)
-{
-	cub->player.pos.y++;
-}
-
-void	move_west(t_cub *cub)
-{
-	cub->player.pos.x--;
-}
-
-void	move_east(t_cub *cub)
-{
-	cub->player.pos.x++;
-}
-
-void	move_to_directions(t_cub *cub, int direction)
-{
-	if (direction == DIR_NO)
-		move_north(cub);
-	else if (direction == DIR_SO)
-		move_south(cub);
-	else if (direction == DIR_WE)
-		move_west(cub);
-	else if (direction == DIR_EA)
-		move_east(cub);
+	t_fov	f;
+	f = cub->fov;
+	cub->fov.dir.x = f.dir.x * cos(rot_angle) - f.dir.y * sin(rot_angle);
+	cub->fov.dir.y = f.dir.x * sin(rot_angle) + f.dir.y * cos(rot_angle);
 }

@@ -38,19 +38,16 @@ void	vertical_line(t_cub *cub, int x, int y_start, int y_end, int color)
 
 void	raycaster(t_cub *cub)
 {
-	// printf("fov.dir.x: %f | fov.dir.y: %f\n", cub->fov.dir.x, cub->fov.dir.y);
-	// printf("plane.x: %f | plane.y: %f\n", cub->fov.plane.x, cub->fov.plane.y);
 	for (int x = 0; x < cub->win_width; x++)
 	{
 		float cameraX = 2 * x / ((float)cub->win_width/2) - 1;
-		// printf("cameraX: %f\n", cameraX);
 		cub->ray.dir.x = cub->fov.dir.x + cub->fov.plane.x * cameraX;
 		cub->ray.dir.y = cub->fov.dir.y + cub->fov.plane.y * cameraX;
 
 		int	mapX = cub->player.start_pos.x;
 		int	mapY = cub->player.start_pos.y;
 
-		cub->ray.delta_distX = fabs( 1 / cub->ray.dir.x); //fabs(); gets absolute value of the argument
+		cub->ray.delta_distX = fabs( 1 / cub->ray.dir.x);
 		cub->ray.delta_distY = fabs( 1 / cub->ray.dir.y);
 
 		if (cub->ray.dir.x < 0)

@@ -31,7 +31,7 @@ void	init_struct_fov(t_cub *cub)
 	cub->fov.dir = set_vector(0, 0);
 	cub->fov.plane = set_vector(0, 0);
 	cub->fov.move_speed = 0;
-	cub->fov.rotate_speed = 0;
+	cub->fov.rot_angle = 0;
 }
 
 void	init_struct_ray(t_cub *cub);

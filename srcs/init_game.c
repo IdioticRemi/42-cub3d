@@ -6,7 +6,7 @@
 /*   By: seoyounglee <seoyounglee@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:18:46 by selee             #+#    #+#             */
-/*   Updated: 2022/04/15 22:35:43 by seoyounglee      ###   ########lyon.fr   */
+/*   Updated: 2022/04/15 23:02:54 by seoyounglee      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	init_player_value(t_cub *cub) //グリッドの真ん中に見えるよう�
 
 	cub->fov.plane = set_vector(0.0, 0.66);
 	cub->fov.move_speed = 0.05;
-	cub->fov.rotate_speed = 0.05;
+	cub->fov.rot_angle = 0.05;
 	/***********************/
 
 	printf("win_width: %d | win_height: %d\n", cub->win_width, cub->win_height);
