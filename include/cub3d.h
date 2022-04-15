@@ -10,7 +10,7 @@
 # include "../libft/libft.h"
 # include "../mlx/mlx.h"
 
-# define TILE_SIZE			32
+# define GRID_SIZE			32
 # define BUFFER_SIZE		1
 
 # define PI					3.1415926535
@@ -39,12 +39,6 @@
 
 # define EVENT_KEY_PRESS	2
 # define EVENT_EXIT			17
-
-/* DIRECTION */
-# define DIR_NO				1
-# define DIR_SO				2
-# define DIR_WE				3
-# define DIR_EA				4
 
 /* GAME STATUS */
 # define GAME_START			1
@@ -93,10 +87,9 @@ typedef struct s_tile
 
 typedef struct s_player
 {	
-	t_vector	start_pos;
+	t_vector	start_coord;
 	t_vector	pos;
 }	t_player;
-
 
 typedef struct s_fov
 {
@@ -185,9 +178,5 @@ t_vector	set_vector(float x, float y);
 t_vector	vector_add(t_vector vec, t_vector to_add);
 t_vector	vector_subs(t_vector vec, t_vector to_sub);
 t_vector	vector_multi(t_vector vec, float num);
-
-
-
-
 
 #endif

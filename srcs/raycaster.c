@@ -16,7 +16,7 @@ void	put_ray(t_cub *cub)
 	t_player	p;
 	p = cub->player; 
 	
-	while (cub->map.array[(int)(p.pos.y / TILE_SIZE)][(int)(p.pos.x / TILE_SIZE)] != '1')
+	while (cub->map.array[(int)(p.pos.y / GRID_SIZE)][(int)(p.pos.x / GRID_SIZE)] != '1')
 	{
 		p.pos.x += cub->fov.dir.x;
 		p.pos.y += cub->fov.dir.y;
@@ -35,7 +35,6 @@ void	vertical_line(t_cub *cub, int x, int y_start, int y_end, int color)
 	}
 }
 
-
 void	raycaster(t_cub *cub)
 {
 	for (int x = 0; x < cub->win_width; x++)
@@ -44,8 +43,8 @@ void	raycaster(t_cub *cub)
 		cub->ray.dir.x = cub->fov.dir.x + cub->fov.plane.x * cameraX;
 		cub->ray.dir.y = cub->fov.dir.y + cub->fov.plane.y * cameraX;
 
-		int	mapX = cub->player.start_pos.x;
-		int	mapY = cub->player.start_pos.y;
+		int	mapX = cub->player.start_coord.x;
+		int	mapY = cub->player.start_coord.y;
 
 		cub->ray.delta_distX = fabs( 1 / cub->ray.dir.x);
 		cub->ray.delta_distY = fabs( 1 / cub->ray.dir.y);
@@ -53,22 +52,22 @@ void	raycaster(t_cub *cub)
 		if (cub->ray.dir.x < 0)
 		{
 			cub->ray.step_x = -1;
-			cub->ray.side_distX = (cub->player.start_pos.x - mapX) * cub->ray.delta_distX;
+			cub->ray.side_distX = (cub->player.start_coord.x - mapX) * cub->ray.delta_distX;
 		}
 		else
 		{
 			cub->ray.step_x = 1;
-			cub->ray.side_distX = (mapX + 1.0 - cub->player.start_pos.x) * cub->ray.delta_distX;
+			cub->ray.side_distX = (mapX + 1.0 - cub->player.start_coord.x) * cub->ray.delta_distX;
 		}
 		if (cub->ray.dir.y < 0)
 		{
 			cub->ray.step_y = -1;
-			cub->ray.side_distY = (cub->player.start_pos.y - mapY) * cub->ray.delta_distY;
+			cub->ray.side_distY = (cub->player.start_coord.y - mapY) * cub->ray.delta_distY;
 		}
 		else
 		{
 			cub->ray.step_y = 1;
-			cub->ray.side_distY = (mapY + 1.0 - cub->player.start_pos.y) * cub->ray.delta_distY;
+			cub->ray.side_distY = (mapY + 1.0 - cub->player.start_coord.y) * cub->ray.delta_distY;
 		}
 
 		while (cub->ray.hit == 0)
@@ -89,9 +88,9 @@ void	raycaster(t_cub *cub)
 				cub->ray.hit = 1;
 		}
 		if (cub->ray.side_hit == 0)
-			cub->ray.perpWallDist = (mapX - cub->player.start_pos.x + (1 - cub->ray.step_x) / 2) / cub->ray.dir.x;
+			cub->ray.perpWallDist = (mapX - cub->player.start_coord.x + (1 - cub->ray.step_x) / 2) / cub->ray.dir.x;
 		else
-			cub->ray.perpWallDist = (mapY - cub->player.start_pos.y + (1 - cub->ray.step_y) / 2) / cub->ray.dir.y;
+			cub->ray.perpWallDist = (mapY - cub->player.start_coord.y + (1 - cub->ray.step_y) / 2) / cub->ray.dir.y;
 	
 		int lineHeight = (int)(cub->win_height / cub->ray.perpWallDist);
 

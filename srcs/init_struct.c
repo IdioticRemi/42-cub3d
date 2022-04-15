@@ -22,7 +22,7 @@ void	init_struct_map(t_cub *cub)
 
 void	init_struct_player(t_cub *cub)
 {
-	cub->player.start_pos = set_vector(0, 0);
+	cub->player.start_coord = set_vector(0, 0);
 	cub->player.pos = set_vector(0, 0);
 }
 

@@ -17,9 +17,7 @@ SRC			=	main.c				\
 				map_check.c			\
 				map_compo.c			\
 				map_read.c			\
-				move.c				\
 				player_position.c	\
-				rotation.c			\
 				vector_utils.c		\
 
 SRCS		=	$(addprefix $(SRC_DIR)/, $(SRC))
