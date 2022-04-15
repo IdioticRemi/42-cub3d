@@ -52,6 +52,11 @@
 # define GAME_CONTINUE		3
 # define GAME_END			4
 
+typedef struct s_vector
+{
+	float	x;
+	float	y;
+}	t_vector;
 
 typedef struct s_image
 {
@@ -60,7 +65,6 @@ typedef struct s_image
 	int		height;
 	int		width;
 } t_image;
-
 
 typedef struct s_texture
 {
@@ -105,6 +109,7 @@ typedef struct s_fov
 	float		dir_y;
 	float		plane_x;
 	float		plane_y;
+	int			angle;
 	float		move_speed;
 	float		rotate_speed;
 }	t_fov;
@@ -185,5 +190,15 @@ void	rotate_left(t_cub *cub);
 void	rotate_right(t_cub *cub);
 
 void	raycaster(t_cub *cub);
+
+/* vector utils*/
+t_vector	set_vector(float x, float y);
+t_vector	vector_add(t_vector vec, t_vector to_add);
+t_vector	vector_subs(t_vector vec, t_vector to_sub);
+t_vector	vector_multi(t_vector vec, float num);
+
+
+
+
 
 #endif

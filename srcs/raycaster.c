@@ -24,23 +24,26 @@ void	put_ray(t_cub *cub)
 	}
 }
 
-void	display_fov(t_cub *cub)
+void	vertical_line(t_cub *cub, int x, int y_start, int y_end, int color)
 {
-	t_fov	f;
-	f = cub->fov;
-
-	f.x += cub->ray.dir_x;
-	f.y += cub->ray.dir_y;
-	mlx_pixel_put(cub->mlx, cub->win, f.x, f.y, BLUE);
-
+	int		y;
+	y = y_start;
+	while (y < y_end)
+	{
+		mlx_pixel_put(cub->mlx, cub->win, x, y, color);
+		y++;
+	}
 }
+
 
 void	raycaster(t_cub *cub)
 {
-	for (int x = 0; x < cub->win_width / 2; x++)
+	// printf("fov.dir_x: %f | fov.dir_y: %f\n", cub->fov.dir_x, cub->fov.dir_y);
+	// printf("plane_x: %f | plane_y: %f\n", cub->fov.plane_x, cub->fov.plane_y);
+	for (int x = 0; x < cub->win_width; x++)
 	{
-		float cameraX = 2 * x / (float)cub->win_width - 1;
-		printf("cameraX: %f\n", cameraX);
+		float cameraX = 2 * x / ((float)cub->win_width/2) - 1;
+		// printf("cameraX: %f\n", cameraX);
 		cub->ray.dir_x = cub->fov.dir_x + cub->fov.plane_x * cameraX;
 		cub->ray.dir_y = cub->fov.dir_y + cub->fov.plane_y * cameraX;
 
@@ -93,8 +96,6 @@ void	raycaster(t_cub *cub)
 		else
 			cub->ray.perpWallDist = (mapY - cub->player.y_start + (1 - cub->ray.step_y) / 2) / cub->ray.dir_y;
 	
-		display_fov(cub);
-
 		int lineHeight = (int)(cub->win_height / cub->ray.perpWallDist);
 
 		int drawStart = -lineHeight / 2 + cub->win_height / 2;

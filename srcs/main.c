@@ -6,7 +6,7 @@
 /*   By: seoyounglee <seoyounglee@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:18:56 by selee             #+#    #+#             */
-/*   Updated: 2022/04/15 13:04:41 by seoyounglee      ###   ########lyon.fr   */
+/*   Updated: 2022/04/15 19:24:55 by seoyounglee      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	game_loop(t_cub *cub)
 		put_map_to_win(cub);
 		put_map_grid(cub);
 		put_player_pixel(cub);
-		put_ray(cub);
+		// put_ray(cub);
 		raycaster(cub);
 	}
 	return (0);
