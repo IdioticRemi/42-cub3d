@@ -14,28 +14,22 @@ color = (R << 16)  | ( G << 8) | B
 */
 #include "../include/cub3d.h"
 
-/* NSWE path */
-void	get_texture_path(t_cub *cub)
-{
-
-}
-
 int	convert_color_number(int r, int g, int b)
 {
 	int	color;
-	int	red;
-	int green;
-	int blue;
+	// int	red;
+	// int green;
+	// int blue;
 
 	color = r * (256 * 256) + g * 256 + b;
-	red = (color >> 16) & 0xFF;
-	green = (color >> 8) & 0xFF;
-	blue = color & 0xFF;
+	// red = (color >> 16) & 0xFF;
+	// green = (color >> 8) & 0xFF;
+	// blue = color & 0xFF;
 
 	return (color);
 }
 
-int	get_color_number(t_cub *cub, char *color_info)
+int	get_color_number(char *color_info)
 {
 	char	**color;
 	int	r;
@@ -52,3 +46,12 @@ int	get_color_number(t_cub *cub, char *color_info)
 	return (convert_color_number(r, g, b));
 }
 
+// void	store_color_info(t_cub *cub)
+// {
+// 	char *temp;
+
+// 	//if F then texture.floor = get_color_number(cub, str);
+
+// 	//if C then cub->texture.ceiling = get_color_number(cub, str);
+
+// }
