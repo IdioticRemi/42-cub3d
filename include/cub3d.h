@@ -149,6 +149,7 @@ void	init_struct_cub(t_cub *cub);
 void	init_struct(t_cub *cub);
 
 t_vect	set_fov_direction(t_cub *cub);
+t_vect	set_fov_plane(t_cub *cub, int width);
 
 /* get_next_line */
 int	get_next_line(int fd, char **line);
