@@ -182,6 +182,7 @@ void	map_check_format(t_cub *cub);
 int		key_input(int keycode, t_cub *cub);
 void	player_get_coord(t_cub *cub);
 void	rotate(t_cub *cub, float rot_angle);
+int	key_press(t_cub *cub, int key);
 
 /* raycaster */
 void	raycaster(t_cub *cub);

@@ -28,9 +28,10 @@ void	init_struct_player(t_cub *cub)
 void	init_struct_fov(t_cub *cub)
 {
 	cub->fov.fov = 60;
-	cub->fov.dir = set_fov_direction(cub);
-	// cub->fov.plane = set_vector(0, 0.66);
-	cub->fov.plane = set_fov_plane(cub, cub->win_width);
+	// cub->fov.dir = set_fov_direction(cub);
+	cub->fov.dir = set_vector(-1, 0);
+	cub->fov.plane = set_vector(0, 0.66);
+	// cub->fov.plane = set_fov_plane(cub, cub->win_width);
 	cub->fov.move_speed = 0.05;
 	cub->fov.rot_angle = 0.05;
 }

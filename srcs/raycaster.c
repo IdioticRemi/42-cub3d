@@ -39,16 +39,16 @@ void	raycaster(t_cub *cub)
 {
 	int	x;
 
+	x = 0;
 	
-
-	for (int x = 0; x < cub->win_width; x++)
+	while (x < cub->win_width)
 	{
-		float cameraX = 2 * x / ((float)cub->win_width) - 1;
+		float	cameraX = (2 * x / (float)(cub->win_width)) - 1;
 		cub->ray.dir.x = cub->fov.dir.x + cub->fov.plane.x * cameraX;
 		cub->ray.dir.y = cub->fov.dir.y + cub->fov.plane.y * cameraX;
 
-		int	mapX = cub->player.start_grid.x;
-		int	mapY = cub->player.start_grid.y;
+		int	mapX = (int)(cub->player.pos.x);
+		int	mapY = (int)(cub->player.pos.y);
 
 		cub->ray.delta_distX = fabs( 1 / cub->ray.dir.x);
 		cub->ray.delta_distY = fabs( 1 / cub->ray.dir.y);
@@ -56,22 +56,22 @@ void	raycaster(t_cub *cub)
 		if (cub->ray.dir.x < 0)
 		{
 			cub->ray.step_x = -1;
-			cub->ray.side_distX = (cub->player.start_grid.x - mapX) * cub->ray.delta_distX;
+			cub->ray.side_distX = (cub->player.pos.x - mapX) * cub->ray.delta_distX;
 		}
 		else
 		{
 			cub->ray.step_x = 1;
-			cub->ray.side_distX = (mapX + 1.0 - cub->player.start_grid.x) * cub->ray.delta_distX;
+			cub->ray.side_distX = (mapX + 1.0 - cub->player.pos.x) * cub->ray.delta_distX;
 		}
 		if (cub->ray.dir.y < 0)
 		{
 			cub->ray.step_y = -1;
-			cub->ray.side_distY = (cub->player.start_grid.y - mapY) * cub->ray.delta_distY;
+			cub->ray.side_distY = (cub->player.pos.y - mapY) * cub->ray.delta_distY;
 		}
 		else
 		{
 			cub->ray.step_y = 1;
-			cub->ray.side_distY = (mapY + 1.0 - cub->player.start_grid.y) * cub->ray.delta_distY;
+			cub->ray.side_distY = (mapY + 1.0 - cub->player.pos.y) * cub->ray.delta_distY;
 		}
 
 		while (cub->ray.hit == 0)
@@ -91,18 +91,37 @@ void	raycaster(t_cub *cub)
 			if (cub->map.array[mapX][mapY] > 0)
 				cub->ray.hit = 1;
 		}
+
 		if (cub->ray.side_hit == 0)
-			cub->ray.perpWallDist = (mapX - cub->player.start_grid.x + (1 - cub->ray.step_x) / 2) / cub->ray.dir.x;
+			cub->ray.perpWallDist = (mapX - cub->player.pos.x + (1 - cub->ray.step_x) / 2) / cub->ray.dir.x;
 		else
-			cub->ray.perpWallDist = (mapY - cub->player.start_grid.y + (1 - cub->ray.step_y) / 2) / cub->ray.dir.y;
+			cub->ray.perpWallDist = (mapY - cub->player.pos.y + (1 - cub->ray.step_y) / 2) / cub->ray.dir.y;
 	
 		int lineHeight = (int)(cub->win_height / cub->ray.perpWallDist);
 
-		int drawStart = -lineHeight / 2 + cub->win_height / 2;
+		int drawStart = (-lineHeight / 2) + (cub->win_height / 2);
 		if (drawStart < 0)
 			drawStart = 0;
-		int	drawEnd = lineHeight / 2 + cub->win_height / 2;
+		int	drawEnd = (lineHeight / 2) + (cub->win_height / 2);
 		if (drawEnd >= cub->win_height)
 			drawEnd = cub->win_height - 1;
+
+		int color;
+		if (cub->map.array[mapX][mapY] == 1)
+			color = BLUE;
+		// else if (cub->map.array[mapX][mapY] == 2)
+		// 	color = 0x00FF00;
+		// else if (cub->map.array[mapX][mapY] == 3)
+		// 	color = 0x0000FF;
+		// else if (cub->map.array[mapX][mapY] == 4)
+		// 	color = 0xFFFFFF;
+		else
+			color = BLACK;
+
+		//明るさ調整
+		if (cub->ray.side_hit == 1)
+			color = color / 2;
+		draw_line(cub, x, drawStart, drawEnd, color);
+		x++;
 	}
 }
