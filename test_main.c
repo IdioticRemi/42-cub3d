@@ -68,7 +68,6 @@ void	verLine(t_info *info, int x, int y1, int y2, int color)
 	temp = y1;
 	while (temp <= y2)
 	{
-printf("check\n");
 		mlx_pixel_put(info->mlx, info->win, x, temp, color);
 		temp++;
 	}
@@ -127,6 +126,7 @@ int main_loop(t_info *info)
 
 		while (hit == 0)
 		{
+printf("sidedistX: %f | sidedistY: %f\n", sideDistX, sideDistY);
 			if (sideDistX < sideDistY)
 			{
 				sideDistX += deltaDistX;
@@ -149,14 +149,14 @@ int main_loop(t_info *info)
        	// printf("raydirety:%f | ", rayDirectionY);
        	// printf("mapX: %d | ", mapX);		   
        	// printf("mapY: %d \n", mapY);
-
 		if (side == 0)
 			perpWallDist = (mapX - info->playerPositionX + (1 - stepX) / 2) / rayDirectionX;
 		else
 			perpWallDist = (mapY - info->playerPositionY + (1 - stepY) / 2) / rayDirectionY;
+printf("posX: %f | posY: %f | raydirX: %f | raydirY: %f\n", info->playerPositionX, info->playerPositionY, rayDirectionX, rayDirectionY);
 		//スクリーンに映すラインの高さを計算
 		int lineHeight = (int)(screenHeight / perpWallDist);
-	// printf("lineHeigt:%d\n", lineHeight);
+	printf("lineheight: %d | perpWall: %f | mapX: %d | mapY: %d\n", lineHeight, perpWallDist, mapX, mapY);
 		int	drawStart = (-lineHeight / 2) + (screenHeight / 2);
 	// printf("drawStart:%d\n", drawStart);
 		if (drawStart < 0)

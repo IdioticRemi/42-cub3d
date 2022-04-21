@@ -5,7 +5,6 @@ SRC_DIR		=	srcs
 OBJ_DIR		=	objs
 
 SRC			=	main.c				\
-				raycaster.c			\
 				display.c			\
 				error.c				\
 				exit.c				\
@@ -20,6 +19,8 @@ SRC			=	main.c				\
 				map_read_old.c		\
 				player_position.c	\
 				vector_utils.c		\
+				raycaster.c			\
+				render.c			\
 
 SRCS		=	$(addprefix $(SRC_DIR)/, $(SRC))
 OBJS		=	$(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))

@@ -50,8 +50,8 @@ int	key_press(t_cub *cub, int key)
 int	key_input(int keycode, t_cub *cub)
 {
 	if (cub->status == GAME_PLAY)
-		key_press(cub, keycode);
-		// key_movement(cub, keycode);
+		// key_press(cub, keycode);
+		key_movement(cub, keycode);
 	if (keycode == KEY_ESC)
 	{
 		free_map_arr(cub);

@@ -160,8 +160,9 @@ void	put_map_to_win(t_cub *cub);
 void	put_player_pixel(t_cub *cub);
 void	put_map_grid(t_cub *cub); //test function
 void	put_player_to_win(t_cub *cub);
-void	draw_line(t_cub *cub, int x, int y1, int y2, int color);
-void	cast_rays(t_cub *cub);
+
+/* render */
+void	draw_vertical_line(t_cub *cub, int x, int y1, int y2, int color);
 void	put_ray(t_cub *cub);
 
 /* error */

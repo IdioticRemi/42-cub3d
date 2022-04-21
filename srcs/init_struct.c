@@ -22,7 +22,7 @@ void	init_struct_map(t_cub *cub)
 void	init_struct_player(t_cub *cub)
 {
 	player_get_coord(cub);
-	cub->player.pos = set_vector(cub->player.start_grid.x * GRID_SIZE, cub->player.start_grid.y * GRID_SIZE);
+	cub->player.pos = set_vector(cub->player.start_grid.x, cub->player.start_grid.y);
 }
 
 void	init_struct_fov(t_cub *cub)
