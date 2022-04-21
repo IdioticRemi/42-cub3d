@@ -70,14 +70,15 @@ void	set_color(t_cub *cub)
 {
 	if (cub->map.array[cub->ray.mapX][cub->ray.mapY] == 1)
 		cub->texture.color = BLUE;
-	else if (cub->map.array[cub->ray.mapX][cub->ray.mapY] == 2)
-		cub->texture.color = 0x00FF00;
-	else if (cub->map.array[cub->ray.mapX][cub->ray.mapY] == 3)
-		cub->texture.color = 0x0000FF;
-	else if (cub->map.array[cub->ray.mapX][cub->ray.mapY] == 4)
-		cub->texture.color = 0xFFFFFF;
+	// else if (cub->map.array[cub->ray.mapX][cub->ray.mapY] == 2)
+	// 	cub->texture.color = 0x00FF00;
+	// else if (cub->map.array[cub->ray.mapX][cub->ray.mapY] == 3)
+	// 	cub->texture.color = 0x0000FF;
+	// else if (cub->map.array[cub->ray.mapX][cub->ray.mapY] == 4)
+	// 	cub->texture.color = 0xFFFFFF;
 	else
 		cub->texture.color = BLACK;
+
 
 	if (cub->ray.side_hit == 1)
 		cub->texture.color = cub->texture.color / 2;
