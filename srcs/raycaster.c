@@ -1,5 +1,30 @@
 #include "cub3d.h"
 
+
+void	calculate_side_distance(t_ray *ray, t_player *player, int mapX, int mapY)
+{
+	if (ray->dir.x < 0)
+	{
+		ray->step_x = -1;
+		ray->side_distX = (player->pos.x - mapX) * ray->delta_distX;
+	}
+	else
+	{
+		ray->step_x = 1;
+		ray->side_distX = (mapX + 1.0 - player->pos.x) * ray->delta_distX;
+	}
+	if (ray->dir.y < 0)
+	{
+		ray->step_y = -1;
+		ray->side_distY = (player->pos.y - mapY) * ray->delta_distY;
+	}
+	else
+	{
+		ray->step_y = 1;
+		ray->side_distY = (mapY + 1.0 - player->pos.y) * ray->delta_distY;
+	}
+}
+
 void	raycaster(t_cub *cub)
 {
 	int	x;
@@ -16,29 +41,10 @@ void	raycaster(t_cub *cub)
 		
 		cub->ray.delta_distX = fabs( 1 / cub->ray.dir.x);
 		cub->ray.delta_distY = fabs( 1 / cub->ray.dir.y);
-// printf("deltaX: %f | deltaY: %f\n", cub->ray.delta_distX, cub->ray.delta_distY);
-		cub->ray.hit = 0;
 
-		if (cub->ray.dir.x < 0)
-		{
-			cub->ray.step_x = -1;
-			cub->ray.side_distX = (cub->player.pos.x - mapX) * cub->ray.delta_distX;
-		}
-		else
-		{
-			cub->ray.step_x = 1;
-			cub->ray.side_distX = (mapX + 1.0 - cub->player.pos.x) * cub->ray.delta_distX;
-		}
-		if (cub->ray.dir.y < 0)
-		{
-			cub->ray.step_y = -1;
-			cub->ray.side_distY = (cub->player.pos.y - mapY) * cub->ray.delta_distY;
-		}
-		else
-		{
-			cub->ray.step_y = 1;
-			cub->ray.side_distY = (mapY + 1.0 - cub->player.pos.y) * cub->ray.delta_distY;
-		}
+		cub->ray.hit = 0;
+		
+		calculate_side_distance(&cub->ray, &cub->player, mapX, mapY);
 
 		while (cub->ray.hit == 0)
 		{
