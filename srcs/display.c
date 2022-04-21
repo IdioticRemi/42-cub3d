@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seoyounglee <seoyounglee@student.42lyon    +#+  +:+       +#+        */
+/*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:18:51 by selee             #+#    #+#             */
-/*   Updated: 2022/04/21 03:50:12 by seoyounglee      ###   ########lyon.fr   */
+/*   Updated: 2022/04/21 17:34:56 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,18 @@ void	put_map_grid(t_cub *cub)
 			mlx_pixel_put(cub->mlx, cub->win, i * (cub->win_width / cub->map.column_count), j, GRAY);
 			j++;
 		}
+		i++;
+	}
+}
+
+void	put_horizontal_line(t_cub *cub)
+{
+	int	i;
+
+	i = 0;
+	while (i < cub->win_width)
+	{
+		mlx_pixel_put(cub->mlx, cub->win, i, (cub->win_height / 2), GREEN);
 		i++;
 	}
 }

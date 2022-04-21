@@ -36,12 +36,10 @@ void	init_struct_fov(t_cub *cub)
 	cub->fov.rot_angle = 0.05;
 }
 
-void	init_struct_ray(t_cub *cub);
-
 void	init_struct_cub(t_cub *cub);
 
 void	init_struct(t_cub *cub)
 {
 	init_struct_texture(cub);
-	init_struct_map(cub);	
+	init_struct_map(cub);
 }

@@ -69,6 +69,10 @@ typedef struct s_texture
 	char	*ea_path;
 	int		floor;
 	int		ceiling;
+	int		draw_start;
+	int		draw_end;
+	int		line_height;
+	int		color;
 }	t_texture;
 
 typedef struct s_map
@@ -102,14 +106,16 @@ typedef struct s_fov
 	int			angle;
 	float		move_speed;
 	float		rot_angle;
+	float		cameraX;
 }	t_fov;
 
 typedef struct s_ray
 {
 	t_vect	dir;
+	int		mapX;
+	int		mapY;
 	float	side_distX;
 	float	side_distY;
-	
 	float	delta_distX;
 	float	delta_distY;
 	int		step_x;
@@ -145,7 +151,6 @@ void	init_struct_texture(t_cub *cub);
 void	init_struct_map(t_cub *cub);
 void	init_struct_player(t_cub *cub);
 void	init_struct_fov(t_cub *cub);
-void	init_struct_ray(t_cub *cub);
 void	init_struct_cub(t_cub *cub);
 void	init_struct(t_cub *cub);
 
@@ -160,6 +165,7 @@ void	put_map_to_win(t_cub *cub);
 void	put_player_pixel(t_cub *cub);
 void	put_map_grid(t_cub *cub); //test function
 void	put_player_to_win(t_cub *cub);
+void	put_horizontal_line(t_cub *cub);
 
 /* render */
 void	draw_vertical_line(t_cub *cub, int x, int y1, int y2, int color);
