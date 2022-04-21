@@ -9,6 +9,7 @@ SRC			=	main.c				\
 				display.c			\
 				error.c				\
 				exit.c				\
+				fov.c				\
 				free.c				\
 				get_next_line.c		\
 				init_game.c			\

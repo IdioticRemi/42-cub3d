@@ -39,7 +39,7 @@ void	raycaster(t_cub *cub)
 {
 	for (int x = 0; x < cub->win_width; x++)
 	{
-		float cameraX = 2 * x / ((float)cub->win_width/2) - 1;
+		float cameraX = 2 * x / ((float)cub->win_width) - 1;
 		cub->ray.dir.x = cub->fov.dir.x + cub->fov.plane.x * cameraX;
 		cub->ray.dir.y = cub->fov.dir.y + cub->fov.plane.y * cameraX;
 

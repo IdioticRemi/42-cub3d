@@ -9,6 +9,7 @@
 # include <limits.h>
 # include "../libft/libft.h"
 # include "../mlx/mlx.h"
+# include <string.h>
 
 # define GRID_SIZE			32
 # define BUFFER_SIZE		1
@@ -96,8 +97,8 @@ typedef struct s_fov
 	float		x;
 	float		y;
 	int			fov;
-	t_vect	dir;
-	t_vect	plane;
+	t_vect		dir;
+	t_vect		plane;
 	int			angle;
 	float		move_speed;
 	float		rot_angle;
@@ -190,5 +191,9 @@ t_vect	set_vector(float x, float y);
 t_vect	vector_add(t_vect vec, t_vect to_add);
 t_vect	vector_subs(t_vect vec, t_vect to_sub);
 t_vect	vector_multi(t_vect vec, float num);
+
+/* fov */
+t_vect	set_fov_direction(t_cub *cub);
+t_vect	set_fov_plane(t_cub *cub, int width);
 
 #endif
