@@ -37,6 +37,10 @@ void	vertical_line(t_cub *cub, int x, int y_start, int y_end, int color)
 
 void	raycaster(t_cub *cub)
 {
+	int	x;
+
+	
+
 	for (int x = 0; x < cub->win_width; x++)
 	{
 		float cameraX = 2 * x / ((float)cub->win_width) - 1;
