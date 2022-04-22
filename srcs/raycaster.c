@@ -1,30 +1,5 @@
 #include "cub3d.h"
 
-/*
-void	get_side_dist_and_step(t_cub *cub)
-{
-	if (cub->ray.dir.x < 0)
-	{
-		cub->ray.step_x = -1;
-		cub->ray.side_distX = (cub->player.pos.x - cub->ray.mapX) * cub->ray.delta_distX;
-	}
-	else
-	{
-		cub->ray.step_x = 1;
-		cub->ray.side_distX = (cub->ray.mapX + 1.0 - cub->player.pos.x) * cub->ray.delta_distX;
-	}
-	if (cub->ray.dir.y < 0)
-	{
-		cub->ray.step_y = -1;
-		cub->ray.side_distY = (cub->player.pos.y - cub->ray.mapY) * cub->ray.delta_distY;
-	}
-	else
-	{
-		cub->ray.step_y = 1;
-		cub->ray.side_distY = (cub->ray.mapY + 1.0 - cub->player.pos.y) * cub->ray.delta_distY;
-	}
-}*/
-
 void	get_side_dist_and_step(t_ray *ray, t_player *player, int mapX, int mapY)
 {
 	if (ray->dir.x < 0)
@@ -49,7 +24,6 @@ void	get_side_dist_and_step(t_ray *ray, t_player *player, int mapX, int mapY)
 	}
 }
 
-
 void	set_ray_values(t_cub *cub, int x)
 {
 	cub->fov.cameraX = (2 * x / (float)(cub->win_width)) - 1;
@@ -65,39 +39,17 @@ void	set_ray_values(t_cub *cub, int x)
 	cub->ray.hit = 0;
 }
 
-/*
-void	get_distance(t_cub *cub)
-{
-	while (cub->ray.hit == 0)
-	{
-	if (cub->ray.side_distX < cub->ray.side_distY)
-	{
-		cub->ray.side_distX += cub->ray.delta_distX;
-		cub->ray.mapX += cub->ray.step_x;
-		cub->ray.side_hit = 0;
-	}
-	else
-	{
-		cub->ray.side_distY += cub->ray.delta_distY;
-		cub->ray.mapY += cub->ray.step_y;
-		cub->ray.side_hit = 1;
-	}
-	if (cub->map.array[cub->ray.mapX][cub->ray.mapY] > 0)
-		cub->ray.hit = 1;
-	}	
-}
-*/
-
 void	get_distance(t_ray *ray, t_map *map)
 {
 	while (ray->hit == 0)
 	{
 		if (ray->side_distX < ray->side_distY)
 		{
+		printf("sideX 1: %f | mapX 1: %d\n", ray->side_distX, ray->mapX);
 			ray->side_distX += ray->delta_distX;
 			ray->mapX += ray->step_x;
 			ray->side_hit = 0;
-		printf("sideX: %f\n", ray->side_distX);
+		printf("sideX 2: %f | mapX 2: %d\n", ray->side_distX, ray->mapX);
 		
 		}
 		else
@@ -147,30 +99,22 @@ void	raycaster(t_cub *cub)
 	x = 0;
 	while (x < cub->win_width)
 	{
-		// set_ray_values(cub, x);
-	cub->fov.cameraX = (2 * x / (float)(cub->win_width)) - 1;
+		cub->fov.cameraX = (2 * x / (float)(cub->win_width)) - 1;
 
-	cub->ray.dir.x = cub->fov.dir.x + cub->fov.plane.x * cub->fov.cameraX;
-	cub->ray.dir.y = cub->fov.dir.y + cub->fov.plane.y * cub->fov.cameraX;
-	cub->ray.mapX = (int)(cub->player.pos.x);
-	cub->ray.mapY = (int)(cub->player.pos.y);
+		cub->ray.dir.x = cub->fov.dir.x + cub->fov.plane.x * cub->fov.cameraX;
+		cub->ray.dir.y = cub->fov.dir.y + cub->fov.plane.y * cub->fov.cameraX;
+		cub->ray.mapX = (int)(cub->player.pos.x);
+		cub->ray.mapY = (int)(cub->player.pos.y);
 
-	cub->ray.delta_distX = sqrt(1 + (cub->ray.dir.y * cub->ray.dir.y) / (cub->ray.dir.x * cub->ray.dir.x));
-	cub->ray.delta_distY = sqrt(1 + (cub->ray.dir.x * cub->ray.dir.x) / (cub->ray.dir.y * cub->ray.dir.y));
+		cub->ray.delta_distX = sqrt(1 + (cub->ray.dir.y * cub->ray.dir.y) / (cub->ray.dir.x * cub->ray.dir.x));
+		cub->ray.delta_distY = sqrt(1 + (cub->ray.dir.x * cub->ray.dir.x) / (cub->ray.dir.y * cub->ray.dir.y));
 		cub->ray.hit = 0;
-		// get_side_dist_and_step(cub);//&cub->ray, &cub->player, cub->ray.mapX, cub->ray.mapY);
-		get_side_dist_and_step(&cub->ray, &cub->player, cub->ray.mapX, cub->ray.mapY);
-
-//printf("camera: %f\n", cub->fov.cameraX);
-// printf("RaydirX: %f | RaydirY: %f | FovDirX: %f | FovDirY: %f | planeX: %f | planeY: %f\n", cub->ray.dir.x, cub->ray.dir.y, cub->fov.dir.x, cub->fov.dir.y, cub->fov.plane.x, cub->fov.plane.y);
-		// get_distance(cub);
-		
+		get_side_dist_and_step(&cub->ray, &cub->player, cub->ray.mapX, cub->ray.mapY);		
 		get_distance(&cub->ray, &cub->map);
 		if (cub->ray.side_hit == 0)
 			cub->ray.perpWallDist = (cub->ray.mapX - cub->player.pos.x + (1 - cub->ray.step_x) / 2) / cub->ray.dir.x;
 		else
 			cub->ray.perpWallDist = (cub->ray.mapY - cub->player.pos.y + (1 - cub->ray.step_y) / 2) / cub->ray.dir.y;
-
 		get_start_and_end(cub);
 		set_color(cub);
 		draw_vertical_line(cub, x, cub->texture.draw_start, cub->texture.draw_end, cub->texture.color);

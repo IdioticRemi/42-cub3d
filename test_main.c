@@ -133,12 +133,11 @@ int main_loop(t_info *info)
 		{
 			if (sideDistX < sideDistY)
 			{
-				// printf("check\n");
+			// printf("sideX 1: %f | mapX 1: %d\n", sideDistX, mapX);
 				sideDistX += deltaDistX;
 				mapX += stepX;
 				side = 0;
-					printf("sideX: %f\n", sideDistX);
-			// printf("mapX: %d | mapY: %d | sideX: %f | deltaX: %f | sideY: %f | deltaY: %f\n", mapX, mapY, sideDistX, deltaDistX, sideDistY, deltaDistY);
+			// printf("sideX 2: %f | mapX 2: %d\n", sideDistX, mapX);
 			}
 			else
 			{
