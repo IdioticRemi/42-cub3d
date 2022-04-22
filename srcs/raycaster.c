@@ -100,7 +100,7 @@ void	raycaster(t_cub *cub)
 		while (cub->ray.hit == 0)
 		{
 			get_distance(cub);
-printf("deltaX: %f | deltaY: %f | sideDistX: %f | sideDistY: %f\n", cub->ray.delta_distX, cub->ray.delta_distY, cub->ray.side_distX, cub->ray.side_distY);
+// printf("deltaX: %f | deltaY: %f | sideDistX: %f | sideDistY: %f\n", cub->ray.delta_distX, cub->ray.delta_distY, cub->ray.side_distX, cub->ray.side_distY);
 			if (cub->map.array[cub->ray.mapX][cub->ray.mapY] > 0)
 				cub->ray.hit = 1;
 		}

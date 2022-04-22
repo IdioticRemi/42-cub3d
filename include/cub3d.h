@@ -13,6 +13,8 @@
 
 # define GRID_SIZE			32
 # define BUFFER_SIZE		1
+# define SCREEN_WIDTH		640
+# define SCREEN_HEIGHT		480
 
 # define PI					3.1415926535
 

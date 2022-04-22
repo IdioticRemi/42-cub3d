@@ -6,7 +6,7 @@
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:18:46 by selee             #+#    #+#             */
-/*   Updated: 2022/04/21 14:18:20 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/04/22 14:51:56 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	init_game_img(t_cub *cub) /* temporary; to be modified later */
 
 void	init_mlx_and_win(t_cub *cub)
 {
-	cub->win_width = 640;// (cub->map.column_count * GRID_SIZE);
-	cub->win_height = 480;//cub->map.row_count * GRID_SIZE;
+	cub->win_width = SCREEN_WIDTH;
+	cub->win_height = SCREEN_WIDTH;
 	cub->mlx = mlx_init();
 	cub->win = mlx_new_window(cub->mlx, cub->win_width, cub->win_height, "cub3d");
 }
