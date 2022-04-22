@@ -79,7 +79,6 @@ void	set_color(t_cub *cub)
 	else
 		cub->texture.color = BLACK;
 
-
 	if (cub->ray.side_hit == 1)
 		cub->texture.color = cub->texture.color / 2;
 }
