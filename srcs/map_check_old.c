@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_check.c                                        :+:      :+:    :+:   */
+/*   map_check_old.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:18:58 by selee             #+#    #+#             */
-/*   Updated: 2022/04/05 18:05:48 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/04/22 13:18:06 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,6 @@ void	map_check_format(t_cub *cub)
 {
 	if (cub->map.row_count == cub->map.column_count)
 		error_message_exit("Map is not rectangular");
-	if (!map_is_walled(cub))
-		error_message_exit("Map is not walled");
+	// if (!map_is_walled(cub))
+	// 	error_message_exit("Map is not walled");
 }

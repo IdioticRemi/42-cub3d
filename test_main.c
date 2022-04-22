@@ -82,10 +82,11 @@ int main_loop(t_info *info)
 	{
 		double cameraX = (2 * x / (double)(screenWidth)) - 1;
 		// 光の方向
+	// printf("camera: %f\n", cameraX);
 
 		double rayDirectionX = info->directionVectorX + info->planeX * cameraX;
 		double rayDirectionY = info->directionVectorY + info->planeY * cameraX;
-	
+	// printf("RaydirX: %f | RaydirY: %f | FovDirX: %f | FovDirY: %f | planeX: %f | planeY: %f\n", rayDirectionX, rayDirectionY, info->directionVectorX, info->directionVectorY, info->planeX, info->planeY);
 		int mapX = (int)(info->playerPositionX);
 		int mapY = (int)(info->playerPositionY);
 
@@ -95,6 +96,7 @@ int main_loop(t_info *info)
 		double deltaDistX = fabs(1 / rayDirectionX);
 		double deltaDistY = fabs(1 / rayDirectionY);
 
+// printf("rayMapX: %d | rayMapY: %d | deltaX: %f | deltaY: %f\n", mapX, mapY, deltaDistX, deltaDistY);
 		double perpWallDist;
 
 		int stepX;
@@ -107,6 +109,7 @@ int main_loop(t_info *info)
 		{
 			stepX = -1;
 			sideDistX = (info->playerPositionX - mapX) * deltaDistX;
+		printf("posX: %f | mapX: %d\n", info->playerPositionX, mapX);
 		}
 		else
 		{
@@ -123,12 +126,12 @@ int main_loop(t_info *info)
 			stepY = 1;
 			sideDistY = (mapY + 1.0 - info->playerPositionY) * deltaDistY;
 		}
-
+// printf("sideDistX: %f | sideDistY: %f\n", sideDistX, sideDistY);
 		while (hit == 0)
 		{
-printf("sidedistX: %f | sidedistY: %f\n", sideDistX, sideDistY);
 			if (sideDistX < sideDistY)
 			{
+				printf("check\n");
 				sideDistX += deltaDistX;
 				mapX += stepX;
 				side = 0;
@@ -140,6 +143,7 @@ printf("sidedistX: %f | sidedistY: %f\n", sideDistX, sideDistY);
 				mapY += stepY;
 				side = 1;
 			}
+printf("deltaX: %f | deltaY: %f | sidedistX: %f | sidedistY: %f\n", deltaDistX, deltaDistY, sideDistX, sideDistY);
 			if (worldMap[mapX][mapY] > 0)
 				hit = 1;
 		}
@@ -153,10 +157,10 @@ printf("sidedistX: %f | sidedistY: %f\n", sideDistX, sideDistY);
 			perpWallDist = (mapX - info->playerPositionX + (1 - stepX) / 2) / rayDirectionX;
 		else
 			perpWallDist = (mapY - info->playerPositionY + (1 - stepY) / 2) / rayDirectionY;
-printf("posX: %f | posY: %f | raydirX: %f | raydirY: %f\n", info->playerPositionX, info->playerPositionY, rayDirectionX, rayDirectionY);
+// printf("posX: %f | posY: %f | raydirX: %f | raydirY: %f\n", info->playerPositionX, info->playerPositionY, rayDirectionX, rayDirectionY);
 		//スクリーンに映すラインの高さを計算
 		int lineHeight = (int)(screenHeight / perpWallDist);
-	printf("lineheight: %d | perpWall: %f | mapX: %d | mapY: %d\n", lineHeight, perpWallDist, mapX, mapY);
+	// printf("lineheight: %d | perpWall: %f | mapX: %d | mapY: %d\n", lineHeight, perpWallDist, mapX, mapY);
 		int	drawStart = (-lineHeight / 2) + (screenHeight / 2);
 	// printf("drawStart:%d\n", drawStart);
 		if (drawStart < 0)
@@ -241,7 +245,7 @@ int main()
 
 	info.playerPositionX = 12;
 	info.playerPositionY = 5;
-	info.directionVectorX = -1;
+	info.directionVectorX = 1;
 	info.directionVectorY = 0;
 	info.planeX = 0;
 	info.planeY = 0.66;
