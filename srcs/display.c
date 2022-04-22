@@ -6,7 +6,7 @@
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:18:51 by selee             #+#    #+#             */
-/*   Updated: 2022/04/21 17:34:56 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/04/22 18:31:05 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	put_player_pixel(t_cub *cub)
 {
-	mlx_pixel_put(cub->mlx, cub->win, cub->player.pos.x, cub->player.pos.y, RED);
+	mlx_pixel_put(cub->mlx, cub->win, cub->player.pos.x * GRID_SIZE, cub->player.pos.y * GRID_SIZE, RED);
 }
 
 void	put_map_to_win(t_cub *cub)

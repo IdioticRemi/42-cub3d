@@ -8,27 +8,3 @@ void	init_vis_img(t_vis *vis)
 			&(vis->cub.tile.space.width), &(vis->cub.tile.space.height));
 }
 
-void	init_visual_win(t_vis *vis)
-{
-	vis->cub.win_width = SCREEN_WIDTH;
-	vis->cub.win_height = SCREEN_HEIGHT;
-	vis->cub.mlx = mlx_init();
-	vis->cub.win = mlx_new_window(vis->cub.mlx, vis->cub.win_width, vis->cub.win_height, "visual");
-}
-
-void	init_visual(t_vis *vis)
-{
-	init_struct_player(&vis->cub);
-	init_struct_fov(&vis->cub);
-	init_visual_win(vis);
-	init_vis_img(vis);
-
-	put_map_grid(&vis->cub);
-}
-
-
-
-
-
-
-

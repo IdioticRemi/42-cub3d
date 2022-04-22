@@ -22,5 +22,6 @@ void	put_ray(t_cub *cub)
 		p.pos.y += cub->fov.dir.y;
 		mlx_pixel_put(cub->mlx, cub->win, p.pos.x, p.pos.y, PINK);
 	}
+
 }
 
