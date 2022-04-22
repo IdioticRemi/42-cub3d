@@ -93,8 +93,10 @@ int main_loop(t_info *info)
 		double sideDistX;
 		double sideDistY;
 
-		double deltaDistX = fabs(1 / rayDirectionX);
-		double deltaDistY = fabs(1 / rayDirectionY);
+		double deltaDistX = sqrt(1 + (rayDirectionY * rayDirectionY) / (rayDirectionX * rayDirectionX));//fabs(1 / rayDirectionX);
+		double deltaDistY = sqrt(1 + (rayDirectionX * rayDirectionX) / (rayDirectionY * rayDirectionY));//fabs(1 / rayDirectionY);
+
+
 
 // printf("rayMapX: %d | rayMapY: %d | deltaX: %f | deltaY: %f\n", mapX, mapY, deltaDistX, deltaDistY);
 		double perpWallDist;
@@ -109,7 +111,7 @@ int main_loop(t_info *info)
 		{
 			stepX = -1;
 			sideDistX = (info->playerPositionX - mapX) * deltaDistX;
-		printf("posX: %f | mapX: %d\n", info->playerPositionX, mapX);
+		// printf("posX: %f | mapX: %d\n", info->playerPositionX, mapX);
 		}
 		else
 		{
@@ -131,7 +133,7 @@ int main_loop(t_info *info)
 		{
 			if (sideDistX < sideDistY)
 			{
-				printf("check\n");
+				// printf("check\n");
 				sideDistX += deltaDistX;
 				mapX += stepX;
 				side = 0;
@@ -143,7 +145,7 @@ int main_loop(t_info *info)
 				mapY += stepY;
 				side = 1;
 			}
-printf("deltaX: %f | deltaY: %f | sidedistX: %f | sidedistY: %f\n", deltaDistX, deltaDistY, sideDistX, sideDistY);
+// printf("deltaX: %f | deltaY: %f | sidedistX: %f | sidedistY: %f\n", deltaDistX, deltaDistY, sideDistX, sideDistY);
 			if (worldMap[mapX][mapY] > 0)
 				hit = 1;
 		}
@@ -245,7 +247,7 @@ int main()
 
 	info.playerPositionX = 12;
 	info.playerPositionY = 5;
-	info.directionVectorX = 1;
+	info.directionVectorX = -1;
 	info.directionVectorY = 0;
 	info.planeX = 0;
 	info.planeY = 0.66;

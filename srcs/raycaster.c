@@ -33,8 +33,10 @@ void	set_ray_values(t_cub *cub, int x)
 	cub->ray.mapX = (int)(cub->player.pos.x);
 	cub->ray.mapY = (int)(cub->player.pos.y);
 
-	cub->ray.delta_distX = fabs( 1 / cub->ray.dir.x);
-	cub->ray.delta_distY = fabs( 1 / cub->ray.dir.y);
+	// cub->ray.delta_distX = fabs( 1 / cub->ray.dir.x);
+	// cub->ray.delta_distY = fabs( 1 / cub->ray.dir.y);
+	cub->ray.delta_distX = sqrt(1 + (cub->ray.dir.y * cub->ray.dir.y) / (cub->ray.dir.x * cub->ray.dir.x));
+	cub->ray.delta_distY = sqrt(1 + (cub->ray.dir.x * cub->ray.dir.x) / (cub->ray.dir.y * cub->ray.dir.y));
 
 // printf("rayMapX: %d | rayMapY: %d | deltaX: %f | deltaY: %f\n", cub->ray.mapX, cub->ray.mapY, cub->ray.delta_distX, cub->ray.delta_distY);
 	cub->ray.hit = 0;
@@ -42,6 +44,8 @@ void	set_ray_values(t_cub *cub, int x)
 
 void	get_distance(t_cub *cub)
 {
+	while (cub->ray.hit == 0)
+	{
 	if (cub->ray.side_distX < cub->ray.side_distY)
 	{
 		cub->ray.side_distX += cub->ray.delta_distX;
@@ -54,11 +58,15 @@ void	get_distance(t_cub *cub)
 		cub->ray.mapY += cub->ray.step_y;
 		cub->ray.side_hit = 1;
 	}
+	if (cub->map.array[cub->ray.mapX][cub->ray.mapY] > 0)
+		cub->ray.hit = 1;
+	}	
 }
 
 void	get_start_and_end(t_cub *cub)
 {
 	cub->texture.line_height = (int)(cub->win_height / cub->ray.perpWallDist);
+
 	cub->texture.draw_start = (-cub->texture.line_height / 2) + (cub->win_height / 2);
 	if (cub->texture.draw_start < 0)
 			cub->texture.draw_start = 0;
@@ -97,13 +105,6 @@ void	raycaster(t_cub *cub)
 //printf("camera: %f\n", cub->fov.cameraX);
 // printf("RaydirX: %f | RaydirY: %f | FovDirX: %f | FovDirY: %f | planeX: %f | planeY: %f\n", cub->ray.dir.x, cub->ray.dir.y, cub->fov.dir.x, cub->fov.dir.y, cub->fov.plane.x, cub->fov.plane.y);
 
-		while (cub->ray.hit == 0)
-		{
-			get_distance(cub);
-// printf("deltaX: %f | deltaY: %f | sideDistX: %f | sideDistY: %f\n", cub->ray.delta_distX, cub->ray.delta_distY, cub->ray.side_distX, cub->ray.side_distY);
-			if (cub->map.array[cub->ray.mapX][cub->ray.mapY] > 0)
-				cub->ray.hit = 1;
-		}
 		if (cub->ray.side_hit == 0)
 			cub->ray.perpWallDist = (cub->ray.mapX - cub->player.pos.x + (1 - cub->ray.step_x) / 2) / cub->ray.dir.x;
 		else
@@ -111,7 +112,6 @@ void	raycaster(t_cub *cub)
 
 		get_start_and_end(cub);
 		set_color(cub);
-// printf("drawstart: %d | end: %d\n", cub->texture.draw_start, cub->texture.draw_end);
 		draw_vertical_line(cub, x, cub->texture.draw_start, cub->texture.draw_end, cub->texture.color);
 		x++;
 	}
