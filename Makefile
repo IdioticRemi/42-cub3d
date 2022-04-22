@@ -21,6 +21,7 @@ SRC			=	main.c				\
 				vector_utils.c		\
 				raycaster.c			\
 				render.c			\
+				test_visual.c		\
 
 SRCS		=	$(addprefix $(SRC_DIR)/, $(SRC))
 OBJS		=	$(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))

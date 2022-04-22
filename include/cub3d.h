@@ -127,6 +127,8 @@ typedef struct s_ray
 	float	perpWallDist;
 }	t_ray;
 
+
+
 typedef struct s_cub
 {
 	void		*mlx;
@@ -141,6 +143,13 @@ typedef struct s_cub
 	int			win_height;
 	int			win_width;
 } t_cub;
+
+/* struct for test - to be erased later */
+typedef struct s_vis
+{
+	t_cub	cub;
+}	t_vis;
+
 
 /* init */
 void	init_game();
@@ -205,5 +214,14 @@ t_vect	vector_multi(t_vect vec, float num);
 /* fov */
 t_vect	set_fov_direction(t_cub *cub);
 t_vect	set_fov_plane(t_cub *cub, int width);
+
+
+/* test_visual - erase later */
+void	init_visual(t_vis *vis);
+
+
+
+
+
 
 #endif
