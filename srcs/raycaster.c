@@ -1,5 +1,6 @@
 #include "cub3d.h"
 
+/*
 void	get_side_dist_and_step(t_cub *cub)//t_ray *ray, t_player *player, int mapX, int mapY)
 {
 	if (cub->ray.dir.x < 0)
@@ -22,7 +23,32 @@ void	get_side_dist_and_step(t_cub *cub)//t_ray *ray, t_player *player, int mapX,
 		cub->ray.step_y = 1;
 		cub->ray.side_distY = (cub->ray.mapY + 1.0 - cub->player.pos.y) * cub->ray.delta_distY;
 	}
+}*/
+
+void	get_side_dist_and_step(t_ray *ray, t_player *player, int mapX, int mapY)
+{
+	if (ray->dir.x < 0)
+	{
+		ray->step_x = -1;
+		ray->side_distX = (player->pos.x - mapX) * ray->delta_distX;
+	}
+	else
+	{
+		ray->step_x = 1;
+		ray->side_distX = (mapX + 1.0 - player->pos.x) * ray->delta_distX;
+	}
+	if (ray->dir.y < 0)
+	{
+		ray->step_y = -1;
+		ray->side_distY = (player->pos.y - mapY) * ray->delta_distY;
+	}
+	else
+	{
+		ray->step_y = 1;
+		ray->side_distY = (mapY + 1.0 - player->pos.y) * ray->delta_distY;
+	}
 }
+
 
 void	set_ray_values(t_cub *cub, int x)
 {
@@ -42,6 +68,7 @@ void	set_ray_values(t_cub *cub, int x)
 	cub->ray.hit = 0;
 }
 
+/*
 void	get_distance(t_cub *cub)
 {
 	while (cub->ray.hit == 0)
@@ -61,6 +88,28 @@ void	get_distance(t_cub *cub)
 	if (cub->map.array[cub->ray.mapX][cub->ray.mapY] > 0)
 		cub->ray.hit = 1;
 	}	
+}
+*/
+
+void	get_distance(t_ray *ray, t_map *map)
+{
+	while (ray->hit == 0)
+	{
+		if (ray->side_distX < ray->side_distY)
+		{
+			ray->side_distX += ray->delta_distX;
+			ray->mapX += ray->step_x;
+			ray->side_hit = 0;
+		}
+		else
+		{
+			ray->side_distY += ray->delta_distY;
+			ray->mapY += ray->step_y;
+			ray->side_hit = 1;
+		}
+		if (map->array[ray->mapX][ray->mapY] > 0)
+			ray->hit = 1;
+	}
 }
 
 void	get_start_and_end(t_cub *cub)
@@ -100,11 +149,14 @@ void	raycaster(t_cub *cub)
 	while (x < cub->win_width)
 	{
 		set_ray_values(cub, x);
-		get_side_dist_and_step(cub);//&cub->ray, &cub->player, cub->ray.mapX, cub->ray.mapY);
+		// get_side_dist_and_step(cub);//&cub->ray, &cub->player, cub->ray.mapX, cub->ray.mapY);
+		get_side_dist_and_step(&cub->ray, &cub->player, cub->ray.mapX, cub->ray.mapY);
 
 //printf("camera: %f\n", cub->fov.cameraX);
 // printf("RaydirX: %f | RaydirY: %f | FovDirX: %f | FovDirY: %f | planeX: %f | planeY: %f\n", cub->ray.dir.x, cub->ray.dir.y, cub->fov.dir.x, cub->fov.dir.y, cub->fov.plane.x, cub->fov.plane.y);
-
+		// get_distance(cub);
+		
+		get_distance(&cub->ray, &cub->map);
 		if (cub->ray.side_hit == 0)
 			cub->ray.perpWallDist = (cub->ray.mapX - cub->player.pos.x + (1 - cub->ray.step_x) / 2) / cub->ray.dir.x;
 		else
