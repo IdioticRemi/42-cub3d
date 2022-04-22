@@ -1,7 +1,7 @@
 #include "cub3d.h"
 
 /*
-void	get_side_dist_and_step(t_cub *cub)//t_ray *ray, t_player *player, int mapX, int mapY)
+void	get_side_dist_and_step(t_cub *cub)
 {
 	if (cub->ray.dir.x < 0)
 	{
@@ -59,12 +59,9 @@ void	set_ray_values(t_cub *cub, int x)
 	cub->ray.mapX = (int)(cub->player.pos.x);
 	cub->ray.mapY = (int)(cub->player.pos.y);
 
-	// cub->ray.delta_distX = fabs( 1 / cub->ray.dir.x);
-	// cub->ray.delta_distY = fabs( 1 / cub->ray.dir.y);
 	cub->ray.delta_distX = sqrt(1 + (cub->ray.dir.y * cub->ray.dir.y) / (cub->ray.dir.x * cub->ray.dir.x));
 	cub->ray.delta_distY = sqrt(1 + (cub->ray.dir.x * cub->ray.dir.x) / (cub->ray.dir.y * cub->ray.dir.y));
 
-// printf("rayMapX: %d | rayMapY: %d | deltaX: %f | deltaY: %f\n", cub->ray.mapX, cub->ray.mapY, cub->ray.delta_distX, cub->ray.delta_distY);
 	cub->ray.hit = 0;
 }
 
@@ -100,6 +97,8 @@ void	get_distance(t_ray *ray, t_map *map)
 			ray->side_distX += ray->delta_distX;
 			ray->mapX += ray->step_x;
 			ray->side_hit = 0;
+		printf("sideX: %f\n", ray->side_distX);
+		
 		}
 		else
 		{
@@ -148,7 +147,17 @@ void	raycaster(t_cub *cub)
 	x = 0;
 	while (x < cub->win_width)
 	{
-		set_ray_values(cub, x);
+		// set_ray_values(cub, x);
+	cub->fov.cameraX = (2 * x / (float)(cub->win_width)) - 1;
+
+	cub->ray.dir.x = cub->fov.dir.x + cub->fov.plane.x * cub->fov.cameraX;
+	cub->ray.dir.y = cub->fov.dir.y + cub->fov.plane.y * cub->fov.cameraX;
+	cub->ray.mapX = (int)(cub->player.pos.x);
+	cub->ray.mapY = (int)(cub->player.pos.y);
+
+	cub->ray.delta_distX = sqrt(1 + (cub->ray.dir.y * cub->ray.dir.y) / (cub->ray.dir.x * cub->ray.dir.x));
+	cub->ray.delta_distY = sqrt(1 + (cub->ray.dir.x * cub->ray.dir.x) / (cub->ray.dir.y * cub->ray.dir.y));
+		cub->ray.hit = 0;
 		// get_side_dist_and_step(cub);//&cub->ray, &cub->player, cub->ray.mapX, cub->ray.mapY);
 		get_side_dist_and_step(&cub->ray, &cub->player, cub->ray.mapX, cub->ray.mapY);
 

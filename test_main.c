@@ -137,6 +137,7 @@ int main_loop(t_info *info)
 				sideDistX += deltaDistX;
 				mapX += stepX;
 				side = 0;
+					printf("sideX: %f\n", sideDistX);
 			// printf("mapX: %d | mapY: %d | sideX: %f | deltaX: %f | sideY: %f | deltaY: %f\n", mapX, mapY, sideDistX, deltaDistX, sideDistY, deltaDistY);
 			}
 			else
