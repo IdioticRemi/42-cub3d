@@ -21,8 +21,27 @@ void	init_struct_map(t_cub *cub)
 
 void	init_struct_player(t_cub *cub)
 {
-	player_get_coord(cub);
-	// cub->player.pos = set_vector(cub->player.start_grid.x, cub->player.start_grid.y);
+	int		i;
+	int		j;
+
+	i = 0;
+	while (i < cub->map.row_count)
+	{
+		j = 0;
+		while (j < cub->map.column_count)
+		{
+			if (cub->map.array[i][j] == 'N'
+				||cub->map.array[i][j] == 'S'
+				||cub->map.array[i][j] == 'W'
+				||cub->map.array[i][j] == 'E')
+			{
+				cub->player.start_dir = cub->map.array[i][j];
+				cub->player.pos = set_vector(j, i);
+			}
+			j++;
+		}
+		i++;
+	}	// cub->player.pos = set_vector(cub->player.start_grid.x, cub->player.start_grid.y);
 }
 
 void	init_struct_fov(t_cub *cub)
