@@ -39,7 +39,7 @@ void	get_side_dist_and_step(t_ray *ray, t_player *player, int mapX, int mapY)
 	}
 }
 
-void	get_distance(t_ray *ray, t_map *map)
+void	dda_algo(t_ray *ray, t_map *map)
 {
 	while (ray->hit == 0)
 	{
@@ -92,6 +92,7 @@ void	set_color(t_cub *cub)
 		cub->texture.color = cub->texture.color / 2;
 }
 
+/*
 void	raycaster(t_cub *cub)
 {
 	int	x;
@@ -109,14 +110,129 @@ void	raycaster(t_cub *cub)
 		cub->ray.delta_distX = sqrt(1 + (cub->ray.dir.y * cub->ray.dir.y) / (cub->ray.dir.x * cub->ray.dir.x));
 		cub->ray.delta_distY = sqrt(1 + (cub->ray.dir.x * cub->ray.dir.x) / (cub->ray.dir.y * cub->ray.dir.y));
 		cub->ray.hit = 0;
+
 		get_side_dist_and_step(&cub->ray, &cub->player, cub->ray.mapX, cub->ray.mapY);		
-		get_distance(&cub->ray, &cub->map);
+		dda_algo(&cub->ray, &cub->map);
 		if (cub->ray.side_hit == 0)
 			cub->ray.perpWallDist = (cub->ray.mapX - cub->player.pos.x + (1 - cub->ray.step_x) / 2) / cub->ray.dir.x;
 		else
 			cub->ray.perpWallDist = (cub->ray.mapY - cub->player.pos.y + (1 - cub->ray.step_y) / 2) / cub->ray.dir.y;
 		get_start_and_end(cub);
 		set_color(cub);
+		draw_vertical_line(cub, x, cub->texture.draw_start, cub->texture.draw_end, cub->texture.color);
+		x++;
+	}
+}
+
+*/
+
+void	raycaster(t_cub *cub)
+{
+	int	x;
+
+	x = 0;
+	while (x < cub->win_width)
+	{
+		cub->fov.cameraX = (2 * x / (float)(cub->win_width)) - 1;
+
+		cub->ray.dir.x = cub->fov.dir.x + cub->fov.plane.x * cub->fov.cameraX;
+		cub->ray.dir.y = cub->fov.dir.y + cub->fov.plane.y * cub->fov.cameraX;
+		// cub->ray.mapX = (int)(cub->player.pos.x);
+		// cub->ray.mapY = (int)(cub->player.pos.y);
+		int mapX = (int)(cub->player.pos.x);
+		int	mapY = (int)(cub->player.pos.y);
+
+		cub->ray.delta_distX = sqrt(1 + (cub->ray.dir.y * cub->ray.dir.y) / (cub->ray.dir.x * cub->ray.dir.x));
+		cub->ray.delta_distY = sqrt(1 + (cub->ray.dir.x * cub->ray.dir.x) / (cub->ray.dir.y * cub->ray.dir.y));
+		cub->ray.hit = 0;
+
+		if (cub->ray.dir.x < 0)
+		{
+			cub->ray.step_x = -1;
+			// cub->ray.side_distX = (cub->player.pos.x - cub->ray.mapX) * cub->ray.delta_distX;
+			cub->ray.side_distX = (cub->player.pos.x - mapX) * cub->ray.delta_distX;
+
+		}
+		else
+		{
+			cub->ray.step_x = 1;
+			// cub->ray.side_distX = (cub->ray.mapX + 1.0 - cub->player.pos.x) * cub->ray.delta_distX;
+			cub->ray.side_distX = (mapX + 1.0 - cub->player.pos.x) * cub->ray.delta_distX;
+			
+		}
+		if (cub->ray.dir.y < 0)
+		{
+			cub->ray.step_y = -1;
+			// cub->ray.side_distY = (cub->player.pos.y - cub->ray.mapY) * cub->ray.delta_distY;
+			cub->ray.side_distY = (cub->player.pos.y - mapY) * cub->ray.delta_distY;
+
+		}
+		else
+		{
+			cub->ray.step_y = 1;
+			// cub->ray.side_distY = (cub->ray.mapY + 1.0 - cub->player.pos.y) * cub->ray.delta_distY;
+			cub->ray.side_distY = (mapY + 1.0 - cub->player.pos.y) * cub->ray.delta_distY;
+		}
+
+		/*DDA*/
+		while (cub->ray.hit == 0)
+		{
+			if (cub->ray.side_distX < cub->ray.side_distY)
+			{
+			// printf("sideX 1: %f | mapX 1: %d | deltaX: %f\n", cub->ray.side_distX, mapX, cub->ray.delta_distX);
+				cub->ray.side_distX += cub->ray.delta_distX;
+				// cub->ray.mapX += cub->ray.step_x;
+				mapX += cub->ray.step_x;
+				cub->ray.side_hit = 0;
+			// printf("sideX 2: %f | mapX 2: %d\n", cub->ray.side_distX, mapX);
+			
+			}
+			else
+			{
+			printf("sideY 1: %f | mapY 1: %d | deltaY: %f\n", cub->ray.side_distY, mapY, cub->ray.delta_distY);
+				cub->ray.side_distY += cub->ray.delta_distY;
+				// cub->ray.mapY += cub->ray.step_y;
+				mapY += cub->ray.step_y;
+				cub->ray.side_hit = 1;
+			printf("sideY 2: %f | mapY 2: %d | deltaY: %f\n", cub->ray.side_distY, mapY, cub->ray.delta_distY);
+		
+			}
+			// if (cub->map.array[cub->ray.mapX][cub->ray.mapY] > 0)
+			if (cub->map.array[mapX][mapY] > 0)
+				cub->ray.hit = 1;
+		}
+
+		/* perp wall calculation */
+		if (cub->ray.side_hit == 0)
+			cub->ray.perpWallDist = (mapX - cub->player.pos.x + (1 - cub->ray.step_x) / 2) / cub->ray.dir.x;
+		else
+			cub->ray.perpWallDist = (mapY - cub->player.pos.y + (1 - cub->ray.step_y) / 2) / cub->ray.dir.y;
+
+		/* line height calculation */
+		cub->texture.line_height = (int)(cub->win_height / cub->ray.perpWallDist);
+
+		cub->texture.draw_start = (-cub->texture.line_height / 2) + (cub->win_height / 2);
+		if (cub->texture.draw_start < 0)
+				cub->texture.draw_start = 0;
+		cub->texture.draw_end = (cub->texture.line_height / 2) + (cub->win_height / 2);
+		if (cub->texture.draw_end >= cub->win_height)
+			cub->texture.draw_end = cub->win_height - 1;
+
+		/* set color */
+		if (cub->map.array[mapX][mapY] == 1)
+			cub->texture.color = BLUE;
+		else if (cub->map.array[mapX][mapY] == 2)
+			cub->texture.color = RED;
+		else if (cub->map.array[mapX][mapY] == 3)
+			cub->texture.color = YELLOW;
+		else if (cub->map.array[mapX][mapY] == 4)
+			cub->texture.color = GRAY;
+		else
+			cub->texture.color = BLACK;
+
+		if (cub->ray.side_hit == 1)
+			cub->texture.color = cub->texture.color / 2;
+
 		draw_vertical_line(cub, x, cub->texture.draw_start, cub->texture.draw_end, cub->texture.color);
 		x++;
 	}

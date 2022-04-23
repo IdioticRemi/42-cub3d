@@ -33,6 +33,7 @@ typedef struct s_info
 	double	rotSpeed;
 } t_info;
 
+
 int worldMap[mapWidth][mapHeight] =
 {
   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
@@ -60,6 +61,19 @@ int worldMap[mapWidth][mapHeight] =
   {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 };
+
+// int worldMap[mapWidth][mapHeight] =
+// {
+// 	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+// 	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+// 	{1,0,1,0,1,0,2,0,1,0,1,0,0,0,1},
+// 	{1,0,0,0,0,0,2,0,0,1,1,1,1,1,1},
+// 	{1,1,1,0,0,0,0,0,0,0,0,0,0,0,1},
+// 	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+// 	{1,0,0,0,0,1,1,1,1,0,0,0,0,0,1},
+// 	{1,0,0,0,0,1,0,1,0,0,0,0,0,0,1},
+// 	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
+// };
 
 void	verLine(t_info *info, int x, int y1, int y2, int color)
 {
@@ -133,11 +147,11 @@ int main_loop(t_info *info)
 		{
 			if (sideDistX < sideDistY)
 			{
-			// printf("sideX 1: %f | mapX 1: %d\n", sideDistX, mapX);
+			printf("sideX 1: %f | mapX 1: %d\n", sideDistX, mapX);
 				sideDistX += deltaDistX;
 				mapX += stepX;
 				side = 0;
-			// printf("sideX 2: %f | mapX 2: %d\n", sideDistX, mapX);
+			printf("sideX 2: %f | mapX 2: %d\n", sideDistX, mapX);
 			}
 			else
 			{
@@ -245,8 +259,8 @@ int main()
 	t_info info;
 	info.mlx = mlx_init();
 
-	info.playerPositionX = 12;
-	info.playerPositionY = 5;
+	info.playerPositionX = 7;
+	info.playerPositionY = 4;
 	info.directionVectorX = -1;
 	info.directionVectorY = 0;
 	info.planeX = 0;
