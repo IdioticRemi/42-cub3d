@@ -62,19 +62,6 @@ printf("sideX2: %f | sideY2: %f | mapX2: %d | mapY2: %d\n", ray->side_distX, ray
 	}
 }
 
-/*
-void	get_start_and_end(t_cub *cub)
-{
-	cub->texture.line_height = (int)(cub->win_height / cub->ray.perpWallDist);
-
-	cub->texture.draw_start = (-cub->texture.line_height / 2) + (cub->win_height / 2);
-	if (cub->texture.draw_start < 0)
-			cub->texture.draw_start = 0;
-	cub->texture.draw_end = (cub->texture.line_height / 2) + (cub->win_height / 2);
-	if (cub->texture.draw_end >= cub->win_height)
-		cub->texture.draw_end = cub->win_height - 1;
-}*/
-
 void	get_start_and_end(t_cub *cub, t_ray *ray)
 {
 	cub->texture.line_height = (int)(cub->win_height / ray->perpWallDist);
@@ -87,29 +74,10 @@ void	get_start_and_end(t_cub *cub, t_ray *ray)
 		cub->texture.draw_end = cub->win_height - 1;
 }
 
-
-/*
-void	set_color(t_cub *cub)
-{
-	if (cub->map.array[cub->ray.mapX][cub->ray.mapY] == 1)
-		cub->texture.color = BLUE;
-	else if (cub->map.array[cub->ray.mapX][cub->ray.mapY] == 2)
-		cub->texture.color = RED;
-	else if (cub->map.array[cub->ray.mapX][cub->ray.mapY] == 3)
-		cub->texture.color = YELLOW;
-	else if (cub->map.array[cub->ray.mapX][cub->ray.mapY] == 4)
-		cub->texture.color = GRAY;
-	else
-		cub->texture.color = BLACK;
-	if (cub->ray.side_hit == 1)
-		cub->texture.color = cub->texture.color / 2;
-}*/
-
-
 void	set_color(t_cub *cub, t_ray *ray)
 {
 	if (cub->map.array[ray->mapX][ray->mapY] == 1)
-		cub->texture.color = BLUE;
+		cub->texture.color = PINK;
 	else if (cub->map.array[ray->mapX][ray->mapY] == 2)
 		cub->texture.color = RED;
 	else if (cub->map.array[ray->mapX][ray->mapY] == 3)
@@ -117,44 +85,10 @@ void	set_color(t_cub *cub, t_ray *ray)
 	else if (cub->map.array[ray->mapX][ray->mapY] == 4)
 		cub->texture.color = GRAY;
 	else
-		cub->texture.color = BLACK;
+		cub->texture.color = WHITE;
 	if (ray->side_hit == 1)
 		cub->texture.color = cub->texture.color / 2;
 }
-
-/*
-void	raycaster(t_cub *cub)
-{
-	int	x;
-
-	x = 0;
-	while (x < SCREEN_WIDTH)
-	{
-		cub->fov.cameraX = ((2 * x) / (float)(SCREEN_WIDTH)) - 1;
-
-		cub->ray.dir.x = cub->fov.dir.x + cub->fov.plane.x * cub->fov.cameraX;
-		cub->ray.dir.y = cub->fov.dir.y + cub->fov.plane.y * cub->fov.cameraX;
-		cub->ray.mapX = (int)(cub->player.pos.x);
-		cub->ray.mapY = (int)(cub->player.pos.y);
-
-		cub->ray.delta_distX = sqrt(1 + (cub->ray.dir.y * cub->ray.dir.y) / (cub->ray.dir.x * cub->ray.dir.x));
-		cub->ray.delta_distY = sqrt(1 + (cub->ray.dir.x * cub->ray.dir.x) / (cub->ray.dir.y * cub->ray.dir.y));
-
-		cub->ray.hit = 0;
-
-		get_side_dist_and_step(&cub->ray, &cub->player, cub->ray.mapX, cub->ray.mapY);		
-		dda_algo(&cub->ray, &cub->map);
-		if (cub->ray.side_hit == 0)
-			cub->ray.perpWallDist = (cub->ray.mapX - cub->player.pos.x + (1 - cub->ray.step_x) / 2) / cub->ray.dir.x;
-		else
-			cub->ray.perpWallDist = (cub->ray.mapY - cub->player.pos.y + (1 - cub->ray.step_y) / 2) / cub->ray.dir.y;
-		get_start_and_end(cub);
-		set_color(cub);
-		draw_vertical_line(cub, x, cub->texture.draw_start, cub->texture.draw_end, cub->texture.color);
-		x++;
-	}
-}
-*/
 
 void	raycaster(t_cub *cub)
 {
