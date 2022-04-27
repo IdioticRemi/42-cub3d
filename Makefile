@@ -14,8 +14,8 @@ SRC			=	main.c				\
 				init_struct.c		\
 				key_event.c			\
 				map_check_old.c		\
-				map_color_info.c	\
 				map_read_old.c		\
+				parsing.c			\
 				raycaster.c			\
 				render.c			\
 				test_display.c		\

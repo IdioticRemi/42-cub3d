@@ -70,8 +70,8 @@ printf("[y]sideX2: %f | sideY2: %f | mapX2: %d | mapY2: %d\n", ray->side_distX, 
 
 void	get_start_and_end(t_cub *cub, t_ray *ray)
 {
+	
 	cub->texture.line_height = (int)(cub->win_height / ray->perpWallDist);
-
 	cub->texture.draw_start = (-cub->texture.line_height / 2) + (cub->win_height / 2);
 	if (cub->texture.draw_start < 0)
 			cub->texture.draw_start = 0;
