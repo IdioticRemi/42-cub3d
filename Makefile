@@ -19,7 +19,6 @@ SRC			=	main.c				\
 				raycaster.c			\
 				render.c			\
 				test_display.c		\
-				test_visual.c		\
 				vector_utils.c		\
 
 SRCS		=	$(addprefix $(SRC_DIR)/, $(SRC))
