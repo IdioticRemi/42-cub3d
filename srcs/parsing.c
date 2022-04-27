@@ -25,7 +25,6 @@ int	get_color_number(char *color_info)
 	return (convert_color_number(r, g, b));
 }
 
-
 int	map_check_extension(char *filename, char *ext)
 {
 	int	i;
@@ -59,6 +58,22 @@ int	check_valid_character(char *line)
 	return (1);
 }
 
+char	*get_texture_path(char *str)
+{
+	char	*path;
+	int		i;
+
+	while (str[i] && str[i] == ' ' || str[i] == '\t')
+		i++;
+	path = malloc(sizeof(char) * strlen(str)); //minus identifier in the beginning;
+	if (!path)
+		return (NULL);
+//check space & tab;
+}
+
+
+
+//Mapの部分だけ切り出してコピー＆新しいArrayにいれる。
 
 
 
