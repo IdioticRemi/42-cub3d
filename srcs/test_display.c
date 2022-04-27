@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display.c                                          :+:      :+:    :+:   */
+/*   test_display.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: seoyounglee <seoyounglee@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:18:51 by selee             #+#    #+#             */
-/*   Updated: 2022/04/22 18:31:05 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/04/27 10:07:59 by seoyounglee      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,19 @@ void	put_map_grid(t_cub *cub)
 			j++;
 		}
 		i++;
+	}
+}
+
+void	put_ray(t_cub *cub)
+{
+	t_player	p;
+	p = cub->player; 
+	
+	while (cub->map.array[(int)(p.pos.y / GRID_SIZE)][(int)(p.pos.x / GRID_SIZE)] != '1')
+	{
+		p.pos.x += cub->fov.dir.x;
+		p.pos.y += cub->fov.dir.y;
+		mlx_pixel_put(cub->mlx, cub->win, p.pos.x, p.pos.y, PINK);
 	}
 }
 

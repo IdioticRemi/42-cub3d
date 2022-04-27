@@ -145,13 +145,12 @@ int main_loop(t_info *info)
 // printf("sideDistX: %f | sideDistY: %f\n", sideDistX, sideDistY);
 		while (hit == 0)
 		{
+			printf("sideX 1: %f | sideY: %f | mapX 1: %d | mapY 2: %d\n", sideDistX, sideDistY, mapX, mapY);
 			if (sideDistX < sideDistY)
 			{
-			printf("sideX 1: %f | mapX 1: %d\n", sideDistX, mapX);
 				sideDistX += deltaDistX;
 				mapX += stepX;
 				side = 0;
-			printf("sideX 2: %f | mapX 2: %d\n", sideDistX, mapX);
 			}
 			else
 			{
@@ -162,8 +161,9 @@ int main_loop(t_info *info)
 // printf("deltaX: %f | deltaY: %f | sidedistX: %f | sidedistY: %f\n", deltaDistX, deltaDistY, sideDistX, sideDistY);
 			if (worldMap[mapX][mapY] > 0)
 				hit = 1;
+			printf("sideX 2: %f | sideY 2: %f | mapX 2: %d | mapY 2: %d | hit: %d\n --------------\n", sideDistX, sideDistY, mapX, mapY, hit);
 		}
-	
+	printf("check\n");
 		//魚眼対処
 
        	// printf("raydirety:%f | ", rayDirectionY);

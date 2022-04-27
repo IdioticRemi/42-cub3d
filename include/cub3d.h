@@ -14,7 +14,7 @@
 # define GRID_SIZE			32
 # define BUFFER_SIZE		1
 # define SCREEN_WIDTH		640
-# define SCREEN_HEIGHT		480
+# define SCREEN_HEIGHT		480 //Screen heightとWin_height変数２つあるのでどちらかに揃える
 
 # define PI					3.1415926535
 
@@ -127,8 +127,6 @@ typedef struct s_ray
 	float	perpWallDist;
 }	t_ray;
 
-
-
 typedef struct s_cub
 {
 	void		*mlx;
@@ -181,6 +179,7 @@ void	put_horizontal_line(t_cub *cub);
 /* render */
 void	draw_vertical_line(t_cub *cub, int x, int y1, int y2, int color);
 void	put_ray(t_cub *cub);
+void	draw_background(t_cub *cub);
 
 /* error */
 void	error_message_exit(char *message);
@@ -218,10 +217,6 @@ t_vect	set_fov_plane(t_cub *cub, int width);
 
 /* test_visual - erase later */
 void	init_visual(t_vis *vis);
-
-
-
-
 
 
 #endif

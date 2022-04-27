@@ -4,11 +4,7 @@ int	game_loop(t_cub *cub)
 {
 	if (cub->status == GAME_PLAY)
 	{
-		// put_map_to_win(cub);
-		// put_map_grid(cub);
-		// put_player_pixel(cub);
-		put_horizontal_line(cub);
-		// put_ray(cub);
+		draw_background(cub);
 		raycaster(cub);
 	}
 	return (0);
