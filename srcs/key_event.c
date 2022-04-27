@@ -6,7 +6,33 @@ void	rotate(t_cub *cub, float rot_angle)
 	f = cub->fov;
 	cub->fov.dir.x = f.dir.x * cos(rot_angle) - f.dir.y * sin(rot_angle);
 	cub->fov.dir.y = f.dir.x * sin(rot_angle) + f.dir.y * cos(rot_angle);
+
+	cub->fov.plane.x = f.plane.x * cos(rot_angle) - f.plane.y * sin(rot_angle);
+	cub->fov.plane.y = f.plane.x * sin(rot_angle) + f.plane.y * cos(rot_angle);
+
 }
+
+/*
+int	key_movement(t_cub *cub, int keycode)
+{
+	if (cub->status == GAME_PLAY)
+	{
+		if (keycode == KEY_W)
+			cub->player.pos.y--;
+		else if (keycode == KEY_S)
+			cub->player.pos.y++;
+		else if (keycode == KEY_A)
+			cub->player.pos.x--;
+		else if (keycode == KEY_D)
+			cub->player.pos.x++;
+		else if (keycode == KEY_LEFT)
+			rotate(cub, -cub->fov.rot_angle);
+		else if (keycode == KEY_RIGHT)
+			rotate(cub, cub->fov.rot_angle);
+	}
+	return (0);
+}
+*/
 
 int	key_movement(t_cub *cub, int keycode)
 {
@@ -27,6 +53,7 @@ int	key_movement(t_cub *cub, int keycode)
 	}
 	return (0);
 }
+
 
 int	key_press(t_cub *cub, int key)
 {

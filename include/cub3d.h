@@ -202,7 +202,7 @@ void	rotate(t_cub *cub, float rot_angle);
 int	key_press(t_cub *cub, int key);
 
 /* raycaster */
-void	raycaster(t_cub *cub);
+void	raycaster(t_cub *cub, t_fov *fov);
 
 /* vector utils*/
 t_vect	set_vector(float x, float y);

@@ -5,7 +5,7 @@ int	game_loop(t_cub *cub)
 	if (cub->status == GAME_PLAY)
 	{
 		draw_background(cub);
-		raycaster(cub);
+		raycaster(cub, &cub->fov);
 	}
 	return (0);
 }

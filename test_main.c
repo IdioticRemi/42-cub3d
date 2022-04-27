@@ -110,7 +110,7 @@ int main_loop(t_info *info)
 		double deltaDistX = sqrt(1 + (rayDirectionY * rayDirectionY) / (rayDirectionX * rayDirectionX));//fabs(1 / rayDirectionX);
 		double deltaDistY = sqrt(1 + (rayDirectionX * rayDirectionX) / (rayDirectionY * rayDirectionY));//fabs(1 / rayDirectionY);
 
-
+// printf("dirX: %f | dirY: %f | mapX: %d | mapY: %d\n", rayDirectionX, rayDirectionY, mapX, mapY);
 
 // printf("rayMapX: %d | rayMapY: %d | deltaX: %f | deltaY: %f\n", mapX, mapY, deltaDistX, deltaDistY);
 		double perpWallDist;
@@ -163,7 +163,6 @@ int main_loop(t_info *info)
 				hit = 1;
 			printf("sideX 2: %f | sideY 2: %f | mapX 2: %d | mapY 2: %d | hit: %d\n --------------\n", sideDistX, sideDistY, mapX, mapY, hit);
 		}
-	printf("check\n");
 		//魚眼対処
 
        	// printf("raydirety:%f | ", rayDirectionY);

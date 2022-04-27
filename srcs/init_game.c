@@ -6,7 +6,7 @@
 /*   By: seoyounglee <seoyounglee@student.42lyon    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:18:46 by selee             #+#    #+#             */
-/*   Updated: 2022/04/27 09:59:38 by seoyounglee      ###   ########lyon.fr   */
+/*   Updated: 2022/04/27 20:18:49 by seoyounglee      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,5 @@ void	init_game(t_cub *cub)
 	init_struct_player(cub);
 	init_struct_fov(cub);
 	init_mlx_and_win(cub);
-	init_game_img(cub);
+	// init_game_img(cub);
 }
