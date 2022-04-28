@@ -21,7 +21,7 @@ int	get_color_number(char *color_info)
 	b = ft_atoi(color[2]);
 
 	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
-		error_message_exit("invalid color number");
+		error_message_exit("Invalid color number");
 	return (convert_color_number(r, g, b));
 }
 
@@ -71,10 +71,9 @@ char	*get_texture_path(char *str)
 //check space & tab;
 }
 
-
-
-//Mapの部分だけ切り出してコピー＆新しいArrayにいれる。
-
+// Mapの部分だけ切り出してコピー＆新しいArrayにいれる。
+// check if the map is walled
+// 
 
 
 
