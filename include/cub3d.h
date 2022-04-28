@@ -11,6 +11,8 @@
 # include "../mlx/mlx.h"
 # include <string.h>
 
+# define ERROR				-1
+
 # define GRID_SIZE			32
 # define BUFFER_SIZE		1
 # define SCREEN_WIDTH		640
@@ -45,9 +47,9 @@
 
 /* GAME STATUS */
 # define GAME_START			1
-# define GAME_PLAY			2
-# define GAME_CONTINUE		3
-# define GAME_END			4
+# define GAME_PLAY			2 //いらないかも
+# define GAME_CONTINUE		3 //これも
+# define GAME_END			4 //これも
 
 typedef struct s_vect
 {
@@ -65,10 +67,10 @@ typedef struct s_image
 
 typedef struct s_texture
 {
-	char	*no_path;
-	char	*so_path;
-	char	*we_path;
-	char	*ea_path;
+	char	*n_path;
+	char	*s_path;
+	char	*w_path;
+	char	*e_path;
 	int		floor;
 	int		ceiling;
 	int		draw_start;
@@ -80,11 +82,12 @@ typedef struct s_texture
 typedef struct s_map
 {
 	char		**array;
-	int			row_count;
-	int			column_count;
+	
+	int			row_count; // erase
+	int			column_count; //erase
 } t_map;
 
-typedef struct s_tile
+typedef struct s_tile //to be erased
 {
 	t_image		wall;
 	t_image		exit;
@@ -94,8 +97,8 @@ typedef struct s_tile
 typedef struct s_player
 {	
 	char		start_dir;
-	t_vect	start_grid;
-	t_vect	pos;
+	t_vect		start_grid;
+	t_vect		pos;
 }	t_player;
 
 typedef struct s_fov

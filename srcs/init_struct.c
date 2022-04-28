@@ -2,10 +2,10 @@
 
 void	init_struct_texture(t_cub *cub)
 {
-	cub->texture.no_path = NULL;
-	cub->texture.so_path = NULL;
-	cub->texture.we_path = NULL;
-	cub->texture.ea_path = NULL;
+	cub->texture.n_path = NULL;
+	cub->texture.s_path = NULL;
+	cub->texture.w_path = NULL;
+	cub->texture.e_path = NULL;
 	cub->texture.floor = cub->texture.floor;
 	cub->texture.ceiling = cub->texture.ceiling;
 }
