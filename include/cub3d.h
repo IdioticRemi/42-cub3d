@@ -65,7 +65,7 @@ typedef struct s_image
 	int		width;
 } t_image;
 
-typedef struct s_texture
+typedef struct s_info
 {
 	char	*n_path;
 	char	*s_path;
@@ -77,12 +77,12 @@ typedef struct s_texture
 	int		draw_end;
 	int		line_height;
 	int		color;
-}	t_texture;
+}	t_info;
 
 typedef struct s_map
 {
 	char		**array;
-	
+	int			size;
 	int			row_count; // erase
 	int			column_count; //erase
 } t_map;
@@ -131,7 +131,7 @@ typedef struct s_cub
 {
 	void		*mlx;
 	void		*win;
-	t_texture	texture;
+	t_info	info;
 	t_player	player;
 	t_tile		tile;
 	t_fov		fov;

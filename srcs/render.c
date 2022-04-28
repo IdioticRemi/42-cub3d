@@ -22,7 +22,7 @@ void	draw_background(t_cub *cub)
 		x = 0;
 		while (x < SCREEN_WIDTH)
 		{
-			mlx_pixel_put(cub->mlx, cub->win, x, y, cub->texture.ceiling);
+			mlx_pixel_put(cub->mlx, cub->win, x, y, cub->info.ceiling);
 			x++;
 		}
 		y++;
@@ -32,7 +32,7 @@ void	draw_background(t_cub *cub)
 		x = 0;
 		while (x < SCREEN_WIDTH)
 		{
-			mlx_pixel_put(cub->mlx, cub->win, x, y, cub->texture.floor);
+			mlx_pixel_put(cub->mlx, cub->win, x, y, cub->info.floor);
 			x++;
 		}
 		y++;

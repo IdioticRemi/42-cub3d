@@ -71,29 +71,29 @@ printf("[y]sideX2: %f | sideY2: %f | mapX2: %d | mapY2: %d\n", ray->side_distX, 
 void	get_start_and_end(t_cub *cub, t_ray *ray)
 {
 	
-	cub->texture.line_height = (int)(cub->win_height / ray->perpWallDist);
-	cub->texture.draw_start = (-cub->texture.line_height / 2) + (cub->win_height / 2);
-	if (cub->texture.draw_start < 0)
-			cub->texture.draw_start = 0;
-	cub->texture.draw_end = (cub->texture.line_height / 2) + (cub->win_height / 2);
-	if (cub->texture.draw_end >= cub->win_height)
-		cub->texture.draw_end = cub->win_height - 1;
+	cub->info.line_height = (int)(cub->win_height / ray->perpWallDist);
+	cub->info.draw_start = (-cub->info.line_height / 2) + (cub->win_height / 2);
+	if (cub->info.draw_start < 0)
+			cub->info.draw_start = 0;
+	cub->info.draw_end = (cub->info.line_height / 2) + (cub->win_height / 2);
+	if (cub->info.draw_end >= cub->win_height)
+		cub->info.draw_end = cub->win_height - 1;
 }
 
 void	set_color(t_cub *cub, t_ray *ray)
 {
 	if (cub->map.array[ray->mapX][ray->mapY] == 1)
-		cub->texture.color = PINK;
+		cub->info.color = PINK;
 	else if (cub->map.array[ray->mapX][ray->mapY] == 2)
-		cub->texture.color = RED;
+		cub->info.color = RED;
 	else if (cub->map.array[ray->mapX][ray->mapY] == 3)
-		cub->texture.color = YELLOW;
+		cub->info.color = YELLOW;
 	else if (cub->map.array[ray->mapX][ray->mapY] == 4)
-		cub->texture.color = GRAY;
+		cub->info.color = GRAY;
 	else
-		cub->texture.color = WHITE;
+		cub->info.color = WHITE;
 	if (ray->side_hit == 1)
-		cub->texture.color = cub->texture.color / 2;
+		cub->info.color = cub->info.color / 2;
 }
 
 void	raycaster(t_cub *cub, t_fov *fov)
@@ -126,7 +126,7 @@ void	raycaster(t_cub *cub, t_fov *fov)
 			ray.perpWallDist = (ray.mapY - cub->player.pos.y + (1 - ray.step_y) / 2) / ray.dir.y;
 		get_start_and_end(cub, &ray);
 		set_color(cub, &ray);
-		draw_vertical_line(cub, x, cub->texture.draw_start, cub->texture.draw_end, cub->texture.color);
+		draw_vertical_line(cub, x, cub->info.draw_start, cub->info.draw_end, cub->info.color);
 		x++;
 	}
 }

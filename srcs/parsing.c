@@ -15,13 +15,13 @@ int	get_color_number(char *color_info)
 	int	g;
 	int	b;
 
-	color = ft_split(color_info, ','); //do i need to handle ' '?
+	color = ft_split(color_info, ','); //handle ' '?
 	r = ft_atoi(color[0]);
 	g = ft_atoi(color[1]);
 	b = ft_atoi(color[2]);
 
 	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
-		error_message_exit("invalid color number");
+		error_message_exit("Invalid color number");
 	return (convert_color_number(r, g, b));
 }
 
@@ -91,17 +91,17 @@ int		save_info(t_cub *cub, char *info_str , char id)
 	
 	i = 0;
 	if (id == 'N')
-		cub->texture.n_path = info_str;
+		cub->info.n_path = info_str;
 	else if (id == 'S')
-		cub->texture.s_path = info_str;
+		cub->info.s_path = info_str;
 	else if (id == 'W')
-		cub->texture.w_path = info_str;
+		cub->info.w_path = info_str;
 	else if (id == 'E')
-		cub->texture.e_path = info_str;
+		cub->info.e_path = info_str;
 	else if (id == 'F')
-		cub->texture.floor = get_color_number(info_str);
+		cub->info.floor = get_color_number(info_str);
 	else if (id == 'C')
-		cub->texture.ceiling = get_color_number(info_str);
+		cub->info.ceiling = get_color_number(info_str);
 
 }
 
@@ -111,10 +111,6 @@ int		check_valid_texture_path(t_cub *cub, char *path)
 
 	return (0);
 }
-
-
-
-
 
 int		map_read_file(t_cub *cub, char *file_path)
 {
@@ -133,12 +129,19 @@ int		map_read_file(t_cub *cub, char *file_path)
 			return (ERROR);
 		
 	}
-	
 }
 
-
-
 // 上部の情報　・　下部のMAP どうわける？
+/*
+Error cases
 
+- invalid identifier
+- identifier must be followed by ' ' tab;
+- invalid path (path doesn't open) or color info
+- invalid char inside map
+- map is not walled
+- more than one player
+
+*/
 
 

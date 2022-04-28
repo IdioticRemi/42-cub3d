@@ -6,7 +6,7 @@
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:19:15 by selee             #+#    #+#             */
-/*   Updated: 2022/04/04 16:19:18 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/04/28 16:18:04 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,3 +24,9 @@ void	free_map_arr(t_cub *cub)
 	}
 	free(cub->map.array);
 }
+
+void	free_texture_info(t_cub *cub);
+void	free_all(t_cub *cub);
+
+
+
