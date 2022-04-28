@@ -1,22 +1,5 @@
 #include "cub3d.h"
 
-/*
-void	set_ray_values(t_cub *cub, int x)
-{
-	cub->fov.cameraX = (2 * x / (float)(cub->win_width)) - 1;
-
-	cub->ray.dir.x = cub->fov.dir.x + cub->fov.plane.x * cub->fov.cameraX;
-	cub->ray.dir.y = cub->fov.dir.y + cub->fov.plane.y * cub->fov.cameraX;
-	cub->ray.mapX = (int)(cub->player.pos.x);
-	cub->ray.mapY = (int)(cub->player.pos.y);
-
-	cub->ray.delta_distX = sqrt(1 + (cub->ray.dir.y * cub->ray.dir.y) / (cub->ray.dir.x * cub->ray.dir.x));
-	cub->ray.delta_distY = sqrt(1 + (cub->ray.dir.x * cub->ray.dir.x) / (cub->ray.dir.y * cub->ray.dir.y));
-
-	cub->ray.hit = 0;
-}
-*/
-
 void	get_side_dist_and_step(t_ray *ray, t_player *player)
 {
 	if (ray->dir.x < 0)
@@ -116,8 +99,7 @@ void	raycaster(t_cub *cub, t_fov *fov)
 		ray.delta_distX = fabs(1 / ray.dir.x);
 		ray.delta_distY = fabs(1 / ray.dir.y);
 		ray.hit = 0;
-// printf("[ray.dir]x: %f | y: %f | [delta]x: %f | y: %f\n", ray.dir.x, ray.dir.y, ray.delta_distX, ray.delta_distY);
-// printf("dirX: %f | dirY: %f | mapX: %d | mapY: %d\n", ray.dir.x, ray.dir.y, ray.mapX, ray.mapY);	
+
 		get_side_dist_and_step(&ray, &cub->player);
 		dda_algo(&ray, &cub->map);
 		if (ray.side_hit == 0)

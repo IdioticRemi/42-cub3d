@@ -180,6 +180,7 @@ int		exit_hook(void);
 
 /* free */
 void	free_map_arr(t_cub *cub);
+void	free_char_array(char **arr);
 
 /* map */
 int		map_check_file_extension(char *filename, char *ext);

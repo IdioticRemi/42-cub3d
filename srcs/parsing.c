@@ -58,7 +58,24 @@ int	check_valid_character(char *line)
 	return (EXIT_SUCCESS);
 }
 
-char	check_identifier(t_cub *cub, char *str)
+/* IDとPath切る　
+スペースでSplitした文字列を２D配列に代入して
+［0］のIDが正しいか判断
+［1］のPathが正しいか判断
+IDに沿ってPath情報をStructの変数に代入
+最後に配列をフリー
+*/
+int		get_id_and_path(t_cub *cub, char *str)
+{
+	char **ret;
+	ret = ft_split(str, ' ');
+	if (!ret)
+		error_message_exit("Info failed");
+	return (ret);
+}
+
+/* 切ったIDが正しいか判断　*/
+char	check_identifier(char *str)
 {
 /* check first letters of the str and identify the identifier*/
 	char	id;
@@ -84,31 +101,34 @@ char	check_identifier(t_cub *cub, char *str)
 	return (id);
 }
 
-int		save_info(t_cub *cub, char *info_str , char id)
+int		save_info(t_cub *cub, char **info_str)
 {
 // store each info to texture structure by identifier
-	int	i;
-	
+	int		i;
+	char	id;
 	i = 0;
+	id = check_identifier(info_str[0]);
 	if (id == 'N')
-		cub->info.n_path = info_str;
+		cub->info.n_path = ft_strdup(info_str[1]);
 	else if (id == 'S')
-		cub->info.s_path = info_str;
+		cub->info.s_path = ft_strdup(info_str[1]);
 	else if (id == 'W')
-		cub->info.w_path = info_str;
+		cub->info.w_path = ft_strdup(info_str[1]);
 	else if (id == 'E')
-		cub->info.e_path = info_str;
+		cub->info.e_path = ft_strdup(info_str[1]);
 	else if (id == 'F')
 		cub->info.floor = get_color_number(info_str);
 	else if (id == 'C')
 		cub->info.ceiling = get_color_number(info_str);
-
 }
 
-// IDとPath切る
 int		check_valid_texture_path(t_cub *cub, char *path)
 {
+	int		fd;
 
+	fd = open(path, O_RDONLY);
+	if (fd < 0)
+		error_message_exit("Invalid path");
 	return (0);
 }
 
@@ -125,13 +145,23 @@ int		map_read_file(t_cub *cub, char *file_path)
 		error_message_exit("Failed to open file");
 	while (get_next_line(fd, *line) > 0)
 	{
+		char	**info;
 		if (check_valid_character(line) == ERROR)
 			return (ERROR);
 		
+		free_array(info);	
 	}
 }
 
-// 上部の情報　・　下部のMAP どうわける？
+/*
+
+ 上部の情報　・　下部のMAP どうわける？ -- どこからMAPが始まるか判断する
+ 
+ MAPの始まる箇所から終わりまで新しい２D配列にコピーする。
+ コピーしたMAP配列をつかってMAPのチェック
+
+ */
+
 /*
 Error cases
 
