@@ -20,7 +20,7 @@ t_vect	set_fov_plane(t_cub *cub, int width)
 {
 	float	min;
 
-	min = tan(cub->fov.fov/2) / width * 2;
+	min = tan(cub->fov.angle/2) / width * 2;
 	if (cub->player.start_dir == 'E')
 		return (set_vector(0, -min));
 	else if (cub->player.start_dir == 'N')

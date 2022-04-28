@@ -1,15 +1,13 @@
 #include "cub3d.h"
 
-void	init_struct_img(t_cub *cub);
-
 void	init_struct_texture(t_cub *cub)
 {
 	cub->texture.no_path = NULL;
 	cub->texture.so_path = NULL;
 	cub->texture.we_path = NULL;
 	cub->texture.ea_path = NULL;
-	cub->texture.floor = GREEN;
-	cub->texture.ceiling = BLUE;
+	cub->texture.floor = cub->texture.floor;
+	cub->texture.ceiling = cub->texture.ceiling;
 }
 
 void	init_struct_map(t_cub *cub)
@@ -46,10 +44,8 @@ void	init_struct_player(t_cub *cub)
 
 void	init_struct_fov(t_cub *cub)
 {
-	cub->fov.fov = 60;
+	cub->fov.angle = 60;
 	cub->fov.dir = set_fov_direction(cub);
-	// cub->fov.dir = set_vector(-1, 0);
-	// cub->fov.plane = set_vector(0, 0.66);
 	cub->fov.plane = set_fov_plane(cub, SCREEN_WIDTH);
 	cub->fov.move_speed = 0.05;
 	cub->fov.rot_angle = 0.05;

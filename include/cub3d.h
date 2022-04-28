@@ -14,7 +14,7 @@
 # define GRID_SIZE			32
 # define BUFFER_SIZE		1
 # define SCREEN_WIDTH		640
-# define SCREEN_HEIGHT		480 //Screen heightとWin_height変数２つあるのでどちらかに揃える
+# define SCREEN_HEIGHT		480
 
 # define PI					3.1415926535
 
@@ -100,16 +100,13 @@ typedef struct s_player
 
 typedef struct s_fov
 {
-	float		x;
-	float		y;
-	int			fov;
+	int			angle;
 	t_vect		dir;
 	t_vect		plane;
-	int			angle;
 	float		move_speed;
 	float		rot_angle;
 	float		cameraX;
-}	t_fov;
+} t_fov;
 
 typedef struct s_ray
 {
@@ -141,13 +138,6 @@ typedef struct s_cub
 	int			win_height;
 	int			win_width;
 } t_cub;
-
-/* struct for test - to be erased later */
-typedef struct s_vis
-{
-	t_cub	cub;
-}	t_vis;
-
 
 /* init */
 void	init_game();
@@ -181,10 +171,8 @@ void	draw_vertical_line(t_cub *cub, int x, int y1, int y2, int color);
 void	put_ray(t_cub *cub);
 void	draw_background(t_cub *cub);
 
-/* error */
+/* error / exit */
 void	error_message_exit(char *message);
-
-/* exit */
 int		exit_hook(void);
 
 /* free */
@@ -199,7 +187,7 @@ void	map_check_format(t_cub *cub);
 int		key_input(int keycode, t_cub *cub);
 void	player_get_coord(t_cub *cub);
 void	rotate(t_cub *cub, float rot_angle);
-int	key_press(t_cub *cub, int key);
+int		key_press(t_cub *cub, int key);
 
 /* raycaster */
 void	raycaster(t_cub *cub, t_fov *fov);
@@ -213,10 +201,6 @@ t_vect	vector_multi(t_vect vec, float num);
 /* fov */
 t_vect	set_fov_direction(t_cub *cub);
 t_vect	set_fov_plane(t_cub *cub, int width);
-
-
-/* test_visual - erase later */
-void	init_visual(t_vis *vis);
 
 
 #endif
