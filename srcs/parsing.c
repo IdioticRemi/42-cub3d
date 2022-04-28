@@ -15,7 +15,7 @@ int	get_color_number(char *color_info)
 	int	g;
 	int	b;
 
-	color = ft_split(color_info, ','); //do i need to handle ' '?
+	color = ft_split(color_info, ','); //handle ' '?
 	r = ft_atoi(color[0]);
 	g = ft_atoi(color[1]);
 	b = ft_atoi(color[2]);
@@ -52,28 +52,126 @@ int	check_valid_character(char *line)
 	{
 		if (line[i] != '0' && line[i] != '1' && line[i] != 'N'
 			&& line[i] != 'S' && line[i] != 'W' && line[i] != 'E')
-			return (0);
+			return (ERROR);
 		i++;
 	}
-	return (1);
+	return (EXIT_SUCCESS);
 }
 
-char	*get_texture_path(char *str)
+/* IDとPath切る　
+スペースでSplitした文字列を２D配列に代入して
+［0］のIDが正しいか判断
+［1］のPathが正しいか判断
+IDに沿ってPath情報をStructの変数に代入
+最後に配列をフリー
+*/
+int		get_id_and_path(t_cub *cub, char *str)
 {
-	char	*path;
+	char **ret;
+	ret = ft_split(str, ' ');
+	if (!ret)
+		error_message_exit("Info failed");
+	return (ret);
+}
+
+/* 切ったIDが正しいか判断　*/
+char	check_identifier(char *str)
+{
+/* check first letters of the str and identify the identifier*/
+	char	id;
 	int		i;
 
-	while (str[i] && str[i] == ' ' || str[i] == '\t')
+	i = 0;
+	while (str[i] == ' ' || str[i] == '\t')
 		i++;
-	path = malloc(sizeof(char) * strlen(str)); //minus identifier in the beginning;
-	if (!path)
-		return (NULL);
-//check space & tab;
+	if ((str[i] == 'N' && str[i + 1] == ' ') || (str[i] == 'N' && str[i + 1] == 'O'))
+		id = 'N';
+	else if ((str[i] == 'S' && str[i + 1] == ' ') || (str[i] == 'S' && str[i + 1] == 'O'))
+		id = 'S';
+	else if ((str[i] == 'W' && str[i + 1] == ' ') || (str[i] == 'W' && str[i + 1] == 'E'))
+		id = 'W';
+	else if ((str[i] == 'E' && str[i + 1] == ' ') || (str[i] == 'E' && str[i + 1] == 'A'))
+		id = 'E';
+	else if (str[i] == 'F')
+		id = 'F';
+	else if (str[i] == 'C')
+		id = 'C';
+	else
+		error_message_exit("Invalid identifier");
+	return (id);
 }
 
-// Mapの部分だけ切り出してコピー＆新しいArrayにいれる。
-// check if the map is walled
-// 
+int		save_info(t_cub *cub, char **info_str)
+{
+// store each info to texture structure by identifier
+	int		i;
+	char	id;
+	i = 0;
+	id = check_identifier(info_str[0]);
+	if (id == 'N')
+		cub->info.n_path = ft_strdup(info_str[1]);
+	else if (id == 'S')
+		cub->info.s_path = ft_strdup(info_str[1]);
+	else if (id == 'W')
+		cub->info.w_path = ft_strdup(info_str[1]);
+	else if (id == 'E')
+		cub->info.e_path = ft_strdup(info_str[1]);
+	else if (id == 'F')
+		cub->info.floor = get_color_number(info_str);
+	else if (id == 'C')
+		cub->info.ceiling = get_color_number(info_str);
+}
 
+int		check_valid_texture_path(t_cub *cub, char *path)
+{
+	int		fd;
+
+	fd = open(path, O_RDONLY);
+	if (fd < 0)
+		error_message_exit("Invalid path");
+	return (0);
+}
+
+int		map_read_file(t_cub *cub, char *file_path)
+{
+	char	*line;
+	int		i;
+	int		j;
+	int		fd;
+
+	i = 0;
+	fd = open(file_path, O_RDONLY);
+	if (fd < 0)
+		error_message_exit("Failed to open file");
+	while (get_next_line(fd, *line) > 0)
+	{
+		char	**info;
+		if (check_valid_character(line) == ERROR)
+			return (ERROR);
+		
+		free_array(info);	
+	}
+}
+
+/*
+
+ 上部の情報　・　下部のMAP どうわける？ -- どこからMAPが始まるか判断する
+ 
+ MAPの始まる箇所から終わりまで新しい２D配列にコピーする。
+ コピーしたMAP配列をつかってMAPのチェック
+
+ */
+
+/*
+Error cases
+
+- invalid identifier
+- identifier must be followed by ' ' tab;
+- invalid path (path doesn't open) or color info
+- invalid char inside map
+- map is not walled
+- more than one player
+
+*/
 
 

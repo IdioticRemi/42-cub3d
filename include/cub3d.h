@@ -11,10 +11,12 @@
 # include "../mlx/mlx.h"
 # include <string.h>
 
+# define ERROR				-1
+
 # define GRID_SIZE			32
 # define BUFFER_SIZE		1
 # define SCREEN_WIDTH		640
-# define SCREEN_HEIGHT		480 //Screen heightとWin_height変数２つあるのでどちらかに揃える
+# define SCREEN_HEIGHT		480
 
 # define PI					3.1415926535
 
@@ -45,9 +47,9 @@
 
 /* GAME STATUS */
 # define GAME_START			1
-# define GAME_PLAY			2
-# define GAME_CONTINUE		3
-# define GAME_END			4
+# define GAME_PLAY			2 //いらないかも
+# define GAME_CONTINUE		3 //これも
+# define GAME_END			4 //これも
 
 typedef struct s_vect
 {
@@ -63,28 +65,29 @@ typedef struct s_image
 	int		width;
 } t_image;
 
-typedef struct s_texture
+typedef struct s_info
 {
-	char	*no_path;
-	char	*so_path;
-	char	*we_path;
-	char	*ea_path;
+	char	*n_path;
+	char	*s_path;
+	char	*w_path;
+	char	*e_path;
 	int		floor;
 	int		ceiling;
 	int		draw_start;
 	int		draw_end;
 	int		line_height;
 	int		color;
-}	t_texture;
+}	t_info;
 
 typedef struct s_map
 {
 	char		**array;
-	int			row_count;
-	int			column_count;
+	int			size;
+	int			row_count; // erase
+	int			column_count; //erase
 } t_map;
 
-typedef struct s_tile
+typedef struct s_tile //to be erased
 {
 	t_image		wall;
 	t_image		exit;
@@ -94,22 +97,19 @@ typedef struct s_tile
 typedef struct s_player
 {	
 	char		start_dir;
-	t_vect	start_grid;
-	t_vect	pos;
+	t_vect		start_grid;
+	t_vect		pos;
 }	t_player;
 
 typedef struct s_fov
 {
-	float		x;
-	float		y;
-	int			fov;
+	int			angle;
 	t_vect		dir;
 	t_vect		plane;
-	int			angle;
 	float		move_speed;
 	float		rot_angle;
 	float		cameraX;
-}	t_fov;
+} t_fov;
 
 typedef struct s_ray
 {
@@ -131,7 +131,7 @@ typedef struct s_cub
 {
 	void		*mlx;
 	void		*win;
-	t_texture	texture;
+	t_info	info;
 	t_player	player;
 	t_tile		tile;
 	t_fov		fov;
@@ -141,13 +141,6 @@ typedef struct s_cub
 	int			win_height;
 	int			win_width;
 } t_cub;
-
-/* struct for test - to be erased later */
-typedef struct s_vis
-{
-	t_cub	cub;
-}	t_vis;
-
 
 /* init */
 void	init_game();
@@ -181,14 +174,13 @@ void	draw_vertical_line(t_cub *cub, int x, int y1, int y2, int color);
 void	put_ray(t_cub *cub);
 void	draw_background(t_cub *cub);
 
-/* error */
+/* error / exit */
 void	error_message_exit(char *message);
-
-/* exit */
 int		exit_hook(void);
 
 /* free */
 void	free_map_arr(t_cub *cub);
+void	free_char_array(char **arr);
 
 /* map */
 int		map_check_file_extension(char *filename, char *ext);
@@ -199,7 +191,7 @@ void	map_check_format(t_cub *cub);
 int		key_input(int keycode, t_cub *cub);
 void	player_get_coord(t_cub *cub);
 void	rotate(t_cub *cub, float rot_angle);
-int	key_press(t_cub *cub, int key);
+int		key_press(t_cub *cub, int key);
 
 /* raycaster */
 void	raycaster(t_cub *cub, t_fov *fov);
@@ -213,10 +205,6 @@ t_vect	vector_multi(t_vect vec, float num);
 /* fov */
 t_vect	set_fov_direction(t_cub *cub);
 t_vect	set_fov_plane(t_cub *cub, int width);
-
-
-/* test_visual - erase later */
-void	init_visual(t_vis *vis);
 
 
 #endif

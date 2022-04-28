@@ -1,22 +1,5 @@
 #include "cub3d.h"
 
-/*
-void	set_ray_values(t_cub *cub, int x)
-{
-	cub->fov.cameraX = (2 * x / (float)(cub->win_width)) - 1;
-
-	cub->ray.dir.x = cub->fov.dir.x + cub->fov.plane.x * cub->fov.cameraX;
-	cub->ray.dir.y = cub->fov.dir.y + cub->fov.plane.y * cub->fov.cameraX;
-	cub->ray.mapX = (int)(cub->player.pos.x);
-	cub->ray.mapY = (int)(cub->player.pos.y);
-
-	cub->ray.delta_distX = sqrt(1 + (cub->ray.dir.y * cub->ray.dir.y) / (cub->ray.dir.x * cub->ray.dir.x));
-	cub->ray.delta_distY = sqrt(1 + (cub->ray.dir.x * cub->ray.dir.x) / (cub->ray.dir.y * cub->ray.dir.y));
-
-	cub->ray.hit = 0;
-}
-*/
-
 void	get_side_dist_and_step(t_ray *ray, t_player *player)
 {
 	if (ray->dir.x < 0)
@@ -71,29 +54,29 @@ printf("[y]sideX2: %f | sideY2: %f | mapX2: %d | mapY2: %d\n", ray->side_distX, 
 void	get_start_and_end(t_cub *cub, t_ray *ray)
 {
 	
-	cub->texture.line_height = (int)(cub->win_height / ray->perpWallDist);
-	cub->texture.draw_start = (-cub->texture.line_height / 2) + (cub->win_height / 2);
-	if (cub->texture.draw_start < 0)
-			cub->texture.draw_start = 0;
-	cub->texture.draw_end = (cub->texture.line_height / 2) + (cub->win_height / 2);
-	if (cub->texture.draw_end >= cub->win_height)
-		cub->texture.draw_end = cub->win_height - 1;
+	cub->info.line_height = (int)(cub->win_height / ray->perpWallDist);
+	cub->info.draw_start = (-cub->info.line_height / 2) + (cub->win_height / 2);
+	if (cub->info.draw_start < 0)
+			cub->info.draw_start = 0;
+	cub->info.draw_end = (cub->info.line_height / 2) + (cub->win_height / 2);
+	if (cub->info.draw_end >= cub->win_height)
+		cub->info.draw_end = cub->win_height - 1;
 }
 
 void	set_color(t_cub *cub, t_ray *ray)
 {
 	if (cub->map.array[ray->mapX][ray->mapY] == 1)
-		cub->texture.color = PINK;
+		cub->info.color = PINK;
 	else if (cub->map.array[ray->mapX][ray->mapY] == 2)
-		cub->texture.color = RED;
+		cub->info.color = RED;
 	else if (cub->map.array[ray->mapX][ray->mapY] == 3)
-		cub->texture.color = YELLOW;
+		cub->info.color = YELLOW;
 	else if (cub->map.array[ray->mapX][ray->mapY] == 4)
-		cub->texture.color = GRAY;
+		cub->info.color = GRAY;
 	else
-		cub->texture.color = WHITE;
+		cub->info.color = WHITE;
 	if (ray->side_hit == 1)
-		cub->texture.color = cub->texture.color / 2;
+		cub->info.color = cub->info.color / 2;
 }
 
 void	raycaster(t_cub *cub, t_fov *fov)
@@ -116,8 +99,7 @@ void	raycaster(t_cub *cub, t_fov *fov)
 		ray.delta_distX = fabs(1 / ray.dir.x);
 		ray.delta_distY = fabs(1 / ray.dir.y);
 		ray.hit = 0;
-// printf("[ray.dir]x: %f | y: %f | [delta]x: %f | y: %f\n", ray.dir.x, ray.dir.y, ray.delta_distX, ray.delta_distY);
-// printf("dirX: %f | dirY: %f | mapX: %d | mapY: %d\n", ray.dir.x, ray.dir.y, ray.mapX, ray.mapY);	
+
 		get_side_dist_and_step(&ray, &cub->player);
 		dda_algo(&ray, &cub->map);
 		if (ray.side_hit == 0)
@@ -126,7 +108,7 @@ void	raycaster(t_cub *cub, t_fov *fov)
 			ray.perpWallDist = (ray.mapY - cub->player.pos.y + (1 - ray.step_y) / 2) / ray.dir.y;
 		get_start_and_end(cub, &ray);
 		set_color(cub, &ray);
-		draw_vertical_line(cub, x, cub->texture.draw_start, cub->texture.draw_end, cub->texture.color);
+		draw_vertical_line(cub, x, cub->info.draw_start, cub->info.draw_end, cub->info.color);
 		x++;
 	}
 }
