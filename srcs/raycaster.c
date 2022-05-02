@@ -30,20 +30,20 @@ void	dda_algo(t_ray *ray, t_map *map)
 	{
 		if (ray->side_distX < ray->side_distY)
 		{
-printf("[x] sideX1: %f | sideY1: %f | mapX1: %d | mapY1: %d\n", ray->side_distX, ray->side_distY, ray->mapX, ray->mapY);
+// printf("[x] sideX1: %f | sideY1: %f | mapX1: %d | mapY1: %d\n", ray->side_distX, ray->side_distY, ray->mapX, ray->mapY);
 			ray->side_distX += ray->delta_distX;
 			ray->mapX += ray->step_x;
 			ray->side_hit = 0;
-printf("[x]sideX2: %f | sideY2: %f | mapX2: %d | mapY2: %d\n", ray->side_distX, ray->side_distY, ray->mapX, ray->mapY);
+// printf("[x]sideX2: %f | sideY2: %f | mapX2: %d | mapY2: %d\n", ray->side_distX, ray->side_distY, ray->mapX, ray->mapY);
 		}
 		else
 		{
-printf("[y]sideX1: %f | sideY1: %f | mapX1: %d | mapY1: %d\n", ray->side_distX, ray->side_distY, ray->mapX, ray->mapY);
+// printf("[y]sideX1: %f | sideY1: %f | mapX1: %d | mapY1: %d\n", ray->side_distX, ray->side_distY, ray->mapX, ray->mapY);
 
 			ray->side_distY += ray->delta_distY;
 			ray->mapY += ray->step_y;
 			ray->side_hit = 1;
-printf("[y]sideX2: %f | sideY2: %f | mapX2: %d | mapY2: %d\n", ray->side_distX, ray->side_distY, ray->mapX, ray->mapY);
+// printf("[y]sideX2: %f | sideY2: %f | mapX2: %d | mapY2: %d\n", ray->side_distX, ray->side_distY, ray->mapX, ray->mapY);
 
 		}
 		if (map->array[ray->mapX][ray->mapY] > 0)

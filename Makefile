@@ -5,8 +5,7 @@ SRC_DIR		=	srcs
 OBJ_DIR		=	objs
 
 SRC			=	main.c				\
-				error.c				\
-				exit.c				\
+				error_exit.c		\
 				fov.c				\
 				free.c				\
 				get_next_line.c		\

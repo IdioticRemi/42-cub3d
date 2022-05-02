@@ -65,7 +65,7 @@ int	check_valid_character(char *line)
 IDに沿ってPath情報をStructの変数に代入
 最後に配列をフリー
 */
-int		get_id_and_path(t_cub *cub, char *str)
+char	**get_id_and_path(char *str)
 {
 	char **ret;
 	ret = ft_split(str, ' ');
@@ -82,6 +82,7 @@ char	check_identifier(char *str)
 	int		i;
 
 	i = 0;
+	id = '\0';
 	while (str[i] == ' ' || str[i] == '\t')
 		i++;
 	if ((str[i] == 'N' && str[i + 1] == ' ') || (str[i] == 'N' && str[i + 1] == 'O'))
@@ -101,7 +102,7 @@ char	check_identifier(char *str)
 	return (id);
 }
 
-int		save_info(t_cub *cub, char **info_str)
+void		save_info(t_cub *cub, char **info_str)
 {
 // store each info to texture structure by identifier
 	int		i;
@@ -117,12 +118,12 @@ int		save_info(t_cub *cub, char **info_str)
 	else if (id == 'E')
 		cub->info.e_path = ft_strdup(info_str[1]);
 	else if (id == 'F')
-		cub->info.floor = get_color_number(info_str);
+		cub->info.floor = get_color_number(info_str[1]);
 	else if (id == 'C')
-		cub->info.ceiling = get_color_number(info_str);
+		cub->info.ceiling = get_color_number(info_str[1]);
 }
 
-int		check_valid_texture_path(t_cub *cub, char *path)
+int		check_valid_texture_path(char *path)
 {
 	int		fd;
 
@@ -132,32 +133,14 @@ int		check_valid_texture_path(t_cub *cub, char *path)
 	return (0);
 }
 
-int		map_read_file(t_cub *cub, char *file_path)
-{
-	char	*line;
-	int		i;
-	int		j;
-	int		fd;
 
-	i = 0;
-	fd = open(file_path, O_RDONLY);
-	if (fd < 0)
-		error_message_exit("Failed to open file");
-	while (get_next_line(fd, *line) > 0)
-	{
-		char	**info;
-		if (check_valid_character(line) == ERROR)
-			return (ERROR);
-		
-		free_array(info);	
-	}
-}
+int		map_read_file(char *file_path);
+
 
 /*
 上部の情報　・　下部のMAP どうわける？ -- どこからMAPが始まるか判断する
 MAPの始まる箇所から終わりまで新しい２D配列にコピーする。
 コピーしたMAP配列をつかってMAPのチェック
-
 */
 
 /*

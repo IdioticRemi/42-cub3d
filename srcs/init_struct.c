@@ -6,8 +6,8 @@ void	init_struct_texture(t_cub *cub)
 	cub->info.s_path = NULL;
 	cub->info.w_path = NULL;
 	cub->info.e_path = NULL;
-	cub->info.floor = cub->info.floor;
-	cub->info.ceiling = cub->info.ceiling;
+	cub->info.floor = GREEN; //temp
+	cub->info.ceiling = BLUE; // temp
 }
 
 void	init_struct_map(t_cub *cub)
