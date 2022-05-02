@@ -47,9 +47,10 @@
 
 /* GAME STATUS */
 # define GAME_START			1
-# define GAME_PLAY			2 //いらないかも
-# define GAME_CONTINUE		3 //これも
-# define GAME_END			4 //これも
+# define GAME_PLAY			2 //erase maybe
+# define GAME_CONTINUE		3 //erase maybe
+# define GAME_END			4 //erase maybe
+
 
 typedef struct s_vect
 {
@@ -61,11 +62,9 @@ typedef struct s_image
 {
 	void	*ptr;
 	char	*addr;
-	int		height;
-	int		width;
 } t_image;
 
-typedef struct s_info
+typedef struct s_info //map info 
 {
 	char	*n_path;
 	char	*s_path;
@@ -73,10 +72,7 @@ typedef struct s_info
 	char	*e_path;
 	int		floor;
 	int		ceiling;
-	int		draw_start;
-	int		draw_end;
-	int		line_height;
-	int		color;
+
 }	t_info;
 
 typedef struct s_map
@@ -87,18 +83,20 @@ typedef struct s_map
 	int			column_count; //erase
 } t_map;
 
-typedef struct s_tile //to be erased
+typedef struct s_texture
 {
-	t_image		wall;
-	t_image		exit;
-	t_image		space;
-} t_tile;
+	t_image		north;
+	t_image		south;
+	t_image		west;
+	t_image		east;
+}	t_texture;
 
 typedef struct s_player
 {	
 	char		start_dir;
-	t_vect		start_grid;
-	t_vect		pos;
+	t_vect		start_grid; // position coordinate
+	t_vect		pos; //actual 2d position
+
 }	t_player;
 
 typedef struct s_fov
@@ -125,6 +123,11 @@ typedef struct s_ray
 	int		hit;
 	int		side_hit;
 	float	perpWallDist;
+
+	int		draw_start;
+	int		draw_end;
+	int		line_height;
+	int		color;
 }	t_ray;
 
 typedef struct s_cub
@@ -133,10 +136,11 @@ typedef struct s_cub
 	void		*win;
 	t_info	info;
 	t_player	player;
-	t_tile		tile;
+	t_texture	texture;
 	t_fov		fov;
 	t_ray		ray;
 	t_map		map;
+
 	int			status;
 	int			win_height;
 	int			win_width;
