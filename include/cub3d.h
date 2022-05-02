@@ -11,19 +11,30 @@
 # include "../mlx/mlx.h"
 # include <string.h>
 
+// Constants
+# define PI					3.1415926535
 # define ERROR				-1
 
-# define TILE_SIZE			1
-# define BUFFER_SIZE		1
+// GNL
+# define BUFFER_SIZE		42
+
+// Screen Size
 # define SCREEN_WIDTH		640
 # define SCREEN_HEIGHT		480
 
+// Map settings
+# define TILE_SIZE			1
+
+// Player settings
 # define MOVE_SPEED			0.1
 # define ROTATE_SPEED		0.1
 
-# define PI					3.1415926535
+// Camera settings
 # define FOV				PI / 2
+# define FOV_DEG			90
 
+// Render settings
+# define STRIP_WIDTH		SCREEN_WIDTH / FOV_DEG
 
 /* COLORS FOR TESTS */
 # define BLACK				0x000000
@@ -120,10 +131,6 @@ typedef struct s_dda
 	int		side_hit;
 	float	perpWallDist;
 
-	int		draw_start;
-	int		draw_end;
-	int		line_height;
-	int		color;
 }	t_dda;
 
 typedef struct s_cub
