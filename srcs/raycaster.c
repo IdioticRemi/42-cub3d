@@ -1,5 +1,30 @@
 #include "cub3d.h"
 
+void	bresenham(t_cub *cub, t_vect src, t_vect dest, int color)
+{
+	double	stepX;
+	double	stepY;
+	int i;
+
+	dprintf(1, "%f %f | %f %f\n", src.x, src.y, dest.x, dest.y);
+	src.x *= 100 * TILE_SIZE;
+	src.y *= 100 * TILE_SIZE;
+	dest.x *= 100 * TILE_SIZE;
+	dest.y *= 100 * TILE_SIZE;
+	stepX = dest.x - src.x;
+	stepY = dest.y - src.y;
+	i = fmax(fabs(stepX), fabs(stepY));
+	stepX /= i;
+	stepY /= i;
+	while ((int)(src.x - dest.x) || (int)(src.y - dest.y))
+	{
+		if (!(src.x >= SCREEN_WIDTH || src.y >= SCREEN_HEIGHT || src.x < 0 || src.y < 0))
+			mlx_img_pixel_put(cub, src.x, src.y, color);
+		src.x += stepX;
+		src.y += stepY;
+	}
+}
+
 void	get_side_dist_and_step(t_dda *dda, t_player *player)
 {
 	if (dda->dir.x < 0)
@@ -60,6 +85,10 @@ void	render_ray(t_cub *cub, int ray_index, t_dda dda)
 
 	x = ray_index * STRIP_WIDTH;
 	len = SCREEN_HEIGHT / dda.perpWallDist;
+	if (len < 50)
+		len = 50;
+	if (len > SCREEN_HEIGHT)
+		len = SCREEN_HEIGHT;
 
 	i = -1;
 	while (++i < STRIP_WIDTH)
@@ -68,27 +97,57 @@ void	render_ray(t_cub *cub, int ray_index, t_dda dda)
 		while (++j < len)
 		{
 			if (dda.side_hit == 0)
-				mlx_img_pixel_put(cub, x + i, SCREEN_HEIGHT / 2 - len / 2 + j, RED);
-			else
 				mlx_img_pixel_put(cub, x + i, SCREEN_HEIGHT / 2 - len / 2 + j, PINK);
+			else
+				mlx_img_pixel_put(cub, x + i, SCREEN_HEIGHT / 2 - len / 2 + j, BLACK);
 		}
 	}
+}
+void	render_map(t_cub *cub)
+{
+	for (int x = 0; x < cub->map.column_count; x++)
+	{
+		for (int y = 0; y < cub->map.row_count; y++)
+		{
+			int shiftX = x * 100;
+			int shiftY = y * 100;
+			char tile = cub->map.array[x][y];
+			char obstacle = tile == '1';
+			for (int a = 0; a < 100; a++)
+			{
+				for (int b = 0; b < 100; b++)
+				{
+					if (obstacle)
+						mlx_img_pixel_put(cub, shiftX + a, shiftY + b, BLACK);
+					else
+						mlx_img_pixel_put(cub, shiftX + a, shiftY + b, WHITE);
+				}
+			}
+		}
+	}
+}
+
+void	render_2d(t_cub *cub, t_dda dda)
+{
+	bresenham(cub, cub->player.pos, 
+		set_vector(cub->player.pos.x + cos(cub->cam.yaw) * dda.perpWallDist, cub->player.pos.y + sin(cub->cam.yaw) * dda.perpWallDist), BLACK);
 }
 
 void	raycaster(t_cub *cub)
 {
 	int	x;
-	float tempX;
+	float ratioX;
 	t_dda dda;
 
+	render_map(cub);
 	x = 0;
 	while (x < STRIP_COUNT)
 	{
-		tempX = ((float)x / ((float)STRIP_COUNT));
-		dprintf(1, "%f | rad: %f\n", tempX, 2 * tempX * FOV - 1);
-		dda.dir.x = cos(cub->cam.yaw + (2 * tempX * FOV - 1));
-		dda.dir.y = sin(cub->cam.yaw + (2 * tempX * FOV - 1));
-		dprintf(1, "%d | x: %f | y: %f\n", x, dda.dir.x, dda.dir.y);
+		ratioX = ((float)x / ((float)STRIP_COUNT));
+		//dprintf(1, "%f | rad: %f\n", ratioX, 2 * ratioX * FOV - 1);
+		dda.dir.x = cos(cub->cam.yaw + ((ratioX * FOV)));
+		dda.dir.y = sin(cub->cam.yaw + ((ratioX * FOV)));
+		// dprintf(1, "%d | angle: %f\n", x, acos(dda.dir.x) / PI * 180);
 		dda.mapX = cub->player.pos.x / TILE_SIZE;
 		dda.mapY = cub->player.pos.y / TILE_SIZE;
 
@@ -103,7 +162,8 @@ void	raycaster(t_cub *cub)
 			dda.perpWallDist = (dda.mapX - cub->player.pos.x + (1 - dda.step_x) / 2) / dda.dir.x;
 		else
 			dda.perpWallDist = (dda.mapY - cub->player.pos.y + (1 - dda.step_y) / 2) / dda.dir.y;
-		render_ray(cub, x, dda);
+		// render_ray(cub, x, dda);
+		render_2d(cub, dda);
 		x++;
 	}
 }

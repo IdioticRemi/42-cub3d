@@ -35,7 +35,7 @@ void	init_player(t_cub *cub)
 		{
 			if (ft_strchr("NSWE", cub->map.array[i][j]))
 			{
-				cub->player.pos = set_vector(j * TILE_SIZE, i * TILE_SIZE);
+				cub->player.pos = set_vector(j * TILE_SIZE + TILE_SIZE / 2, i * TILE_SIZE + TILE_SIZE / 2);
 				init_camera(cub, cub->map.array[i][j]);
 			}
 			j++;

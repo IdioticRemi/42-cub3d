@@ -10,10 +10,10 @@ void	test_parsing(t_cub *cub)
 	cub->info.w_path = ft_strdup("./assets_xpm/black_square32.xpm");
 	cub->info.e_path = ft_strdup("./assets_xpm/black_square32.xpm");
 
-	cub->map.column_count = 15;
-	cub->map.row_count = 9;
-	//                          |    |    |    |    |    |
-	cub->map._array = ft_strdup("111111111111111100000000000001101010101N10001100000100111111111000000000001100000000000001100001111000001100001010000001111111111111111");
+	cub->map.column_count = 8;
+	cub->map.row_count = 8;
+
+	cub->map._array = ft_strdup("11111111101N0001100001111000000111100001100000011001000111111111");
 	cub->map.array = malloc(sizeof(char *) * cub->map.column_count);
 
 	for (int i = 0; i < cub->map.column_count; i++)
@@ -51,7 +51,7 @@ int	main(int argc, char **argv)
 	init_game(&cub);
 	// map_check_file_extension(map_path, ".cub");
 	// map_read_and_check(&cub, map_path);
-	// mlx_hook(cub.win, EVENT_KEY_PRESS, 1L << 0, &key_input, &cub);
+	mlx_hook(cub.win, EVENT_KEY_PRESS, 1L << 0, &key_input, &cub);
 	mlx_loop_hook(cub.mlx, &game_loop, &cub);
 	mlx_hook(cub.win, EVENT_EXIT, 0, exit_hook, 0);
 	mlx_loop(cub.mlx);

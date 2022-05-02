@@ -23,7 +23,7 @@
 # define SCREEN_HEIGHT		1280
 
 // Map settings
-# define TILE_SIZE			1
+# define TILE_SIZE			1.0
 
 // Player settings
 # define MOVE_SPEED			0.1
@@ -39,7 +39,7 @@
 # define FOV_SHIFT			FOV / STRIP_COUNT
 
 /* COLORS FOR TESTS */
-# define BLACK				0x000000
+# define BLACK				0x010101
 # define WHITE				0xffffff
 # define YELLOW				0xf7d331
 # define GRAY				0x808485
