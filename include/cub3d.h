@@ -13,12 +13,17 @@
 
 # define ERROR				-1
 
-# define GRID_SIZE			32
+# define TILE_SIZE			1
 # define BUFFER_SIZE		1
 # define SCREEN_WIDTH		640
 # define SCREEN_HEIGHT		480
 
+# define MOVE_SPEED			0.1
+# define ROTATE_SPEED		0.1
+
 # define PI					3.1415926535
+# define FOV				PI / 2
+
 
 /* COLORS FOR TESTS */
 # define BLACK				0x000000
@@ -44,13 +49,6 @@
 
 # define EVENT_KEY_PRESS	2
 # define EVENT_EXIT			17
-
-/* GAME STATUS */
-# define GAME_START			1
-# define GAME_PLAY			2 //erase maybe
-# define GAME_CONTINUE		3 //erase maybe
-# define GAME_END			4 //erase maybe
-
 
 typedef struct s_vect
 {
@@ -83,6 +81,7 @@ typedef struct s_map
 	int			column_count; //erase
 } t_map;
 
+
 typedef struct s_texture
 {
 	t_image		north;
@@ -91,25 +90,22 @@ typedef struct s_texture
 	t_image		east;
 }	t_texture;
 
+typedef struct s_camera
+{
+	float		yaw;
+	
+} t_camera;
+
 typedef struct s_player
 {	
 	char		start_dir;
 	t_vect		start_grid; // position coordinate
 	t_vect		pos; //actual 2d position
+	t_camera	cam;
 
 }	t_player;
 
-typedef struct s_fov
-{
-	int			angle;
-	t_vect		dir;
-	t_vect		plane;
-	float		move_speed;
-	float		rot_angle;
-	float		cameraX;
-} t_fov;
-
-typedef struct s_ray
+typedef struct s_dda
 {
 	t_vect	dir;
 	int		mapX;
@@ -128,7 +124,7 @@ typedef struct s_ray
 	int		draw_end;
 	int		line_height;
 	int		color;
-}	t_ray;
+}	t_dda;
 
 typedef struct s_cub
 {
@@ -137,13 +133,10 @@ typedef struct s_cub
 	t_info	info;
 	t_player	player;
 	t_texture	texture;
-	t_fov		fov;
-	t_ray		ray;
+	t_camera	cam;
+	t_dda		dda;
 	t_map		map;
 
-	int			status;
-	int			win_height;
-	int			win_width;
 } t_cub;
 
 /* init */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test_display.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seoyounglee <seoyounglee@student.42lyon    +#+  +:+       +#+        */
+/*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:18:51 by selee             #+#    #+#             */
-/*   Updated: 2022/04/27 10:07:59 by seoyounglee      ###   ########lyon.fr   */
+/*   Updated: 2022/05/02 10:52:10 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	put_player_pixel(t_cub *cub)
 {
-	mlx_pixel_put(cub->mlx, cub->win, cub->player.pos.x * GRID_SIZE, cub->player.pos.y * GRID_SIZE, RED);
+	mlx_pixel_put(cub->mlx, cub->win, cub->player.pos.x * TEXTURE_SIZE, cub->player.pos.y * TEXTURE_SIZE, RED);
 }
 
 void	put_map_to_win(t_cub *cub)
@@ -29,10 +29,10 @@ void	put_map_to_win(t_cub *cub)
 		while (j < cub->map.column_count)
 		{		
 			mlx_put_image_to_window(cub->mlx, cub->win,
-				cub->tile.space.ptr, j * GRID_SIZE, i * GRID_SIZE);
+				cub->texture.space.ptr, j * TEXTURE_SIZE, i * TEXTURE_SIZE);
 			if (cub->map.array[i][j] == '1')
 				mlx_put_image_to_window(cub->mlx, cub->win,
-					cub->tile.wall.ptr, j * GRID_SIZE, i * GRID_SIZE);
+					cub->texture.wall.ptr, j * TEXTURE_SIZE, i * TEXTURE_SIZE);
 			j++;
 		}
 		i++;
@@ -73,7 +73,7 @@ void	put_ray(t_cub *cub)
 	t_player	p;
 	p = cub->player; 
 	
-	while (cub->map.array[(int)(p.pos.y / GRID_SIZE)][(int)(p.pos.x / GRID_SIZE)] != '1')
+	while (cub->map.array[(int)(p.pos.y / TEXTURE_SIZE)][(int)(p.pos.x / TEXTURE_SIZE)] != '1')
 	{
 		p.pos.x += cub->fov.dir.x;
 		p.pos.y += cub->fov.dir.y;
