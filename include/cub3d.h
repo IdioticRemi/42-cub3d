@@ -71,6 +71,9 @@ typedef struct s_image
 {
 	void	*ptr;
 	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
 } t_image;
 
 typedef struct s_info //map info 
@@ -87,7 +90,7 @@ typedef struct s_info //map info
 typedef struct s_map
 {
 	char		**array;
-	int			size;
+	char		*_array;
 	int			row_count; // erase
 	int			column_count; //erase
 } t_map;
@@ -108,12 +111,8 @@ typedef struct s_camera
 } t_camera;
 
 typedef struct s_player
-{	
-	char		start_dir;
-	t_vect		start_grid; // position coordinate
+{
 	t_vect		pos; //actual 2d position
-	t_camera	cam;
-
 }	t_player;
 
 typedef struct s_dda
@@ -137,7 +136,8 @@ typedef struct s_cub
 {
 	void		*mlx;
 	void		*win;
-	t_info	info;
+	t_info		info;
+	t_image		screen;
 	t_player	player;
 	t_texture	texture;
 	t_camera	cam;
@@ -155,7 +155,6 @@ void	init_map_value();
 void	init_struct_img(t_cub *cub);
 void	init_struct_texture(t_cub *cub);
 void	init_struct_map(t_cub *cub);
-void	init_struct_player(t_cub *cub);
 void	init_struct_fov(t_cub *cub);
 void	init_struct_cub(t_cub *cub);
 void	init_struct(t_cub *cub);

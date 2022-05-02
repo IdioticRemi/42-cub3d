@@ -1,23 +1,26 @@
 #include "cub3d.h"
 
-void	init_struct_texture(t_cub *cub)
-{
-	cub->info.n_path = NULL;
-	cub->info.s_path = NULL;
-	cub->info.w_path = NULL;
-	cub->info.e_path = NULL;
-	cub->info.floor = GREEN; //temp
-	cub->info.ceiling = BLUE; // temp
-}
-
 void	init_struct_map(t_cub *cub)
 {
 	cub->map.array = NULL;
+	cub->map._array = NULL;
 	cub->map.row_count = 0;
 	cub->map.column_count = 0;
 }
 
-void	init_struct_player(t_cub *cub)
+static void	init_camera(t_cub *cub, char dir)
+{
+	if (dir == 'N')
+		cub->cam.yaw = 0;
+	else if (dir == 'W')
+		cub->cam.yaw = PI / 2;
+	else if (dir == 'S')
+		cub->cam.yaw = PI;
+	else if (dir == 'E')
+		cub->cam.yaw = PI / 2 * 3;
+}
+
+void	init_player(t_cub *cub)
 {
 	int		i;
 	int		j;
@@ -28,13 +31,10 @@ void	init_struct_player(t_cub *cub)
 		j = 0;
 		while (j < cub->map.column_count)
 		{
-			if (cub->map.array[i][j] == 'N'
-				||cub->map.array[i][j] == 'S'
-				||cub->map.array[i][j] == 'W'
-				||cub->map.array[i][j] == 'E')
+			if (ft_strchr("NSWE", cub->map.array[i][j]))
 			{
-				cub->player.start_dir = cub->map.array[i][j];
-				cub->player.pos = set_vector(j, i);
+				cub->player.pos = set_vector(j * TILE_SIZE, i * TILE_SIZE);
+				init_camera(cub, cub->map.array[i][j]);
 			}
 			j++;
 		}
@@ -42,17 +42,12 @@ void	init_struct_player(t_cub *cub)
 	}
 }
 
-void	init_struct_fov(t_cub *cub)
+void	init_game(t_cub *cub)
 {
-	cub->fov.angle = 60;
-	cub->fov.dir = set_fov_direction(cub);
-	cub->fov.plane = set_fov_plane(cub, SCREEN_WIDTH);
-	cub->fov.move_speed = 0.05;
-	cub->fov.rot_angle = 0.05;
-}
-
-void	init_struct(t_cub *cub)
-{
-	init_struct_texture(cub);
-	init_struct_map(cub);
+	cub->mlx = mlx_init();
+	cub->win = mlx_new_window(cub->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "cub3d");
+	init_player(cub);
+	cub->screen.ptr = (cub->mlx, SCREEN_WIDTH, SCREEN_HEIGHT); //create new image of the screen itself
+	cub->screen.addr = mlx_get_data_addr(cub->screen.ptr, 
+		&cub->screen.bits_per_pixel, &cub->screen.line_length, &cub->screen.endian);
 }

@@ -2,11 +2,9 @@
 
 int	game_loop(t_cub *cub)
 {
-	if (cub->status == GAME_PLAY)
-	{
-		draw_background(cub);
-		raycaster(cub, &cub->fov);
-	}
+	draw_background(cub);
+	raycaster(cub);
+	mlx_put_image_to_window(cub->mlx, cub->win, cub->screen.ptr, 0, 0);
 	return (0);
 }
 
@@ -18,9 +16,8 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		error_message_exit("Invalid argument");
 	map_path = argv[1];
-	cub.status = GAME_PLAY;
 	init_struct(&cub);
-	map_check_file_extension(map_path, ".ber");
+	map_check_file_extension(map_path, ".cub");
 	map_read_and_check(&cub, map_path);
 	init_game(&cub);
 	mlx_hook(cub.win, EVENT_KEY_PRESS, 1L << 0, &key_input, &cub);
@@ -28,3 +25,7 @@ int	main(int argc, char **argv)
 	mlx_hook(cub.win, EVENT_EXIT, 0, exit_hook, 0);
 	mlx_loop(cub.mlx);
 }
+
+
+
+
