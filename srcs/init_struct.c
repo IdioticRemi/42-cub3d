@@ -18,6 +18,9 @@ static void	init_camera(t_cub *cub, char dir)
 		cub->cam.yaw = PI;
 	else if (dir == 'E')
 		cub->cam.yaw = PI / 2 * 3;
+	else
+		cub->cam.yaw = 0;
+	dprintf(1, "%f\n", cub->cam.yaw);
 }
 
 void	init_player(t_cub *cub)
@@ -31,6 +34,7 @@ void	init_player(t_cub *cub)
 		j = 0;
 		while (j < cub->map.column_count)
 		{
+			
 			if (ft_strchr("NSWE", cub->map.array[i][j]))
 			{
 				cub->player.pos = set_vector(j * TILE_SIZE, i * TILE_SIZE);
@@ -47,7 +51,7 @@ void	init_game(t_cub *cub)
 	cub->mlx = mlx_init();
 	cub->win = mlx_new_window(cub->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "cub3d");
 	init_player(cub);
-	cub->screen.ptr = (cub->mlx, SCREEN_WIDTH, SCREEN_HEIGHT); //create new image of the screen itself
+	cub->screen.ptr = mlx_new_image(cub->mlx, SCREEN_WIDTH, SCREEN_HEIGHT); //create new image of the screen itself
 	cub->screen.addr = mlx_get_data_addr(cub->screen.ptr, 
 		&cub->screen.bits_per_pixel, &cub->screen.line_length, &cub->screen.endian);
 }

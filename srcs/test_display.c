@@ -6,12 +6,12 @@
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:18:51 by selee             #+#    #+#             */
-/*   Updated: 2022/05/02 10:52:10 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/05/02 14:00:51 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
+/*
 void	put_player_pixel(t_cub *cub)
 {
 	mlx_pixel_put(cub->mlx, cub->win, cub->player.pos.x * TEXTURE_SIZE, cub->player.pos.y * TEXTURE_SIZE, RED);
@@ -91,4 +91,4 @@ void	put_horizontal_line(t_cub *cub)
 		mlx_pixel_put(cub->mlx, cub->win, i, (cub->win_height / 2), GREEN);
 		i++;
 	}
-}
+}*/

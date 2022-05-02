@@ -20,14 +20,14 @@ void	draw_background(t_cub *cub)
 	{
 		x = -1;
 		while (++x < SCREEN_WIDTH)
-			mlx_img_pixel_put(cub->mlx, cub->win, x, y, cub->info.ceiling);
+			mlx_img_pixel_put(cub, x, y, cub->info.ceiling);
 		y++;
 	}
 	while (y < SCREEN_HEIGHT)
 	{
 		x = -1;
 		while (++x < SCREEN_WIDTH)
-			mlx_img_pixel_put(cub->mlx, cub->win, x, y, cub->info.floor);
+			mlx_img_pixel_put(cub, x, y, cub->info.floor);
 		y++;
 	}
 }

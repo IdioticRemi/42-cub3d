@@ -1,5 +1,8 @@
 #include "cub3d.h"
 
+
+
+
 int	convert_color_number(int r, int g, int b)
 {
 	int	color;
@@ -65,6 +68,7 @@ int	check_valid_character(char *line)
 IDに沿ってPath情報をStructの変数に代入
 最後に配列をフリー
 */
+
 char	**get_id_and_path(char *str)
 {
 	char **ret;

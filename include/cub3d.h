@@ -129,7 +129,7 @@ typedef struct s_dda
 	int		hit;
 	int		side_hit;
 	float	perpWallDist;
-
+	float	cameraX;
 }	t_dda;
 
 typedef struct s_cub
@@ -173,9 +173,8 @@ void	put_player_to_win(t_cub *cub);
 void	put_horizontal_line(t_cub *cub);
 
 /* render */
-void	draw_vertical_line(t_cub *cub, int x, int y1, int y2, int color);
-void	put_ray(t_cub *cub);
 void	draw_background(t_cub *cub);
+void	mlx_img_pixel_put(t_cub *cub, int x, int y, int color);
 
 /* error / exit */
 void	error_message_exit(char *message);
@@ -197,7 +196,7 @@ void	rotate(t_cub *cub, float rot_angle);
 int		key_press(t_cub *cub, int key);
 
 /* raycaster */
-void	raycaster(t_cub *cub, t_fov *fov);
+void	raycaster(t_cub *cub);
 
 /* vector utils*/
 t_vect	set_vector(float x, float y);

@@ -92,7 +92,7 @@ int main_loop(t_info *info)
 	int x;
 
 	x = 0;
-	while (x < screenWidth)
+	while (x < screenHeight)
 	{
 		double cameraX = (2 * x / (double)(screenWidth)) - 1;
 		// 光の方向

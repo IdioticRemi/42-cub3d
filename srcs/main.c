@@ -1,5 +1,36 @@
 #include "cub3d.h"
 
+void	test_parsing(t_cub *cub)
+{
+	cub->info.floor = GREEN;
+	cub->info.ceiling = BLUE;
+	
+	cub->info.n_path = ft_strdup("./assets_xpm/black_square32.xpm");
+	cub->info.s_path = ft_strdup("./assets_xpm/black_square32.xpm");
+	cub->info.w_path = ft_strdup("./assets_xpm/black_square32.xpm");
+	cub->info.e_path = ft_strdup("./assets_xpm/black_square32.xpm");
+
+	cub->map.column_count = 5;
+	cub->map.row_count = 5;
+	//                          |    |    |    |    |    |
+	cub->map._array = ft_strdup("11111101011000110N0111111");
+	cub->map.array = malloc(sizeof(char *) * cub->map.column_count);
+
+	for (int i = 0; i < cub->map.column_count; i++)
+	{
+		cub->map.array[i] = &cub->map._array[i * cub->map.column_count];
+	}
+
+	for (int i = 0; i < cub->map.column_count; i++)
+	{
+		for (int j = 0; j < cub->map.row_count; j++)
+		{
+			ft_putchar_fd(cub->map.array[i][j], 1);
+		}
+		ft_putchar_fd('\n', 1);
+	}
+}
+
 int	game_loop(t_cub *cub)
 {
 	draw_background(cub);
@@ -16,11 +47,11 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		error_message_exit("Invalid argument");
 	map_path = argv[1];
-	init_struct(&cub);
-	map_check_file_extension(map_path, ".cub");
-	map_read_and_check(&cub, map_path);
 	init_game(&cub);
-	mlx_hook(cub.win, EVENT_KEY_PRESS, 1L << 0, &key_input, &cub);
+	test_parsing(&cub);
+	// map_check_file_extension(map_path, ".cub");
+	// map_read_and_check(&cub, map_path);
+	// mlx_hook(cub.win, EVENT_KEY_PRESS, 1L << 0, &key_input, &cub);
 	mlx_loop_hook(cub.mlx, &game_loop, &cub);
 	mlx_hook(cub.win, EVENT_EXIT, 0, exit_hook, 0);
 	mlx_loop(cub.mlx);
