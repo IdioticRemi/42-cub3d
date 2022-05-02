@@ -67,10 +67,10 @@ void	render_ray(t_cub *cub, int ray_index, t_dda dda)
 		j = -1;
 		while (++j < len)
 		{
-			if (dda.hit == 0)
-				mlx_img_pixel_put(cub, x + i, SCREEN_HEIGHT / 2 - len / 2 + j, BLACK);
+			if (dda.side_hit == 0)
+				mlx_img_pixel_put(cub, x + i, SCREEN_HEIGHT / 2 - len / 2 + j, RED);
 			else
-				mlx_img_pixel_put(cub, x + i, SCREEN_HEIGHT / 2 - len / 2 + j, WHITE);
+				mlx_img_pixel_put(cub, x + i, SCREEN_HEIGHT / 2 - len / 2 + j, PINK);
 		}
 	}
 }
@@ -78,15 +78,17 @@ void	render_ray(t_cub *cub, int ray_index, t_dda dda)
 void	raycaster(t_cub *cub)
 {
 	int	x;
+	float tempX;
 	t_dda dda;
 
 	x = 0;
-	while (x < FOV_DEG)
+	while (x < STRIP_COUNT)
 	{
-		// dprintf(1, "%d | yaw: %f\n", x, cub->cam.yaw * 180 / PI);
-		dda.dir.x = cos(cub->cam.yaw + (2 * x * (PI / FOV_DEG) - 1));
-		dda.dir.y = sin(cub->cam.yaw + (2 * x * (PI / FOV_DEG) - 1));
-		// dprintf(1, "%d | x: %f | y: %f\n", x, dda.dir.x, dda.dir.y);
+		tempX = ((float)x / ((float)STRIP_COUNT));
+		dprintf(1, "%f | rad: %f\n", tempX, 2 * tempX * FOV - 1);
+		dda.dir.x = cos(cub->cam.yaw + (2 * tempX * FOV - 1));
+		dda.dir.y = sin(cub->cam.yaw + (2 * tempX * FOV - 1));
+		dprintf(1, "%d | x: %f | y: %f\n", x, dda.dir.x, dda.dir.y);
 		dda.mapX = cub->player.pos.x / TILE_SIZE;
 		dda.mapY = cub->player.pos.y / TILE_SIZE;
 

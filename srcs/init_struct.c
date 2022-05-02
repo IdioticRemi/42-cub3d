@@ -20,7 +20,6 @@ static void	init_camera(t_cub *cub, char dir)
 		cub->cam.yaw = PI / 2 * 3;
 	else
 		cub->cam.yaw = 0;
-	dprintf(1, "%f\n", cub->cam.yaw);
 }
 
 void	init_player(t_cub *cub)
@@ -34,7 +33,6 @@ void	init_player(t_cub *cub)
 		j = 0;
 		while (j < cub->map.column_count)
 		{
-			
 			if (ft_strchr("NSWE", cub->map.array[i][j]))
 			{
 				cub->player.pos = set_vector(j * TILE_SIZE, i * TILE_SIZE);

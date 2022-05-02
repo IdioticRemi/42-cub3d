@@ -19,8 +19,8 @@
 # define BUFFER_SIZE		42
 
 // Screen Size
-# define SCREEN_WIDTH		640
-# define SCREEN_HEIGHT		480
+# define SCREEN_WIDTH		1980
+# define SCREEN_HEIGHT		1280
 
 // Map settings
 # define TILE_SIZE			1
@@ -34,7 +34,9 @@
 # define FOV_DEG			90
 
 // Render settings
-# define STRIP_WIDTH		SCREEN_WIDTH / FOV_DEG
+# define STRIP_WIDTH		4
+# define STRIP_COUNT		SCREEN_WIDTH / STRIP_WIDTH
+# define FOV_SHIFT			FOV / STRIP_COUNT
 
 /* COLORS FOR TESTS */
 # define BLACK				0x000000
