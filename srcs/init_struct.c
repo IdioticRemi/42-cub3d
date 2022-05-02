@@ -11,15 +11,13 @@ void	init_struct_map(t_cub *cub)
 static void	init_camera(t_cub *cub, char dir)
 {
 	if (dir == 'N')
-		cub->cam.yaw = 0;
-	else if (dir == 'W')
-		cub->cam.yaw = PI / 2;
-	else if (dir == 'S')
-		cub->cam.yaw = PI;
-	else if (dir == 'E')
 		cub->cam.yaw = PI / 2 * 3;
-	else
+	else if (dir == 'E')
 		cub->cam.yaw = 0;
+	else if (dir == 'S')
+		cub->cam.yaw = PI / 2;
+	else if (dir == 'W')
+		cub->cam.yaw = PI;
 }
 
 void	init_player(t_cub *cub)

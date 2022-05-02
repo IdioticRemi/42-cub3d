@@ -139,7 +139,6 @@ void	raycaster(t_cub *cub)
 	float ratioX;
 	t_dda dda;
 
-	render_map(cub);
 	x = 0;
 	while (x < STRIP_COUNT)
 	{
@@ -162,8 +161,9 @@ void	raycaster(t_cub *cub)
 			dda.perpWallDist = (dda.mapX - cub->player.pos.x + (1 - dda.step_x) / 2) / dda.dir.x;
 		else
 			dda.perpWallDist = (dda.mapY - cub->player.pos.y + (1 - dda.step_y) / 2) / dda.dir.y;
-		// render_ray(cub, x, dda);
-		render_2d(cub, dda);
+		render_ray(cub, x, dda);
 		x++;
 	}
+	render_map(cub);
+	render_2d(cub, dda);
 }
