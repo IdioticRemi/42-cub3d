@@ -25,7 +25,3 @@ int	main(int argc, char **argv)
 	mlx_hook(cub.win, EVENT_EXIT, 0, exit_hook, 0);
 	mlx_loop(cub.mlx);
 }
-
-
-
-
