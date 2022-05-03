@@ -20,13 +20,13 @@
 
 // Screen Size
 # define SCREEN_WIDTH		1980
-# define SCREEN_HEIGHT		1280
+# define SCREEN_HEIGHT		720
 
 // Map settings
-# define TILE_SIZE			1.0
+# define TILE_SIZE			100.0
 
 // Player settings
-# define MOVE_SPEED			0.1
+# define MOVE_SPEED			TILE_SIZE / 10
 # define ROTATE_SPEED		0.1
 
 // Camera settings
@@ -34,19 +34,20 @@
 # define FOV_DEG			66
 
 // Render settings
-# define STRIP_WIDTH		50
+# define STRIP_WIDTH		2
 # define STRIP_COUNT		SCREEN_WIDTH / STRIP_WIDTH
 # define FOV_SHIFT			FOV / STRIP_COUNT
 
 /* COLORS FOR TESTS */
-# define BLACK				0x010101
-# define WHITE				0xffffff
-# define YELLOW				0xf7d331
-# define GRAY				0x808485
-# define RED				0xff0000
-# define GREEN				0xecffdc
-# define BLUE				0x58cced
-# define PINK				0xff69b4
+# define BLACK				0x00010101
+# define WHITE				0x00ffffff
+# define YELLOW				0x00f7d331
+# define GRAY				0x00808080
+# define DGRAY				0x00707070
+# define RED				0x00ff4242
+# define GREEN				0x0042ff42
+# define BLUE				0x0042aaff
+# define PINK				0x00ff69b4
 
 /* KEYS */
 # define KEY_ESC			53
@@ -62,6 +63,19 @@
 
 # define EVENT_KEY_PRESS	2
 # define EVENT_EXIT			17
+
+typedef union	u_rgba
+{
+	struct
+	{
+		unsigned char b;
+		unsigned char g;
+		unsigned char r;
+		unsigned char a;
+	};
+	unsigned int value;
+}	t_rgba;
+
 
 typedef struct s_vect
 {
@@ -119,21 +133,12 @@ typedef struct s_player
 
 typedef struct s_dda
 {
-	t_vect	dir;
-	t_vect	dst;
+	t_vect	vert;
+	t_vect	hori;
 	t_vect	offset;
+	t_vect	relPos;
 	int		mapX;
 	int		mapY;
-	float	side_distX;
-	float	side_distY;
-	float	delta_distX;
-	float	delta_distY;
-	int		step_x;
-	int		step_y;
-	int		hit;
-	int		side_hit;
-	float	perpWallDist;
-	float	cameraX;
 }	t_dda;
 
 typedef struct s_cub

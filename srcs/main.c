@@ -2,8 +2,8 @@
 
 void	test_parsing(t_cub *cub)
 {
-	cub->info.floor = GRAY;
-	cub->info.ceiling = GRAY;
+	cub->info.floor = PINK;
+	cub->info.ceiling = BLUE;
 	
 	cub->info.n_path = ft_strdup("./assets_xpm/black_square32.xpm");
 	cub->info.s_path = ft_strdup("./assets_xpm/black_square32.xpm");
@@ -13,7 +13,7 @@ void	test_parsing(t_cub *cub)
 	cub->map.column_count = 8;
 	cub->map.row_count = 8;
 
-	cub->map._array = ft_strdup("11111111101N0001100001111000000111100001100000011001000111111111");
+	cub->map._array = ft_strdup("11111111101E0001100001111000000111100001100000011001000111111111");
 	cub->map.array = malloc(sizeof(char *) * cub->map.column_count);
 
 	for (int i = 0; i < cub->map.column_count; i++)

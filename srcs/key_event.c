@@ -8,17 +8,24 @@ void	rotate(t_cub *cub, float rot_angle)
 
 int	key_movement(t_cub *cub, int keycode)
 {
-	if (keycode == KEY_W)
-		cub->player.pos.y -= MOVE_SPEED;
-	else if (keycode == KEY_S)
-		cub->player.pos.y += MOVE_SPEED;
-	else if (keycode == KEY_A)
-		cub->player.pos.x -= MOVE_SPEED;
-	else if (keycode == KEY_D)
-		cub->player.pos.x += MOVE_SPEED;
-	else if (keycode == KEY_LEFT)
+	t_vect	direction;
+
+	direction = set_vector(cub->cam.yaw + FOV / 2, cub->cam.yaw + FOV / 2);
+	if (keycode == KEY_S)
+		direction = vector_add(direction, set_vector(PI, PI));
+	if (keycode == KEY_A)
+		direction = vector_subs(direction, set_vector(PI / 2, PI / 2));
+	if (keycode == KEY_D)
+		direction = vector_add(direction, set_vector(PI / 2, PI / 2));
+	if (keycode == KEY_W || keycode == KEY_S || keycode == KEY_A || keycode == KEY_D)
+	{
+		direction = set_vector(cos(direction.x), sin(direction.y));
+		direction = vector_multi(direction, MOVE_SPEED);
+		cub->player.pos = vector_add(cub->player.pos, direction);
+	}
+	if (keycode == KEY_LEFT)
 		rotate(cub, -ROTATE_SPEED);
-	else if (keycode == KEY_RIGHT)
+	if (keycode == KEY_RIGHT)
 		rotate(cub, ROTATE_SPEED);
 	return (0);
 }
