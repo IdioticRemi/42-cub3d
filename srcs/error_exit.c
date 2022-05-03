@@ -9,7 +9,8 @@ void	error_message_exit(char *message)
 	exit(EXIT_FAILURE);
 }
 
-int	exit_hook(void)
+int	exit_hook(t_cub *cub)
 {
+	free_map_arr(cub);
 	exit(0);
 }

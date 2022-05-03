@@ -30,11 +30,11 @@
 # define ROTATE_SPEED		0.1
 
 // Camera settings
-# define FOV				PI / 2
-# define FOV_DEG			90
+# define FOV				PI / 3
+# define FOV_DEG			66
 
 // Render settings
-# define STRIP_WIDTH		4
+# define STRIP_WIDTH		50
 # define STRIP_COUNT		SCREEN_WIDTH / STRIP_WIDTH
 # define FOV_SHIFT			FOV / STRIP_COUNT
 
@@ -120,6 +120,8 @@ typedef struct s_player
 typedef struct s_dda
 {
 	t_vect	dir;
+	t_vect	dst;
+	t_vect	offset;
 	int		mapX;
 	int		mapY;
 	float	side_distX;
@@ -180,7 +182,7 @@ void	mlx_img_pixel_put(t_cub *cub, int x, int y, int color);
 
 /* error / exit */
 void	error_message_exit(char *message);
-int		exit_hook(void);
+int		exit_hook(t_cub *cub);
 
 /* free */
 void	free_map_arr(t_cub *cub);

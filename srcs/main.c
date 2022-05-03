@@ -2,8 +2,8 @@
 
 void	test_parsing(t_cub *cub)
 {
-	cub->info.floor = GREEN;
-	cub->info.ceiling = BLUE;
+	cub->info.floor = GRAY;
+	cub->info.ceiling = GRAY;
 	
 	cub->info.n_path = ft_strdup("./assets_xpm/black_square32.xpm");
 	cub->info.s_path = ft_strdup("./assets_xpm/black_square32.xpm");
@@ -53,6 +53,6 @@ int	main(int argc, char **argv)
 	// map_read_and_check(&cub, map_path);
 	mlx_hook(cub.win, EVENT_KEY_PRESS, 1L << 0, &key_input, &cub);
 	mlx_loop_hook(cub.mlx, &game_loop, &cub);
-	mlx_hook(cub.win, EVENT_EXIT, 0, exit_hook, 0);
+	mlx_hook(cub.win, EVENT_EXIT, 0, exit_hook, &cub);
 	mlx_loop(cub.mlx);
 }
