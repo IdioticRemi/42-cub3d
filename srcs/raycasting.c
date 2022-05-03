@@ -34,7 +34,7 @@ void	put_point(t_cub *cub, t_vect coords, int color)
 	}
 }
 
-void	draw_strip(t_cub *cub, int rayID, float dist, int side)
+void	draw_strip(t_cub *cub, int rayID, float dist)
 {
 	int		len;
 	float	d;
@@ -43,22 +43,16 @@ void	draw_strip(t_cub *cub, int rayID, float dist, int side)
 	t_rgba	color;
 
 	color.value = WHITE;
-	if (side)
-	{
-		color.r *= 0.9;
-		color.g *= 0.9;
-		color.b *= 0.9;
-	}
-	d = (dist / TILE_SIZE) - 1;
+	d = (dist / TILE_SIZE) - 0.42;
 	if (d >= 1)
 	{
 		color.r *= 1.0 / d;
 		color.g *= 1.0 / d;
 		color.b *= 1.0 / d;
 	}
-	color.r = math_map(color.r, set_vector(0, 255), set_vector(60, 200));
-	color.g = math_map(color.g, set_vector(0, 255), set_vector(60, 200));
-	color.b = math_map(color.b, set_vector(0, 255), set_vector(60, 200));
+	color.r = math_map(color.r, set_vector(0, 255), set_vector(80, 200));
+	color.g = math_map(color.g, set_vector(0, 255), set_vector(80, 200));
+	color.b = math_map(color.b, set_vector(0, 255), set_vector(80, 200));
 	len = SCREEN_HEIGHT / (dist / TILE_SIZE);
 	if (len < 50)
 		len = 50;
@@ -216,12 +210,13 @@ void	cast_ray(t_cub *cub, float angle, int rayID)
 	// 3D!
 	angle = cos(angle - cub->cam.yaw - FOV / 2);
 	
+	
 	// if (rayID == 0 || rayID - STRIP_COUNT == -1 || rayID == STRIP_COUNT / 2)
 	// 	dprintf(1, "%3d > %f\n", rayID, angle);
 
 	distFinal = fmin(distHori, distVert) * angle;
 
-	draw_strip(cub, rayID, distFinal, distHori > distVert);
+	draw_strip(cub, rayID, distFinal);
 }
 
 void	raycaster(t_cub *cub)
@@ -241,5 +236,4 @@ void	raycaster(t_cub *cub)
 		deltaCam = math_map(i, src_range, dst_range);
 		cast_ray(cub, cub->cam.yaw + deltaCam, i);
 	}
-	dprintf(1, "\n");
 }

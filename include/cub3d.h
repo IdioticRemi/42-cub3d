@@ -19,7 +19,7 @@
 # define BUFFER_SIZE		42
 
 // Screen Size
-# define SCREEN_WIDTH		1980
+# define SCREEN_WIDTH		1280
 # define SCREEN_HEIGHT		720
 
 // Map settings
@@ -31,10 +31,10 @@
 
 // Camera settings
 # define FOV				PI / 3
-# define FOV_DEG			66
+# define FOV_DEG			67
 
 // Render settings
-# define STRIP_WIDTH		2
+# define STRIP_WIDTH		8
 # define STRIP_COUNT		SCREEN_WIDTH / STRIP_WIDTH
 # define FOV_SHIFT			FOV / STRIP_COUNT
 
@@ -46,8 +46,8 @@
 # define DGRAY				0x00707070
 # define RED				0x00ff4242
 # define GREEN				0x0042ff42
-# define BLUE				0x0042aaff
-# define PINK				0x00ff69b4
+# define BLUE				0x004298aa
+# define PINK				0x00aa4298
 
 /* KEYS */
 # define KEY_ESC			53
