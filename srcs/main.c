@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/04 12:49:39 by selee             #+#    #+#             */
+/*   Updated: 2022/05/04 12:55:52 by selee            ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	test_parsing(t_cub *cub)
 {
 	cub->info.floor = PINK;
 	cub->info.ceiling = BLUE;
-	
+
 	cub->info.n_path = ft_strdup("./assets_xpm/black_square32.xpm");
 	cub->info.s_path = ft_strdup("./assets_xpm/black_square32.xpm");
 	cub->info.w_path = ft_strdup("./assets_xpm/black_square32.xpm");

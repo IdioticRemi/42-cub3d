@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   key_event.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/04 12:49:37 by selee             #+#    #+#             */
+/*   Updated: 2022/05/04 12:55:14 by selee            ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	rotate(t_cub *cub, float rot_angle)
@@ -48,7 +60,8 @@ void	handle_movement(t_cub *cub)
 {
 	t_vect	movement;
 
-	if (cub->keys.key_w || cub->keys.key_s || cub->keys.key_a || cub->keys.key_d)
+	if (cub->keys.key_w || cub->keys.key_s
+		|| cub->keys.key_a || cub->keys.key_d)
 	{
 		movement = collision_handler(cub);
 		cub->player.pos = vector_add(cub->player.pos, movement);

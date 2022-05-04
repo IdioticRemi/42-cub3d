@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   raycasting.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/04 12:48:27 by selee             #+#    #+#             */
+/*   Updated: 2022/05/04 12:58:33 by selee            ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 float	math_map(float x, t_vect src_range, t_vect dst_range)
 {
-	float out;
+	float	out;
 
 	if (x > src_range.y)
 		return (dst_range.y);
@@ -17,7 +29,8 @@ float	math_dist(t_vect origin, t_vect arrival)
 {
 	float dist;
 
-	dist = sqrtf((arrival.x - origin.x) * (arrival.x - origin.x) + (arrival.y - origin.y) * (arrival.y - origin.y));
+	dist = sqrtf((arrival.x - origin.x) * (arrival.x - origin.x)
+		+ (arrival.y - origin.y) * (arrival.y - origin.y));
 	return (dist);
 }
 
@@ -245,7 +258,11 @@ void	raycaster(t_cub *cub)
 	}
 	render_map(cub);
 	miniPlayer = vector_multi(cub->player.pos, MINIMAP_SCALE);
-	bresenham(cub, miniPlayer, vector_add(miniPlayer, set_vector(cos(cub->cam.yaw - FOV / 2) * 20, sin(cub->cam.yaw - FOV / 2) * 20)), PINK);
-	bresenham(cub, miniPlayer, vector_add(miniPlayer, set_vector(cos(cub->cam.yaw + FOV / 2) * 20, sin(cub->cam.yaw + FOV / 2) * 20)), PINK);
+	bresenham(cub, miniPlayer, vector_add(miniPlayer, 
+			set_vector(cos(cub->cam.yaw - FOV / 2) * 20, 
+			sin(cub->cam.yaw - FOV / 2) * 20)), PINK);
+	bresenham(cub, miniPlayer, vector_add(miniPlayer, 
+			set_vector(cos(cub->cam.yaw + FOV / 2) * 20, 
+			sin(cub->cam.yaw + FOV / 2) * 20)), PINK);
 	put_point(cub, miniPlayer, BLACK);
 }

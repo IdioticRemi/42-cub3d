@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_struct.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/04 12:49:35 by selee             #+#    #+#             */
+/*   Updated: 2022/05/04 12:55:00 by selee            ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	init_struct_map(t_cub *cub)
@@ -33,7 +45,8 @@ void	init_player(t_cub *cub)
 		{
 			if (ft_strchr("NSWE", cub->map.array[i][j]))
 			{
-				cub->player.pos = set_vector(j * TILE_SIZE + TILE_SIZE / 2, i * TILE_SIZE + TILE_SIZE / 2);
+				cub->player.pos = set_vector(j * TILE_SIZE + TILE_SIZE / 2,
+						i * TILE_SIZE + TILE_SIZE / 2);
 				init_camera(cub, cub->map.array[i][j]);
 			}
 			j++;
@@ -47,7 +60,8 @@ void	init_game(t_cub *cub)
 	cub->mlx = mlx_init();
 	cub->win = mlx_new_window(cub->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "cub3d");
 	init_player(cub);
-	cub->screen.ptr = mlx_new_image(cub->mlx, SCREEN_WIDTH, SCREEN_HEIGHT); //create new image of the screen itself
-	cub->screen.addr = mlx_get_data_addr(cub->screen.ptr, 
-		&cub->screen.bits_per_pixel, &cub->screen.line_length, &cub->screen.endian);
+	cub->screen.ptr = mlx_new_image(cub->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
+	cub->screen.addr = mlx_get_data_addr(cub->screen.ptr,
+			&cub->screen.bits_per_pixel,
+			&cub->screen.line_length, &cub->screen.endian);
 }

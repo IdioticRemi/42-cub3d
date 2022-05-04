@@ -6,7 +6,7 @@
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:19:06 by selee             #+#    #+#             */
-/*   Updated: 2022/04/04 16:56:22 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/05/04 12:53:29 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	var_init(char **store, int *size_read, char **new_line)
 
 void	append_string(char **str_pointer, const char *to_append)
 {
-	char *str;
+	char	*str;
 
 	str = *str_pointer;
 	*str_pointer = ft_strjoin(str, to_append);
@@ -37,7 +37,7 @@ void	append_string(char **str_pointer, const char *to_append)
 
 int	return_result(char *new_line, char **store, char **line)
 {
-	char *temp;
+	char	*temp;
 
 	if (new_line)
 	{
@@ -50,7 +50,7 @@ int	return_result(char *new_line, char **store, char **line)
 		return (1);
 	}
 	*line = ft_strdup(*store);
-	clean_free((void**)store);
+	clean_free((void **)store);
 	return (0);
 }
 
