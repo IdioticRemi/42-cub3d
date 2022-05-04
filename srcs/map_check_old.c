@@ -6,7 +6,7 @@
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 16:18:58 by selee             #+#    #+#             */
-/*   Updated: 2022/05/04 15:41:38 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/05/04 16:55:40 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,4 @@ int	map_check_file_extension(char *filename, char *ext)
 		j++;
 	}
 	return (1);
-}
-
-void	map_check_format(t_cub *cub)
-{
-	if (cub->map.row_count == cub->map.column_count)
-		error_message_exit("Map is not rectangular");
-
 }

@@ -6,7 +6,7 @@
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 16:34:14 by selee             #+#    #+#             */
-/*   Updated: 2022/05/04 16:35:37 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/05/04 16:38:10 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,26 @@
 // 		}
 // 	}
 // }
+
+void	put_point(t_cub *cub, t_vect crd, int color)
+{
+	int	x;
+	int	y;
+
+	x = -1;
+	while (++x < 5)
+	{
+		y = -1;
+		while (++y < 5)
+		{
+			if (!(crd.x + x - 2 < 0
+					|| crd.x + x - 2 > SCREEN_WIDTH
+					|| crd.y + y - 2 < 0
+					|| crd.y + y - 2 > SCREEN_HEIGHT))
+				mlx_img_pixel_put(cub, crd.x + x - 2, crd.y + y - 2, color);
+		}
+	}
+}
 
 void	draw_minimap(t_cub *cub, int shift_x, int shift_y, char obstacle)
 {

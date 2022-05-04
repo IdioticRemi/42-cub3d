@@ -6,7 +6,7 @@
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 12:49:50 by selee             #+#    #+#             */
-/*   Updated: 2022/05/04 16:36:57 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/05/04 16:38:03 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,26 +42,6 @@ void	draw_background(t_cub *cub)
 		while (++x < SCREEN_WIDTH)
 			mlx_img_pixel_put(cub, x, y, cub->info.floor);
 		y++;
-	}
-}
-
-void	put_point(t_cub *cub, t_vect crd, int color)
-{
-	int	x;
-	int	y;
-
-	x = -1;
-	while (++x < 5)
-	{
-		y = -1;
-		while (++y < 5)
-		{
-			if (!(crd.x + x - 2 < 0
-					|| crd.x + x - 2 > SCREEN_WIDTH
-					|| crd.y + y - 2 < 0
-					|| crd.y + y - 2 > SCREEN_HEIGHT))
-				mlx_img_pixel_put(cub, crd.x + x - 2, crd.y + y - 2, color);
-		}
 	}
 }
 

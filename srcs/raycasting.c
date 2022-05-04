@@ -6,7 +6,7 @@
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 12:48:27 by selee             #+#    #+#             */
-/*   Updated: 2022/05/04 16:35:17 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/05/04 16:54:13 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,14 @@ void	bresenham(t_cub *cub, t_vect src, t_vect dest, int color)
 	}
 }
 
-void	cast_ray(t_cub *cub, float angle, int rayID)
+void	cast_ray(t_cub *cub, float angle, int ray_id)
 {
 	static int	max_dist = 8;
+	t_dda		dda;
 	int			dist;
 	float		dist_vert;
 	float		dist_hori;
 	float		dist_final;
-	t_dda		dda;
 
 	while (angle > 2 * PI)
 		angle -= 2 * PI;
@@ -147,10 +147,10 @@ void	cast_ray(t_cub *cub, float angle, int rayID)
 	// 	bresenham(cub, cub->player.pos, dda.hori, RED);
 	// 3D!
 	angle = cos(angle - cub->cam.yaw - FOV / 2);
-	// if (rayID == 0 || rayID - STRIP_COUNT == -1 || rayID == STRIP_COUNT / 2)
-	// 	dprintf(1, "%3d > %f\n", rayID, angle);
+	// if (ray_id == 0 || ray_id - STRIP_COUNT == -1 || ray_id == STRIP_COUNT / 2)
+	// 	dprintf(1, "%3d > %f\n", ray_id, angle);
 	dist_final = fmin(dist_hori, dist_vert) * angle;
-	draw_strip(cub, rayID, dist_final, dist_hori < dist_vert);
+	draw_strip(cub, ray_id, dist_final, dist_hori < dist_vert);
 }
 
 void	raycaster(t_cub *cub)

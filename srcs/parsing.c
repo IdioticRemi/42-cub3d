@@ -6,12 +6,11 @@
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 12:49:45 by selee             #+#    #+#             */
-/*   Updated: 2022/05/04 15:57:11 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/05/04 16:42:28 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
 
 int	convert_color_number(int r, int g, int b)
 {
@@ -24,15 +23,14 @@ int	convert_color_number(int r, int g, int b)
 int	get_color_number(char *color_info)
 {
 	char	**color;
-	int	r;
-	int	g;
-	int	b;
+	int		r;
+	int		g;
+	int		b;
 
-	color = ft_split(color_info, ','); //handle ' '?
+	color = ft_split(color_info, ',');
 	r = ft_atoi(color[0]);
 	g = ft_atoi(color[1]);
 	b = ft_atoi(color[2]);
-
 	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
 		error_message_exit("Invalid color number");
 	return (convert_color_number(r, g, b));
@@ -43,7 +41,7 @@ int	map_check_extension(char *filename, char *ext)
 	int	i;
 	int	j;
 
-	if(ext[0] != '.')
+	if (ext[0] != '.')
 		error_message_exit("Invalid extension");
 	i = ft_strlen(filename) - ft_strlen(ext);
 	j = 0;
@@ -73,7 +71,8 @@ int	check_valid_character(char *line)
 
 char	**get_id_and_path(char *str)
 {
-	char **ret;
+	char	**ret;
+
 	ret = ft_split(str, ' ');
 	if (!ret)
 		error_message_exit("Info failed");
@@ -106,10 +105,11 @@ char	check_identifier(char *str)
 	return (id);
 }
 
-void		save_info(t_cub *cub, char **info_str)
+void	save_info(t_cub *cub, char **info_str)
 {
 	int		i;
 	char	id;
+
 	i = 0;
 	id = check_identifier(info_str[0]);
 	if (id == 'N')
@@ -126,7 +126,7 @@ void		save_info(t_cub *cub, char **info_str)
 		cub->info.ceiling = get_color_number(info_str[1]);
 }
 
-int		check_valid_texture_path(char *path)
+int	check_valid_texture_path(char *path)
 {
 	int		fd;
 

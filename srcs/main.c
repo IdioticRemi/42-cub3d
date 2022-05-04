@@ -6,7 +6,7 @@
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 12:49:39 by selee             #+#    #+#             */
-/*   Updated: 2022/05/04 15:40:43 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/05/04 16:53:48 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ int	main(int argc, char **argv)
 	test_parsing(&cub);
 	init_game(&cub);
 	// map_check_file_extension(map_path, ".cub");
-	// map_read_and_check(&cub, map_path);
 	mlx_hook(cub.win, KEYPRESS, 1L << 0, &key_press_event, &cub);
 	mlx_hook(cub.win, KEYRELEASE, 1L << 1, &key_release_event, &cub);
 	mlx_loop_hook(cub.mlx, &game_loop, &cub);
