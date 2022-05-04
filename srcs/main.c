@@ -29,6 +29,13 @@ void	test_parsing(t_cub *cub)
 		}
 		ft_putchar_fd('\n', 1);
 	}
+
+	cub->keys.key_w = 0;
+	cub->keys.key_s= 0;
+	cub->keys.key_a = 0;
+	cub->keys.key_d = 0;
+	cub->keys.key_right = 0;
+	cub->keys.key_left = 0;
 }
 
 int	game_loop(t_cub *cub)
@@ -51,7 +58,8 @@ int	main(int argc, char **argv)
 	init_game(&cub);
 	// map_check_file_extension(map_path, ".cub");
 	// map_read_and_check(&cub, map_path);
-	mlx_hook(cub.win, EVENT_KEY_PRESS, 1L << 0, &key_input, &cub);
+	mlx_hook(cub.win, KEYPRESS, 1L << 0, &key_press_event, &cub);
+	mlx_hook(cub.win, KEYRELEASE, 1L << 1, &key_release_event, &cub);
 	mlx_loop_hook(cub.mlx, &game_loop, &cub);
 	mlx_hook(cub.win, EVENT_EXIT, 0, exit_hook, &cub);
 	mlx_loop(cub.mlx);

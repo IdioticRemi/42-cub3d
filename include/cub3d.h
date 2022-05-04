@@ -11,6 +11,9 @@
 # include "../mlx/mlx.h"
 # include <string.h>
 
+# define KEYPRESS	2
+# define KEYRELEASE	3
+
 // Constants
 # define PI					3.1415926535
 # define ERROR				-1
@@ -24,17 +27,18 @@
 
 // Map settings
 # define TILE_SIZE			100.0
+# define MINIMAP_SCALE		0.1
 
 // Player settings
-# define MOVE_SPEED			TILE_SIZE / 10
-# define ROTATE_SPEED		0.1
+# define MOVE_SPEED			TILE_SIZE / 20
+# define ROTATE_SPEED		0.04
 
 // Camera settings
 # define FOV				PI / 3
 # define FOV_DEG			67
 
 // Render settings
-# define STRIP_WIDTH		8
+# define STRIP_WIDTH		1
 # define STRIP_COUNT		SCREEN_WIDTH / STRIP_WIDTH
 # define FOV_SHIFT			FOV / STRIP_COUNT
 
@@ -141,10 +145,21 @@ typedef struct s_dda
 	int		mapY;
 }	t_dda;
 
+typedef struct s_keys
+{
+	int	key_a;
+	int key_w;
+	int key_s;
+	int key_d;
+	int key_right;
+	int key_left;
+}	t_keys;
+
 typedef struct s_cub
 {
 	void		*mlx;
 	void		*win;
+	t_keys		keys;
 	t_info		info;
 	t_image		screen;
 	t_player	player;
@@ -199,10 +214,11 @@ void	map_read_and_check(t_cub *cub, char *map_path);
 void	map_check_format(t_cub *cub);
 
 /* event */
-int		key_input(int keycode, t_cub *cub);
-void	player_get_coord(t_cub *cub);
+int		key_release_event(int keycode, t_cub *cub);
+int		key_press_event(int keycode, t_cub *cub);
+t_vect	collision_handler(t_cub *cub);
 void	rotate(t_cub *cub, float rot_angle);
-int		key_press(t_cub *cub, int key);
+void	handle_movement(t_cub *cub);
 
 /* raycaster */
 void	raycaster(t_cub *cub);

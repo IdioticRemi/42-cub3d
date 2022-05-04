@@ -34,7 +34,7 @@ void	put_point(t_cub *cub, t_vect coords, int color)
 	}
 }
 
-void	draw_strip(t_cub *cub, int rayID, float dist)
+void	draw_strip(t_cub *cub, int rayID, float dist, int side)
 {
 	int		len;
 	float	d;
@@ -53,6 +53,12 @@ void	draw_strip(t_cub *cub, int rayID, float dist)
 	color.r = math_map(color.r, set_vector(0, 255), set_vector(80, 200));
 	color.g = math_map(color.g, set_vector(0, 255), set_vector(80, 200));
 	color.b = math_map(color.b, set_vector(0, 255), set_vector(80, 200));
+	if (side)
+	{
+		color.r *= 0.8;
+		color.g *= 0.8;
+		color.b *= 0.8;
+	}
 	len = SCREEN_HEIGHT / (dist / TILE_SIZE);
 	if (len < 50)
 		len = 50;
@@ -96,13 +102,13 @@ void	render_map(t_cub *cub)
 	{
 		for (int y = 0; y < cub->map.row_count; y++)
 		{
-			int shiftX = x * TILE_SIZE;
-			int shiftY = y * TILE_SIZE;
+			int shiftX = x * TILE_SIZE * MINIMAP_SCALE;
+			int shiftY = y * TILE_SIZE * MINIMAP_SCALE;
 			char tile = cub->map.array[x][y];
 			char obstacle = tile == '1';
-			for (int a = 0; a < TILE_SIZE - 1; a++)
+			for (int a = 0; a < TILE_SIZE * MINIMAP_SCALE; a++)
 			{
-				for (int b = 0; b < TILE_SIZE - 1; b++)
+				for (int b = 0; b < TILE_SIZE * MINIMAP_SCALE; b++)
 				{
 					if (obstacle)
 						mlx_img_pixel_put(cub, shiftX + a, shiftY + b, BLACK);
@@ -216,18 +222,19 @@ void	cast_ray(t_cub *cub, float angle, int rayID)
 
 	distFinal = fmin(distHori, distVert) * angle;
 
-	draw_strip(cub, rayID, distFinal);
+	draw_strip(cub, rayID, distFinal, distHori < distVert);
 }
 
 void	raycaster(t_cub *cub)
 {
+	t_vect	miniPlayer;
 	float	deltaCam;
 	t_vect	src_range;
 	t_vect	dst_range;
 	int		i;
 
-	// 2D!
-	// render_map(cub);
+	handle_movement(cub);
+
 	src_range = set_vector(0, STRIP_COUNT);
 	dst_range = set_vector(-FOV / 2, FOV / 2);
 	i = -1;
@@ -236,4 +243,9 @@ void	raycaster(t_cub *cub)
 		deltaCam = math_map(i, src_range, dst_range);
 		cast_ray(cub, cub->cam.yaw + deltaCam, i);
 	}
+	render_map(cub);
+	miniPlayer = vector_multi(cub->player.pos, MINIMAP_SCALE);
+	bresenham(cub, miniPlayer, vector_add(miniPlayer, set_vector(cos(cub->cam.yaw - FOV / 2) * 20, sin(cub->cam.yaw - FOV / 2) * 20)), PINK);
+	bresenham(cub, miniPlayer, vector_add(miniPlayer, set_vector(cos(cub->cam.yaw + FOV / 2) * 20, sin(cub->cam.yaw + FOV / 2) * 20)), PINK);
+	put_point(cub, miniPlayer, BLACK);
 }
