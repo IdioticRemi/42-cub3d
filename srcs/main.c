@@ -6,7 +6,7 @@
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 12:49:39 by selee             #+#    #+#             */
-/*   Updated: 2022/05/04 12:55:52 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/05/04 15:40:43 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,18 @@ void	test_parsing(t_cub *cub)
 {
 	cub->info.floor = PINK;
 	cub->info.ceiling = BLUE;
-
 	cub->info.n_path = ft_strdup("./assets_xpm/black_square32.xpm");
 	cub->info.s_path = ft_strdup("./assets_xpm/black_square32.xpm");
 	cub->info.w_path = ft_strdup("./assets_xpm/black_square32.xpm");
 	cub->info.e_path = ft_strdup("./assets_xpm/black_square32.xpm");
-
 	cub->map.column_count = 8;
 	cub->map.row_count = 8;
-
 	cub->map._array = ft_strdup("11111111101E0001100001111000000111100001100000011001000111111111");
 	cub->map.array = malloc(sizeof(char *) * cub->map.column_count);
-
 	for (int i = 0; i < cub->map.column_count; i++)
 	{
 		cub->map.array[i] = &cub->map._array[i * cub->map.column_count];
 	}
-
 	for (int i = 0; i < cub->map.column_count; i++)
 	{
 		for (int j = 0; j < cub->map.row_count; j++)
@@ -41,7 +36,6 @@ void	test_parsing(t_cub *cub)
 		}
 		ft_putchar_fd('\n', 1);
 	}
-
 	cub->keys.key_w = 0;
 	cub->keys.key_s= 0;
 	cub->keys.key_a = 0;
@@ -60,7 +54,7 @@ int	game_loop(t_cub *cub)
 
 int	main(int argc, char **argv)
 {
-	char		*map_path;
+	char	*map_path;
 	t_cub	cub;
 
 	if (argc != 2)

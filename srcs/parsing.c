@@ -6,7 +6,7 @@
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 12:49:45 by selee             #+#    #+#             */
-/*   Updated: 2022/05/04 12:49:47 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/05/04 15:57:11 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,19 +65,11 @@ int	check_valid_character(char *line)
 	{
 		if (line[i] != '0' && line[i] != '1' && line[i] != 'N'
 			&& line[i] != 'S' && line[i] != 'W' && line[i] != 'E')
-			return (ERROR);
+			return (0);
 		i++;
 	}
 	return (EXIT_SUCCESS);
 }
-
-/* IDとPath切る　
-スペースでSplitした文字列を２D配列に代入して
-［0］のIDが正しいか判断
-［1］のPathが正しいか判断
-IDに沿ってPath情報をStructの変数に代入
-最後に配列をフリー
-*/
 
 char	**get_id_and_path(char *str)
 {
@@ -88,10 +80,8 @@ char	**get_id_and_path(char *str)
 	return (ret);
 }
 
-/* 切ったIDが正しいか判断　*/
 char	check_identifier(char *str)
 {
-/* check first letters of the str and identify the identifier*/
 	char	id;
 	int		i;
 
@@ -118,7 +108,6 @@ char	check_identifier(char *str)
 
 void		save_info(t_cub *cub, char **info_str)
 {
-// store each info to texture structure by identifier
 	int		i;
 	char	id;
 	i = 0;
@@ -146,27 +135,3 @@ int		check_valid_texture_path(char *path)
 		error_message_exit("Invalid path");
 	return (0);
 }
-
-
-int		map_read_file(char *file_path);
-
-
-/*
-上部の情報　・　下部のMAP どうわける？ -- どこからMAPが始まるか判断する
-MAPの始まる箇所から終わりまで新しい２D配列にコピーする。
-コピーしたMAP配列をつかってMAPのチェック
-*/
-
-/*
-Error cases
-
-- invalid identifier
-- identifier must be followed by ' ' tab;
-- invalid path (path doesn't open) or color info
-- invalid char inside map
-- map is not walled
-- more than one player
-
-*/
-
-

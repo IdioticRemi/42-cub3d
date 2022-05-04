@@ -1,4 +1,16 @@
-#ifndef	CUB3D_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/04 15:49:45 by selee             #+#    #+#             */
+/*   Updated: 2022/05/04 15:59:52 by selee            ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef CUB3D_H
 # define CUB3D_H
 
 # include <unistd.h>
@@ -7,16 +19,15 @@
 # include <fcntl.h>
 # include <math.h>
 # include <limits.h>
+# include <string.h>
 # include "../libft/libft.h"
 # include "../mlx/mlx.h"
-# include <string.h>
 
 # define KEYPRESS	2
 # define KEYRELEASE	3
 
 // Constants
 # define PI					3.1415926535
-# define ERROR				-1
 
 // GNL
 # define BUFFER_SIZE		42
@@ -42,7 +53,7 @@
 # define STRIP_COUNT		SCREEN_WIDTH / STRIP_WIDTH
 # define FOV_SHIFT			FOV / STRIP_COUNT
 
-/* COLORS FOR TESTS */
+//Colors for tests
 # define BLACK				0x00010101
 # define WHITE				0x00ffffff
 # define YELLOW				0x00f7d331
@@ -53,7 +64,7 @@
 # define BLUE				0x004298aa
 # define PINK				0x00aa4298
 
-/* KEYS */
+// Keys
 # define KEY_ESC			53
 # define KEY_SPACE			49
 # define KEY_W				13
@@ -68,18 +79,17 @@
 # define EVENT_KEY_PRESS	2
 # define EVENT_EXIT			17
 
-typedef union	u_rgba
+typedef union u_rgba
 {
 	struct
 	{
-		unsigned char b;
-		unsigned char g;
-		unsigned char r;
-		unsigned char a;
+		unsigned char	b;
+		unsigned char	g;
+		unsigned char	r;
+		unsigned char	a;
 	};
-	unsigned int value;
+	unsigned int		value;
 }	t_rgba;
-
 
 typedef struct s_vect
 {
@@ -94,9 +104,9 @@ typedef struct s_image
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-} t_image;
+}	t_image;
 
-typedef struct s_info //map info 
+typedef struct s_info
 {
 	char	*n_path;
 	char	*s_path;
@@ -109,12 +119,11 @@ typedef struct s_info //map info
 
 typedef struct s_map
 {
-	char		**array;
-	char		*_array;
-	int			row_count; // erase
-	int			column_count; //erase
-} t_map;
-
+	char	**array;
+	char	*_array;
+	int		row_count;
+	int		column_count;
+}	t_map;
 
 typedef struct s_texture
 {
@@ -127,12 +136,11 @@ typedef struct s_texture
 typedef struct s_camera
 {
 	float		yaw;
-	
-} t_camera;
+}	t_camera;
 
 typedef struct s_player
 {
-	t_vect		pos; //actual 2d position
+	t_vect		pos;
 }	t_player;
 
 typedef struct s_dda
@@ -140,19 +148,19 @@ typedef struct s_dda
 	t_vect	vert;
 	t_vect	hori;
 	t_vect	offset;
-	t_vect	relPos;
-	int		mapX;
-	int		mapY;
+	t_vect	rel_pos;
+	int		map_x;
+	int		map_y;
 }	t_dda;
 
 typedef struct s_keys
 {
 	int	key_a;
-	int key_w;
-	int key_s;
-	int key_d;
-	int key_right;
-	int key_left;
+	int	key_w;
+	int	key_s;
+	int	key_d;
+	int	key_right;
+	int	key_left;
 }	t_keys;
 
 typedef struct s_cub
@@ -168,70 +176,49 @@ typedef struct s_cub
 	t_dda		dda;
 	t_map		map;
 
-} t_cub;
+}	t_cub;
 
-/* init */
-void	init_game();
-void	init_game_img();
-void	init_mlx_and_window();
-void	init_map_value();
+// Init
+void	init_game(void);
 
-void	init_struct_img(t_cub *cub);
-void	init_struct_texture(t_cub *cub);
-void	init_struct_map(t_cub *cub);
-void	init_struct_fov(t_cub *cub);
-void	init_struct_cub(t_cub *cub);
-void	init_struct(t_cub *cub);
+// GNL
+int		get_next_line(int fd, char **line);
 
-t_vect	set_fov_direction(t_cub *cub);
-t_vect	set_fov_plane(t_cub *cub, int width);
-
-/* get_next_line */
-int	get_next_line(int fd, char **line);
-
-/* display */
-void	put_map_to_win(t_cub *cub);
-void	put_player_pixel(t_cub *cub);
-void	put_map_grid(t_cub *cub); //test function
-void	put_player_to_win(t_cub *cub);
-void	put_horizontal_line(t_cub *cub);
-
-/* render */
+// Render
 void	draw_background(t_cub *cub);
 void	mlx_img_pixel_put(t_cub *cub, int x, int y, int color);
+void	draw_strip(t_cub *cub, int rayID, float dist, int side);
+void	put_point(t_cub *cub, t_vect coords, int color);
+void	render_map(t_cub *cub);
 
-/* error / exit */
+// Error, exit
 void	error_message_exit(char *message);
 int		exit_hook(t_cub *cub);
 
-/* free */
+// Free
 void	free_map_arr(t_cub *cub);
 void	free_char_array(char **arr);
 
-/* map */
+// Map
 int		map_check_file_extension(char *filename, char *ext);
 void	map_read_and_check(t_cub *cub, char *map_path);
 void	map_check_format(t_cub *cub);
 
-/* event */
+// Event
 int		key_release_event(int keycode, t_cub *cub);
 int		key_press_event(int keycode, t_cub *cub);
 t_vect	collision_handler(t_cub *cub);
 void	rotate(t_cub *cub, float rot_angle);
 void	handle_movement(t_cub *cub);
 
-/* raycaster */
+// Raycaster
 void	raycaster(t_cub *cub);
+float	math_map(float x, t_vect src_range, t_vect dst_range);
 
-/* vector utils*/
+// Vector utils
 t_vect	set_vector(float x, float y);
 t_vect	vector_add(t_vect vec, t_vect to_add);
 t_vect	vector_subs(t_vect vec, t_vect to_sub);
 t_vect	vector_multi(t_vect vec, float num);
-
-/* fov */
-t_vect	set_fov_direction(t_cub *cub);
-t_vect	set_fov_plane(t_cub *cub, int width);
-
 
 #endif
