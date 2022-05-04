@@ -6,7 +6,7 @@
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 16:34:14 by selee             #+#    #+#             */
-/*   Updated: 2022/05/04 16:38:10 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/05/04 17:26:51 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,26 @@
 // 		}
 // 	}
 // }
+void	bresenham(t_cub *cub, t_vect src, t_vect dest, int color)
+{
+	double	step_x;
+	double	step_y;
+	int		i;
+
+	step_x = dest.x - src.x;
+	step_y = dest.y - src.y;
+	i = fmax(fabs(step_x), fabs(step_y));
+	step_x /= i;
+	step_y /= i;
+	while ((int)(src.x - dest.x) || (int)(src.y - dest.y))
+	{
+		if (!(src.x >= SCREEN_WIDTH || src.y >= SCREEN_HEIGHT
+				|| src.x < 0 || src.y < 0))
+			mlx_img_pixel_put(cub, src.x, src.y, color);
+		src.x += step_x;
+		src.y += step_y;
+	}
+}
 
 void	put_point(t_cub *cub, t_vect crd, int color)
 {

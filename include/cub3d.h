@@ -6,7 +6,7 @@
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 15:49:45 by selee             #+#    #+#             */
-/*   Updated: 2022/05/04 16:39:09 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/05/04 17:42:23 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,10 @@ typedef struct s_dda
 	t_vect	rel_pos;
 	int		map_x;
 	int		map_y;
+	int		dist;
+	float	dist_vert;
+	float	dist_hori;
+	float	dist_final;
 }	t_dda;
 
 typedef struct s_keys
@@ -210,8 +214,9 @@ void	rotate(t_cub *cub, float rot_angle);
 void	handle_movement(t_cub *cub);
 
 // Raycaster
+void	calc_horizontal(t_cub *cub, t_dda *dda, float angle, int max_dist);
+void	calc_vertical(t_cub *cub, t_dda *dda, float angle, int max_dist);
 void	raycaster(t_cub *cub);
-float	math_map(float x, t_vect src_range, t_vect dst_range);
 
 // Vector utils
 t_vect	set_vector(float x, float y);
@@ -222,5 +227,10 @@ t_vect	vector_multi(t_vect vec, float num);
 // Minimap
 void	put_point(t_cub *cub, t_vect coords, int color);
 void	render_minimap(t_cub *cub);
+void	bresenham(t_cub *cub, t_vect src, t_vect dest, int color);
+
+// Math utils
+float	math_map(float x, t_vect src_range, t_vect dst_range);
+float	math_dist(t_vect origin, t_vect arrival);
 
 #endif
