@@ -6,7 +6,7 @@
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 15:49:45 by selee             #+#    #+#             */
-/*   Updated: 2022/05/04 15:59:52 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/05/04 16:35:17 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,17 +179,17 @@ typedef struct s_cub
 }	t_cub;
 
 // Init
-void	init_game(void);
+void	init_game(t_cub *cub);
 
 // GNL
-int		get_next_line(int fd, char **line);
+int	get_next_line(int fd, char **line);
 
 // Render
 void	draw_background(t_cub *cub);
 void	mlx_img_pixel_put(t_cub *cub, int x, int y, int color);
 void	draw_strip(t_cub *cub, int rayID, float dist, int side);
 void	put_point(t_cub *cub, t_vect coords, int color);
-void	render_map(t_cub *cub);
+void	render_minimap(t_cub *cub);
 
 // Error, exit
 void	error_message_exit(char *message);
@@ -220,5 +220,9 @@ t_vect	set_vector(float x, float y);
 t_vect	vector_add(t_vect vec, t_vect to_add);
 t_vect	vector_subs(t_vect vec, t_vect to_sub);
 t_vect	vector_multi(t_vect vec, float num);
+
+// Minimap
+void	draw_minimap(t_cub *cub, int shift_x, int shift_y, char obstacle);
+void	render_minimap(t_cub *cub);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 12:49:50 by selee             #+#    #+#             */
-/*   Updated: 2022/05/04 15:49:28 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/05/04 16:36:57 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,22 @@ void	draw_background(t_cub *cub)
 	}
 }
 
-void	put_point(t_cub *cub, t_vect coords, int color)
+void	put_point(t_cub *cub, t_vect crd, int color)
 {
-	for (int x = 0; x < 5; x++)
+	int	x;
+	int	y;
+
+	x = -1;
+	while (++x < 5)
 	{
-		for (int y = 0; y < 5; y++)
+		y = -1;
+		while (++y < 5)
 		{
-			if (!(coords.x + x - 2 < 0 || coords.x + x - 2 > SCREEN_WIDTH
-					|| coords.y + y - 2 < 0 || coords.y + y - 2 > SCREEN_HEIGHT))
-				mlx_img_pixel_put(cub, coords.x + x - 2, coords.y + y - 2, color);
+			if (!(crd.x + x - 2 < 0
+					|| crd.x + x - 2 > SCREEN_WIDTH
+					|| crd.y + y - 2 < 0
+					|| crd.y + y - 2 > SCREEN_HEIGHT))
+				mlx_img_pixel_put(cub, crd.x + x - 2, crd.y + y - 2, color);
 		}
 	}
 }
@@ -96,30 +103,6 @@ void	draw_strip(t_cub *cub, int rayID, float dist, int side)
 		{
 			mlx_img_pixel_put(cub, rayID * STRIP_WIDTH + x,
 				SCREEN_HEIGHT / 2 - len / 2 + y, color.value);
-		}
-	}
-}
-
-void	render_map(t_cub *cub)
-{
-	for (int x = 0; x < cub->map.column_count; x++)
-	{
-		for (int y = 0; y < cub->map.row_count; y++)
-		{
-			int shiftX = x * TILE_SIZE * MINIMAP_SCALE;
-			int shiftY = y * TILE_SIZE * MINIMAP_SCALE;
-			char tile = cub->map.array[x][y];
-			char obstacle = tile == '1';
-			for (int a = 0; a < TILE_SIZE * MINIMAP_SCALE; a++)
-			{
-				for (int b = 0; b < TILE_SIZE * MINIMAP_SCALE; b++)
-				{
-					if (obstacle)
-						mlx_img_pixel_put(cub, shiftX + a, shiftY + b, BLACK);
-					else
-						mlx_img_pixel_put(cub, shiftX + a, shiftY + b, WHITE);
-				}
-			}
 		}
 	}
 }

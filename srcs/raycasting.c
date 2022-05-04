@@ -6,7 +6,7 @@
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 12:48:27 by selee             #+#    #+#             */
-/*   Updated: 2022/05/04 15:59:09 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/05/04 16:35:17 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,7 @@ void	raycaster(t_cub *cub)
 		delta_cam = math_map(i, src_range, dst_range);
 		cast_ray(cub, cub->cam.yaw + delta_cam, i);
 	}
-	render_map(cub);
+	render_minimap(cub);
 	mini_player = vector_multi(cub->player.pos, MINIMAP_SCALE);
 	bresenham(cub, mini_player, vector_add(mini_player,
 			set_vector(cos(cub->cam.yaw - FOV / 2) * 20,
