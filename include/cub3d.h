@@ -6,7 +6,7 @@
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 15:49:45 by selee             #+#    #+#             */
-/*   Updated: 2022/05/05 12:30:44 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/05/05 15:31:15 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@
 # define MINIMAP_SCALE		0.1
 
 // Player settings
-# define MOVE_SPEED			TILE_SIZE / 20
-# define ROTATE_SPEED		0.04
+# define MOVE_SPEED			TILE_SIZE / 15
+# define ROTATE_SPEED		0.035
 
 // Camera settings
 # define FOV				PI / 3
-# define FOV_DEG			67
+# define FOV_DEG			66
 
 // Render settings
 # define STRIP_WIDTH		1

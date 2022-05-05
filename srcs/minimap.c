@@ -6,7 +6,7 @@
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 16:34:14 by selee             #+#    #+#             */
-/*   Updated: 2022/05/05 10:13:14 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/05/05 14:27:23 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,11 @@ void	bresenham(t_cub *cub, t_vect src, t_vect dest, int color)
 	{
 		if (!(src.x >= SCREEN_WIDTH || src.y >= SCREEN_HEIGHT
 				|| src.x < 0 || src.y < 0))
+		{
 			mlx_img_pixel_put(cub, src.x, src.y, color);
+			mlx_img_pixel_put(cub, src.x, src.y + 1, color);
+			mlx_img_pixel_put(cub, src.x + 1, src.y, color);
+		}
 		src.x += step_x;
 		src.y += step_y;
 	}
@@ -62,16 +66,16 @@ void	put_point(t_cub *cub, t_vect crd, int color)
 	int	y;
 
 	x = -1;
-	while (++x < 5)
+	while (++x < 8)
 	{
 		y = -1;
-		while (++y < 5)
+		while (++y < 8)
 		{
-			if (!(crd.x + x - 2 < 0
-					|| crd.x + x - 2 > SCREEN_WIDTH
-					|| crd.y + y - 2 < 0
-					|| crd.y + y - 2 > SCREEN_HEIGHT))
-				mlx_img_pixel_put(cub, crd.x + x - 2, crd.y + y - 2, color);
+			if (!(crd.x + x - 4 < 0
+					|| crd.x + x - 4 > SCREEN_WIDTH
+					|| crd.y + y - 4 < 0
+					|| crd.y + y - 4 > SCREEN_HEIGHT))
+				mlx_img_pixel_put(cub, crd.x + x - 4, crd.y + y - 4, color);
 		}
 	}
 }
@@ -87,9 +91,9 @@ void	draw_minimap(t_cub *cub, int shift_x, int shift_y, char obstacle)
 		b = -1;
 		while (++b < TILE_SIZE * MINIMAP_SCALE - 1)
 		{
-			if (obstacle)
+			if (obstacle == '1')
 				mlx_img_pixel_put(cub, shift_x + a, shift_y + b, BLACK);
-			else
+			else if (obstacle == '0')
 				mlx_img_pixel_put(cub, shift_x + a, shift_y + b, WHITE);
 		}
 	}
@@ -111,7 +115,7 @@ void	render_minimap(t_cub *cub)
 		{
 			shift_x = x * TILE_SIZE * MINIMAP_SCALE;
 			shift_y = y * TILE_SIZE * MINIMAP_SCALE;
-			obstacle = cub->map.array[x][y] == '1';
+			obstacle = cub->map.array[x][y];
 			draw_minimap(cub, shift_x, shift_y, obstacle);
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 12:49:39 by selee             #+#    #+#             */
-/*   Updated: 2022/05/05 12:20:40 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/05/05 15:15:47 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ void	precalc_img(t_image *img, t_rgba tab[64][64])
 		while (++y < 64)
 		{
 			tab[x][y] = mlx_img_pixel_get(img, x, y);
-			if (x == 32 && y == 32)
-				dprintf(1, "color: %X\n", tab[x][y].value);
 		}
 	}
 }
@@ -51,29 +49,68 @@ void	precalc_all(t_cub *cub)
 
 void	test_parsing(t_cub *cub)
 {
-	cub->info.floor = BLACK;
-	cub->info.ceiling = BLACK;
+	cub->info.floor = GRAY;
+	cub->info.ceiling = GRAY;
 	cub->info.n_path = ft_strdup("./assets_xpm/pixel_winter64.xpm");
 	cub->info.s_path = ft_strdup("./assets_xpm/pixel_summer64.xpm");
 	cub->info.w_path = ft_strdup("./assets_xpm/pixel_autumn64.xpm");
 	cub->info.e_path = ft_strdup("./assets_xpm/pixel_spring64.xpm");
-	cub->map.column_count = 8;
-	cub->map.row_count = 8;
-	cub->map._array = ft_strdup("11111111101E0001100001111000000111100001100000011001000111111111");
+	cub->map.column_count = 33;
+	cub->map.row_count = 17;
+	cub->map._array = ft_strdup("        1111111111111111111111111        1000000000110000000000001        1011000001110000000000001        100100000000000000000000111111111101100000111000000000000110000000001100000111011111111111111110111111111011100000010001    11110111111111011101010010001    11000000110101011100000010001    10000000000000001100000010001    10000000000000001101010010001    11000001110101011111011110N0111  11110111 1110101 101111010001    11111111 1111111 111111111111    1                                1                                11111                            ");
+	// cub->map._array = ft_strdup("abcabc");
+	char *test;
+
+	test = ft_calloc(sizeof(char), cub->map.column_count * cub->map.row_count);
+	ft_memset(test, '.', cub->map.column_count * cub->map.row_count);
+	// for (int i = 0; i < cub->map.column_count; i++)
+	// {
+	// 	for (int j = 0; j < cub->map.row_count; j++)
+	// 	{
+	// 		test[j * cub->map.column_count + i] = cub->map._array[i * cub->map.row_count + j];
+	// 	}
+	// }
+	// test = cub->map._array;
+	for (int i = 0; i < cub->map.column_count * cub->map.row_count; i++)
+	{
+		if (i % cub->map.column_count == 0)
+			dprintf(1, "\n");
+		dprintf(1, "%c", cub->map._array[i]);
+	}
+	dprintf(1, "\n");
+
+	int width = cub->map.column_count, height = cub->map.row_count;
+
+	for (int x = 0; x < width; x++)
+	{
+		for (int y = 0; y < height; y++)
+		{
+			*(test + (x * height) + y) = *(cub->map._array + (y * width) + x);
+		}
+	}
+	for (int i = 0; i < cub->map.column_count * cub->map.row_count; i++)
+	{
+		if (i % cub->map.row_count == 0)
+			dprintf(1, "\n");
+		dprintf(1, "%c", test[i]);
+	}
+	free(cub->map._array);
+	cub->map._array = test;
+
 	cub->map.array = malloc(sizeof(char *) * cub->map.column_count);
 	for (int i = 0; i < cub->map.column_count; i++)
 	{
-		cub->map.array[i] = &cub->map._array[i * cub->map.column_count];
+		cub->map.array[i] = &cub->map._array[i * cub->map.row_count];
 	}
-	for (int i = 0; i < cub->map.column_count; i++)
-	{
-		for (int j = 0; j < cub->map.row_count; j++)
-		{
-			ft_putchar_fd(cub->map.array[i][j], 1);
-		}
-		ft_putchar_fd('\n', 1);
-	}
-
+	// for (int i = 0; i < cub->map.column_count; i++)
+	// {
+	// 	for (int j = 0; j < cub->map.row_count; j++)
+	// 	{
+	// 		ft_putchar_fd(cub->map.array[i][j], 1);
+	// 	}
+	// 	ft_putchar_fd('\n', 1);
+	// }
+	cub->map.array[26][5] = '0';
 	cub->texture.north.ptr = mlx_xpm_file_to_image(cub->mlx, cub->info.n_path, &cub->keys.key_w, &cub->keys.key_w);
 	cub->texture.north.addr = mlx_get_data_addr(cub->texture.north.ptr, &cub->texture.north.bits_per_pixel, &cub->texture.north.line_length, &cub->texture.north.endian);
 

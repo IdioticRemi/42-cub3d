@@ -6,7 +6,7 @@
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 12:48:27 by selee             #+#    #+#             */
-/*   Updated: 2022/05/05 10:53:46 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/05/05 15:31:34 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ float	get_img_x(t_dda dda)
 
 void	cast_ray(t_cub *cub, float angle, int ray_id)
 {
-	static int	max_dist = 8;
+	static int	max_dist = 100;
 	t_dda		dda;
 
 	while (angle > 2 * PI)
@@ -130,11 +130,11 @@ void	raycaster(t_cub *cub)
 	mini_player = vector_multi(cub->player.pos, MINIMAP_SCALE);
 	bresenham(cub, mini_player, vector_add(mini_player,
 			set_vector(cos(cub->cam.yaw) * 20,
-				sin(cub->cam.yaw) * 20)), PINK);
+				sin(cub->cam.yaw) * 20)), RED);
 	bresenham(cub, mini_player, vector_add(mini_player,
 			set_vector(cos(cub->cam.yaw + FOV) * 20,
-				sin(cub->cam.yaw + FOV) * 20)), PINK);
-	put_point(cub, mini_player, BLACK);
+				sin(cub->cam.yaw + FOV) * 20)), RED);
+	put_point(cub, mini_player, RED);
 }
 
 /*

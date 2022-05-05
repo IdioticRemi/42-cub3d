@@ -6,7 +6,7 @@
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 12:49:35 by selee             #+#    #+#             */
-/*   Updated: 2022/05/05 11:25:11 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/05/05 15:19:11 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,12 @@ void	init_player(t_cub *cub)
 		j = 0;
 		while (j < cub->map.column_count)
 		{
-			if (ft_strchr("NSWE", cub->map.array[i][j]))
+			if (ft_strchr("NSWE", cub->map.array[j][i]))
 			{
-				cub->player.pos = set_vector(j * TILE_SIZE + TILE_SIZE / 2,
-						i * TILE_SIZE + TILE_SIZE / 2);
-				init_camera(cub, cub->map.array[i][j]);
+				cub->player.pos = set_vector(j * TILE_SIZE + (TILE_SIZE / 2),
+						i * TILE_SIZE + (TILE_SIZE / 2));
+				init_camera(cub, cub->map.array[j][i]);
+				cub->map.array[j][i] = '0';
 			}
 			j++;
 		}

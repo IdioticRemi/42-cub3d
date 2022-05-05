@@ -6,7 +6,7 @@
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 12:49:50 by selee             #+#    #+#             */
-/*   Updated: 2022/05/05 12:36:36 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/05/05 15:26:48 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,18 @@ t_rgba	get_side_texture_pixel(t_cub *cub, t_dda dda, int x, int y)
 		return (cub->texture.s[x][y]);
 }
 
+void	apply_depth(t_rgba *color, float dist)
+{
+	float scale;
 
+	if (dist >= 1)
+	{
+		scale = 1.0 / dist;
+		color->r *= scale;
+		color->g *= scale;
+		color->b *= scale;
+	}
+}
 
 void	draw_strip(t_cub *cub, int rayID, t_dda dda)
 {
@@ -75,37 +86,27 @@ void	draw_strip(t_cub *cub, int rayID, t_dda dda)
 	t_rgba	color;
 
 	d = (dda.dist_final / TILE_SIZE) - 0.1;
-	
-	len = SCREEN_HEIGHT / (dda.dist_final / TILE_SIZE);
-	if (len < 50)
-		len = 50;
-	before = 0;
+	len = fmax(SCREEN_HEIGHT / (dda.dist_final / TILE_SIZE), 50);
 	imgX = get_img_x(dda) / TILE_SIZE * 64.0;
-	x = -1;
-	while (++x < STRIP_WIDTH)
+	before = 0;
+	color = get_side_texture_pixel(cub, dda, imgX, before);
+	apply_depth(&color, d);
+	y = -1;
+	while (++y < len)
 	{
-		y = -1;
-		while (++y < len)
+		if (SCREEN_HEIGHT / 2 - len / 2 + y < 0)
+			y = len / 2 - SCREEN_HEIGHT / 2 - 1;
+		if (SCREEN_HEIGHT / 2 - len / 2 + y > SCREEN_HEIGHT)
+			break ;
+		if ((float)y / (float)len * 64.0 != before)
 		{
-			if (SCREEN_HEIGHT / 2 - len / 2 + y < 0)
-				continue ;
-			if (SCREEN_HEIGHT / 2 - len / 2 + y > SCREEN_HEIGHT)
-				break ;
-			if ((float)y / (float)len * 64.0 != before)
-				before = (float)y / (float)len * 64.0;
+			before = (float)y / (float)len * 64.0;
 			color = get_side_texture_pixel(cub, dda, imgX, before);
-			if (d >= 1)
-			{
-				color.r *= 1.0 / d;
-				color.g *= 1.0 / d;
-				color.b *= 1.0 / d;
-			}
-			// if (dda.dist_vert > dda.dist_hori)
-			// {
-			// 	color.r *= 0.9;
-			// 	color.g *= 0.9;
-			// 	color.b *= 0.9;
-			// }
+			apply_depth(&color, d);
+		}
+		x = -1;
+		while (++x < STRIP_WIDTH)
+		{
 			mlx_img_pixel_put(cub, rayID * STRIP_WIDTH + x,
 				SCREEN_HEIGHT / 2 - len / 2 + y, color.value);
 		}
