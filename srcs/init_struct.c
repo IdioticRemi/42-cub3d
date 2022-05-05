@@ -6,7 +6,7 @@
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 12:49:35 by selee             #+#    #+#             */
-/*   Updated: 2022/05/04 12:55:00 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/05/05 11:25:11 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	init_game(t_cub *cub)
 {
 	cub->mlx = mlx_init();
 	cub->win = mlx_new_window(cub->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "cub3d");
-	init_player(cub);
 	cub->screen.ptr = mlx_new_image(cub->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	cub->screen.addr = mlx_get_data_addr(cub->screen.ptr,
 			&cub->screen.bits_per_pixel,

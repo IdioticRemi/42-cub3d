@@ -6,7 +6,7 @@
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 16:34:14 by selee             #+#    #+#             */
-/*   Updated: 2022/05/04 17:26:51 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/05/05 10:13:14 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,10 @@ void	draw_minimap(t_cub *cub, int shift_x, int shift_y, char obstacle)
 	int		b;
 
 	a = -1;
-	while (++a < TILE_SIZE * MINIMAP_SCALE)
+	while (++a < TILE_SIZE * MINIMAP_SCALE - 1)
 	{
 		b = -1;
-		while (++b < TILE_SIZE * MINIMAP_SCALE)
+		while (++b < TILE_SIZE * MINIMAP_SCALE - 1)
 		{
 			if (obstacle)
 				mlx_img_pixel_put(cub, shift_x + a, shift_y + b, BLACK);

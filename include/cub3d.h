@@ -6,7 +6,7 @@
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 15:49:45 by selee             #+#    #+#             */
-/*   Updated: 2022/05/04 17:42:23 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/05/05 12:30:44 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@
 # define BUFFER_SIZE		42
 
 // Screen Size
-# define SCREEN_WIDTH		1280
-# define SCREEN_HEIGHT		720
+# define SCREEN_WIDTH		1920
+# define SCREEN_HEIGHT		1280
 
 // Map settings
 # define TILE_SIZE			100.0
@@ -78,6 +78,14 @@
 
 # define EVENT_KEY_PRESS	2
 # define EVENT_EXIT			17
+
+typedef	enum e_side
+{
+	N,
+	S,
+	W,
+	E
+} t_side;
 
 typedef union u_rgba
 {
@@ -127,10 +135,14 @@ typedef struct s_map
 
 typedef struct s_texture
 {
-	t_image		north;
-	t_image		south;
-	t_image		west;
-	t_image		east;
+	t_image			north;
+	t_image			south;
+	t_image			west;
+	t_image			east;
+	t_rgba	n[64][64];
+	t_rgba	s[64][64];
+	t_rgba	w[64][64];
+	t_rgba	e[64][64];
 }	t_texture;
 
 typedef struct s_camera
@@ -184,14 +196,17 @@ typedef struct s_cub
 
 // Init
 void	init_game(t_cub *cub);
+void	init_player(t_cub *cub);
 
 // GNL
 int	get_next_line(int fd, char **line);
 
 // Render
+t_side	get_side_hit(t_dda dda);
+float	get_img_x(t_dda dda);
 void	draw_background(t_cub *cub);
 void	mlx_img_pixel_put(t_cub *cub, int x, int y, int color);
-void	draw_strip(t_cub *cub, int rayID, float dist, int side);
+void	draw_strip(t_cub *cub, int rayID, t_dda dda);
 
 // Error, exit
 void	error_message_exit(char *message);

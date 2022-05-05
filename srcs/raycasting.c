@@ -6,7 +6,7 @@
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 12:48:27 by selee             #+#    #+#             */
-/*   Updated: 2022/05/04 17:41:49 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/05/05 10:53:46 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,39 @@ void	get_vertical_dist(t_cub *cub, t_dda *dda, int max_dist)
 	}
 }
 
+t_side	get_side_hit(t_dda dda)
+{
+	if (dda.dist_hori > dda.dist_vert)
+	{
+		if (dda.offset.x > 0)
+			return (E);
+		else
+			return (W);
+	}
+	else
+	{
+		if (dda.offset.y < 0)
+			return (N);
+		else
+			return (S);
+	}
+}
+
+float	get_img_x(t_dda dda)
+{
+	t_side	side;
+
+	side = get_side_hit(dda);
+	if (side == E)
+		return (fmod(dda.vert.y, TILE_SIZE));
+	else if (side == W)
+		return (TILE_SIZE - fmod(dda.vert.y, TILE_SIZE));
+	else if (side == N)
+		return (fmod(dda.hori.x, TILE_SIZE));
+	else
+		return (TILE_SIZE - fmod(dda.hori.x, TILE_SIZE));
+}
+
 void	cast_ray(t_cub *cub, float angle, int ray_id)
 {
 	static int	max_dist = 8;
@@ -73,7 +106,7 @@ void	cast_ray(t_cub *cub, float angle, int ray_id)
 	get_vertical_dist(cub, &dda, max_dist);
 	angle = cos(angle - cub->cam.yaw - FOV / 2);
 	dda.dist_final = fmin(dda.dist_hori, dda.dist_vert) * angle;
-	draw_strip(cub, ray_id, dda.dist_final, dda.dist_hori < dda.dist_vert);
+	draw_strip(cub, ray_id, dda);
 }
 
 void	raycaster(t_cub *cub)
@@ -96,11 +129,11 @@ void	raycaster(t_cub *cub)
 	render_minimap(cub);
 	mini_player = vector_multi(cub->player.pos, MINIMAP_SCALE);
 	bresenham(cub, mini_player, vector_add(mini_player,
-			set_vector(cos(cub->cam.yaw - FOV / 2) * 20,
-				sin(cub->cam.yaw - FOV / 2) * 20)), PINK);
+			set_vector(cos(cub->cam.yaw) * 20,
+				sin(cub->cam.yaw) * 20)), PINK);
 	bresenham(cub, mini_player, vector_add(mini_player,
-			set_vector(cos(cub->cam.yaw + FOV / 2) * 20,
-				sin(cub->cam.yaw + FOV / 2) * 20)), PINK);
+			set_vector(cos(cub->cam.yaw + FOV) * 20,
+				sin(cub->cam.yaw + FOV) * 20)), PINK);
 	put_point(cub, mini_player, BLACK);
 }
 
