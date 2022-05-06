@@ -6,7 +6,7 @@
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 12:49:35 by selee             #+#    #+#             */
-/*   Updated: 2022/05/05 15:19:11 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/05/06 16:09:22 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,16 @@ void	init_struct_map(t_cub *cub)
 	cub->map._array = NULL;
 	cub->map.row_count = 0;
 	cub->map.column_count = 0;
+}
+
+void	init_info(t_cub *cub)
+{
+	cub->info.n_path = NULL;
+	cub->info.s_path = NULL;
+	cub->info.w_path = NULL;
+	cub->info.e_path = NULL;
+	cub->info.floor = 0;
+	cub->info.ceiling = 0;
 }
 
 static void	init_camera(t_cub *cub, char dir)
@@ -58,6 +68,7 @@ void	init_player(t_cub *cub)
 
 void	init_game(t_cub *cub)
 {
+	init_info(cub);
 	cub->mlx = mlx_init();
 	cub->win = mlx_new_window(cub->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "cub3d");
 	cub->screen.ptr = mlx_new_image(cub->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);

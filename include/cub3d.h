@@ -6,7 +6,7 @@
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 15:49:45 by selee             #+#    #+#             */
-/*   Updated: 2022/05/06 14:37:06 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/05/06 17:21:43 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CUB3D_H
 
 # include <unistd.h>
+# include <sys/time.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <fcntl.h>
@@ -29,30 +30,32 @@
 
 // Constants
 # define PI					3.1415926535
+# define PI2				1.5707963267
+# define PI3				1.0471975512
 
 // GNL
 # define BUFFER_SIZE		42
 
 // Screen Size
-# define SCREEN_WIDTH		1920
-# define SCREEN_HEIGHT		1280
+# define SCREEN_WIDTH		1600
+# define SCREEN_HEIGHT		900
 
 // Map settings
 # define TILE_SIZE			100.0
 # define MINIMAP_SCALE		0.1
 
 // Player settings
-# define MOVE_SPEED			TILE_SIZE / 15
-# define ROTATE_SPEED		0.035
+# define MOVE_SPEED			10
+# define ROTATE_SPEED		0.075
 
 // Camera settings
-# define FOV				PI / 3
-# define FOV_DEG			66
+# define FOV				PI2
+# define FOV_DEG			90
 
 // Render settings
-# define STRIP_WIDTH		1
-# define STRIP_COUNT		SCREEN_WIDTH / STRIP_WIDTH
-# define FOV_SHIFT			FOV / STRIP_COUNT
+# define STRIP_WIDTH		2
+# define STRIP_COUNT		800
+# define FOV_SHIFT			0.01586662956
 
 //Colors for tests
 # define BLACK				0x00010101
@@ -79,6 +82,8 @@
 
 # define EVENT_KEY_PRESS	2
 # define EVENT_EXIT			17
+
+uint64_t	last_frame;
 
 typedef	enum e_side
 {
@@ -136,10 +141,10 @@ typedef struct s_map
 
 typedef struct s_texture
 {
-	t_image			north;
-	t_image			south;
-	t_image			west;
-	t_image			east;
+	t_image	north;
+	t_image	south;
+	t_image	west;
+	t_image	east;
 	t_rgba	n[64][64];
 	t_rgba	s[64][64];
 	t_rgba	w[64][64];

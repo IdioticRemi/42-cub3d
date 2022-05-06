@@ -17,7 +17,7 @@ OBJS	= $(addprefix $(OBJ_DIR), $(__SRCS:.c=.o))
 # Compile
 CC		= clang
 
-CFLAGS	= -Wall -Werror -Wextra -march=native -O3 #-g3 -fsanitize=address
+CFLAGS	= -Wall -Werror -Wextra -march=native #-O3 #-g3 -fsanitize=address
 INCLUDE	= -I $(INC_DIR) -I ./mlx -I ./libft
 LIBS	= -L ./libft -lft -L ./mlx -lmlx -framework OpenGL -framework AppKit
 
@@ -61,7 +61,7 @@ clean:
 
 fclean: clean
 	make -C ./libft fclean
-	make -C ./mlx fclean
+	make -C ./mlx clean
 	rm -f $(NAME)
 	printf "$(FG_BGRAY)[ $(NAME^^) ] $(FG_BMAGE)FCLEAN\033[$(OFFSET)G$(FG_BWHIT): $(FG_WHIT)executable cleaned$(RESET)\n"
 

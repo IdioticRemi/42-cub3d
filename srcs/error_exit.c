@@ -6,7 +6,7 @@
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 12:49:28 by selee             #+#    #+#             */
-/*   Updated: 2022/05/06 15:03:14 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/05/06 17:01:16 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	error_message_exit(char *message)
 {
-	ft_putendl_fd("Error", 2);
+	ft_putendl_fd("\033[1;31mError\033[0;0m", 2);
 	ft_putendl_fd(message, 2);
 	exit(EXIT_FAILURE);
 }
