@@ -6,7 +6,7 @@
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 12:49:39 by selee             #+#    #+#             */
-/*   Updated: 2022/05/05 15:15:47 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/05/06 15:01:50 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,13 @@ void	test_parsing(t_cub *cub)
 	// 	}
 	// }
 	// test = cub->map._array;
-	for (int i = 0; i < cub->map.column_count * cub->map.row_count; i++)
-	{
-		if (i % cub->map.column_count == 0)
-			dprintf(1, "\n");
-		dprintf(1, "%c", cub->map._array[i]);
-	}
-	dprintf(1, "\n");
+	// for (int i = 0; i < cub->map.column_count * cub->map.row_count; i++)
+	// {
+	// 	if (i % cub->map.column_count == 0)
+	// 		dprintf(1, "\n");
+	// 	dprintf(1, "%c", cub->map._array[i]);
+	// }
+	// dprintf(1, "\n");
 
 	int width = cub->map.column_count, height = cub->map.row_count;
 
@@ -88,12 +88,12 @@ void	test_parsing(t_cub *cub)
 			*(test + (x * height) + y) = *(cub->map._array + (y * width) + x);
 		}
 	}
-	for (int i = 0; i < cub->map.column_count * cub->map.row_count; i++)
-	{
-		if (i % cub->map.row_count == 0)
-			dprintf(1, "\n");
-		dprintf(1, "%c", test[i]);
-	}
+	// for (int i = 0; i < cub->map.column_count * cub->map.row_count; i++)
+	// {
+	// 	if (i % cub->map.row_count == 0)
+	// 		dprintf(1, "\n");
+	// 	dprintf(1, "%c", test[i]);
+	// }
 	free(cub->map._array);
 	cub->map._array = test;
 
@@ -151,10 +151,13 @@ int	main(int argc, char **argv)
 		error_message_exit("Invalid argument");
 	map_path = argv[1];
 	init_game(&cub);
-	test_parsing(&cub);
-	mlx_hook(cub.win, KEYPRESS, 1L << 0, &key_press_event, &cub);
-	mlx_hook(cub.win, KEYRELEASE, 1L << 1, &key_release_event, &cub);
-	mlx_loop_hook(cub.mlx, &game_loop, &cub);
-	mlx_hook(cub.win, EVENT_EXIT, 0, exit_hook, &cub);
-	mlx_loop(cub.mlx);
+	// test_parsing(&cub);
+	read_cub_file(&cub, map_path);
+	check_file(&cub);
+	// mlx_hook(cub.win, KEYPRESS, 1L << 0, &key_press_event, &cub);
+	// mlx_hook(cub.win, KEYRELEASE, 1L << 1, &key_release_event, &cub);
+	// mlx_loop_hook(cub.mlx, &game_loop, &cub);
+	// mlx_hook(cub.win, EVENT_EXIT, 0, exit_hook, &cub);
+	// mlx_loop(cub.mlx);
+	exit_hook(&cub);
 }

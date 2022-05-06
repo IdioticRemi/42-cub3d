@@ -6,7 +6,7 @@
 /*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 15:49:45 by selee             #+#    #+#             */
-/*   Updated: 2022/05/05 15:31:15 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/05/06 14:37:06 by selee            ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <math.h>
 # include <limits.h>
 # include <string.h>
+# include <errno.h>
 # include "../libft/libft.h"
 # include "../mlx/mlx.h"
 
@@ -116,12 +117,12 @@ typedef struct s_image
 
 typedef struct s_info
 {
-	char	*n_path;
-	char	*s_path;
-	char	*w_path;
-	char	*e_path;
-	int		floor;
-	int		ceiling;
+	char			*n_path;
+	char			*s_path;
+	char			*w_path;
+	char			*e_path;
+	unsigned int	floor;
+	unsigned int	ceiling;
 
 }	t_info;
 
@@ -191,12 +192,22 @@ typedef struct s_cub
 	t_camera	cam;
 	t_dda		dda;
 	t_map		map;
-
+	char		*file; //content of the file
 }	t_cub;
 
 // Init
 void	init_game(t_cub *cub);
 void	init_player(t_cub *cub);
+
+// Parsing
+int		read_cub_file(t_cub *cub, char *filename);
+void	check_file(t_cub *cub);
+
+// Parsing utils
+const char	*skip_spaces(const char *s);
+int	ft_strcnt(const char *s, char c);
+int	is_number(char *s);
+int	is_valid_color(const char *s);
 
 // GNL
 int	get_next_line(int fd, char **line);
@@ -247,5 +258,6 @@ void	bresenham(t_cub *cub, t_vect src, t_vect dest, int color);
 // Math utils
 float	math_map(float x, t_vect src_range, t_vect dst_range);
 float	math_dist(t_vect origin, t_vect arrival);
+
 
 #endif
