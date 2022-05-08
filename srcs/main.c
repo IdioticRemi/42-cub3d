@@ -12,41 +12,6 @@
 
 #include "cub3d.h"
 
-t_rgba	mlx_img_pixel_get(t_image *img, int x, int y)
-{
-	char	*dest;
-	t_rgba	color;
-
-	dest = img->addr + (y * img->line_length + x
-			* (img->bits_per_pixel / 8));
-	color.value = *(unsigned int *)dest;
-	return (color);
-}
-
-void	precalc_img(t_image *img, t_rgba tab[64][64])
-{
-	int x;
-	int y;
-
-	x = -1;
-	while (++x < 64)
-	{
-		y = -1;
-		while (++y < 64)
-		{
-			tab[x][y] = mlx_img_pixel_get(img, x, y);
-		}
-	}
-}
-
-void	precalc_all(t_cub *cub)
-{
-	precalc_img(&cub->texture.north, cub->texture.n);
-	precalc_img(&cub->texture.south, cub->texture.s);
-	precalc_img(&cub->texture.east, cub->texture.e);
-	precalc_img(&cub->texture.west, cub->texture.w);
-}
-
 void	test_parsing(t_cub *cub)
 {
 	// cub->info.floor = GRAY;
@@ -133,21 +98,19 @@ void	test_parsing(t_cub *cub)
 	precalc_all(cub);
 }
 
-uint64_t	ft_get_ms(void)
-{
-	struct timeval	time;
-
-	gettimeofday(&time, NULL);
-	return (time.tv_sec * 1000 + time.tv_usec / 1000);
-}
-
 int	game_loop(t_cub *cub)
 {
-	last_frame = ft_get_ms();
-	draw_background(cub);
-	raycaster(cub);
-	mlx_put_image_to_window(cub->mlx, cub->win, cub->screen.ptr, 0, 0);
-	dprintf(1, "%.0f\r", 1.0 / (((double)ft_get_ms() - (double)last_frame) / 1000.0));
+	uint64_t	start;
+
+	start = ft_get_ms();
+	if (cub->keys.key_w || cub->keys.key_s || cub->keys.key_a
+		|| cub->keys.key_d || cub->keys.key_right || cub->keys.key_left)
+	{
+		raycaster(cub);
+		mlx_put_image_to_window(cub->mlx, cub->win, cub->screen.ptr, 0, 0);
+		dprintf(1, "FPS: %.0f.\r", 1.0 / (((double)ft_get_ms() - (
+					double)start) / 1000.0));
+	}
 	return (0);
 }
 
@@ -163,6 +126,8 @@ int	main(int argc, char **argv)
 	read_cub_file(&cub, map_path);
 	check_file(&cub);
 	test_parsing(&cub);
+	raycaster(&cub);
+	mlx_put_image_to_window(cub.mlx, cub.win, cub.screen.ptr, 0, 0);
 	mlx_hook(cub.win, KEYPRESS, 1L << 0, &key_press_event, &cub);
 	mlx_hook(cub.win, KEYRELEASE, 1L << 1, &key_release_event, &cub);
 	mlx_loop_hook(cub.mlx, &game_loop, &cub);

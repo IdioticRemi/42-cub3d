@@ -23,7 +23,7 @@ SRCS	= ft_bzero.c ft_calloc.c ft_isalnum.c\
 		  ft_substr.c ft_tolower.c ft_toupper.c\
 		  ft_putendl_fd.c ft_putnbr_fd.c ft_atoi.c\
 		  ft_itoa.c ft_strtrim.c ft_strmapi.c\
-		  ft_split.c ft_itoa_base.c ft_utoa_base.c\
+		  ft_split.c ft_itoa_base.c \
 		  ft_strstr.c ft_strcmp.c ft_atoi_base.c\
 		  ft_lstnew.c ft_lstadd_front.c ft_lstlast.c ft_lstsize.c\
 		  ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c\

@@ -27,5 +27,7 @@ int	exit_hook(t_cub *cub)
 	free(cub->info.w_path);
 	free(cub->info.e_path);
 	free(cub->file);
+	mlx_destroy_image(cub->mlx, cub->screen.ptr);
+	ft_putendl_fd("", 1);
 	exit(0);
 }

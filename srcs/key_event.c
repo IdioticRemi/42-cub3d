@@ -12,9 +12,13 @@
 
 #include "cub3d.h"
 
-void	rotate(t_cub *cub, float rot_angle)
+void	rotate(t_cub *cub, double rot_angle)
 {
 	cub->cam.yaw += rot_angle;
+	while (cub->cam.yaw >= PI * 2)
+		cub->cam.yaw -= PI * 2;
+	while (cub->cam.yaw < 0)
+		cub->cam.yaw += PI * 2;
 }
 
 int	key_press_event(int keycode, t_cub *cub)
@@ -32,10 +36,7 @@ int	key_press_event(int keycode, t_cub *cub)
 	if (keycode == KEY_LEFT)
 		cub->keys.key_left = 1;
 	if (keycode == KEY_ESC)
-	{
-		free_map_arr(cub);
-		exit(EXIT_SUCCESS);
-	}
+		exit_hook(cub);
 	return (0);
 }
 

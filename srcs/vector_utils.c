@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-t_vect	set_vector(float x, float y)
+t_vect	set_vector(double x, double y)
 {
 	t_vect	ret;
 
@@ -35,7 +35,7 @@ t_vect	vector_subs(t_vect vec, t_vect to_sub)
 	return (vec);
 }
 
-t_vect	vector_multi(t_vect vec, float num)
+t_vect	vector_multi(t_vect vec, double num)
 {
 	vec.x *= num;
 	vec.y *= num;

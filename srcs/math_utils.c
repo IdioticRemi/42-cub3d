@@ -12,24 +12,11 @@
 
 #include "cub3d.h"
 
-float	math_map(float x, t_vect src_range, t_vect dst_range)
+double	math_dist(t_vect origin, t_vect arrival)
 {
-	float	out;
+	double	dist;
 
-	if (x > src_range.y)
-		return (dst_range.y);
-	else if (x < src_range.x)
-		return (dst_range.x);
-	out = src_range.x + ((dst_range.y - dst_range.x)
-			/ (src_range.y - src_range.x)) * (x - src_range.x);
-	return (out);
-}
-
-float	math_dist(t_vect origin, t_vect arrival)
-{
-	float	dist;
-
-	dist = sqrtf((arrival.x - origin.x) * (arrival.x - origin.x)
+	dist = sqrt((arrival.x - origin.x) * (arrival.x - origin.x)
 			+ (arrival.y - origin.y) * (arrival.y - origin.y));
 	return (dist);
 }

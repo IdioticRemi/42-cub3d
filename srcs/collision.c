@@ -30,10 +30,12 @@ t_vect	collision_handler(t_cub *cub)
 	direction = set_vector(cos(direction.x), sin(direction.y));
 	direction = vector_multi(direction, MOVE_SPEED);
 	final_pos = vector_add(cub->player.pos, direction);
-	wall = cub->map.array[(int)(final_pos.x / TILE_SIZE)][(int)(cub->player.pos.y / TILE_SIZE)];
+	wall = cub->map.array[(int)(final_pos.x / TILE_SIZE)]
+	[(int)(cub->player.pos.y / TILE_SIZE)];
 	if (wall == '1')
 		direction.x = 0;
-	wall = cub->map.array[(int)(cub->player.pos.x / TILE_SIZE)][(int)(final_pos.y / TILE_SIZE)];
+	wall = cub->map.array[(int)(cub->player.pos.x / TILE_SIZE)]
+	[(int)(final_pos.y / TILE_SIZE)];
 	if (wall == '1')
 		direction.y = 0;
 	return (direction);

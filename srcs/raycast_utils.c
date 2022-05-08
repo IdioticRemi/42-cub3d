@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-void	calc_horizontal(t_cub *cub, t_dda *dda, float angle, int max_dist)
+void	calc_horizontal(t_cub *cub, t_dda *dda, double angle, int max_dist)
 {
 	if (angle < PI)
 	{
@@ -35,7 +35,7 @@ void	calc_horizontal(t_cub *cub, t_dda *dda, float angle, int max_dist)
 	}
 }
 
-void	calc_vertical(t_cub *cub, t_dda *dda, float angle, int max_dist)
+void	calc_vertical(t_cub *cub, t_dda *dda, double angle, int max_dist)
 {
 	if (angle < PI / 2 || angle > PI / 2 * 3)
 	{
