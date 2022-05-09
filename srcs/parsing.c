@@ -39,7 +39,7 @@ int	read_cub_file(t_cub *cub, char *filename)
 	return (0);
 }
 
-unsigned int	get_color(t_cub *cub, const char *info)
+unsigned int	get_color(t_cub *cub, const char *info, char c)
 {
 	t_rgba	color;
 	char	**tmp;
@@ -52,6 +52,10 @@ unsigned int	get_color(t_cub *cub, const char *info)
 	color.b = ft_atoi(skip_spaces(tmp[2]));
 	color.a = 0;
 	free_char_array(tmp);
+	if (c == 'C')
+		cub->info.c_parsed = 1;
+	else
+		cub->info.f_parsed = 1;
 	return (color.value);
 }
 
@@ -59,22 +63,23 @@ int	check_texture_info(t_cub *cub, char *line)
 {
 	if (ft_strlen(line) < 3)
 		return (1);
-	if (!cub->info.n_path && line[0] == 'N' && ((line[1] == ' ')
-			|| (line[1] == 'O' && line[2] == ' ')))
+	if (!cub->info.n_path && line[0] == 'N' && line[1] == 'O' && line[2] == ' ')
 		cub->info.n_path = ft_strdup(skip_spaces(ft_strchr(line, ' ')));
-	else if (!cub->info.s_path && line[0] == 'S' && ((line[1] == ' ')
-			|| (line[1] == 'O' && line[2] == ' ')))
+	else if (!cub->info.s_path && line[0] == 'S' && line[1] == 'O'
+		&& line[2] == ' ')
 		cub->info.s_path = ft_strdup(skip_spaces(ft_strchr(line, ' ')));
-	else if (!cub->info.w_path && line[0] == 'W' && ((line[1] == ' ')
-			|| (line[1] == 'E' && line[2] == ' ')))
+	else if (!cub->info.w_path && line[0] == 'W' && line[1] == 'E'
+		&& line[2] == ' ')
 		cub->info.w_path = ft_strdup(skip_spaces(ft_strchr(line, ' ')));
-	else if (!cub->info.e_path && line[0] == 'E' && ((line[1] == ' ')
-			|| (line[1] == 'A' && line[2] == ' ')))
+	else if (!cub->info.e_path && line[0] == 'E' && line[1] == 'A'
+		&& line[2] == ' ')
 		cub->info.e_path = ft_strdup(skip_spaces(ft_strchr(line, ' ')));
 	else if (line[0] == 'F' && line[1] == ' ' && ft_strcnt(line, ',') == 2)
-		cub->info.floor = get_color(cub, skip_spaces(ft_strchr(line, ' ')));
+		cub->info.floor = get_color(cub, skip_spaces(ft_strchr(line, ' ')),
+				line[0]);
 	else if (line[0] == 'C' && line[1] == ' ' && ft_strcnt(line, ',') == 2)
-		cub->info.ceiling = get_color(cub, skip_spaces(ft_strchr(line, ' ')));
+		cub->info.ceiling = get_color(cub, skip_spaces(ft_strchr(line, ' ')),
+				line[0]);
 	else
 		return (1);
 	return (0);

@@ -45,6 +45,17 @@ int	is_number(char *s)
 	return (1);
 }
 
+char	*handle_end_space(char *s)
+{
+	char	*bef;
+
+	bef = s;
+	while (s && *s && *s != ' ')
+		s++;
+	*s = '\0';
+	return (bef);
+}
+
 int	is_valid_color(const char *s)
 {
 	int		r;
@@ -58,9 +69,9 @@ int	is_valid_color(const char *s)
 		free_char_array(tmp);
 		return (0);
 	}
-	vals[0] = skip_spaces(tmp[0]);
-	vals[1] = skip_spaces(tmp[1]);
-	vals[2] = skip_spaces(tmp[2]);
+	vals[0] = handle_end_space(skip_spaces(tmp[0]));
+	vals[1] = handle_end_space(skip_spaces(tmp[1]));
+	vals[2] = handle_end_space(skip_spaces(tmp[2]));
 	if (!((strlen(vals[0]) < 3 || (strlen(vals[0]) == 3
 					&& ft_strcmp(vals[0], "256") < 0)) && is_number(vals[0])))
 		r = 0;

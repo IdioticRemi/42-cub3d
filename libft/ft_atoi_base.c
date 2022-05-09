@@ -57,12 +57,10 @@ int	ft_atoi_base(char *str, char *base)
 	int		nbr;
 	int		sign;
 	int		i;
-	// int		j;
 
 	nbr = 0;
 	sign = 1;
 	i = 0;
-	// j = 0;
 	if (ft_base_check(base) == 0)
 		return (0);
 	while ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')

@@ -2,7 +2,7 @@ NO  ./assets_xpm/pixel_winter64.xpm
 SO  ./assets_xpm/pixel_summer64.xpm
 
 F    7,5,    3
-C 2,       50,238
+C 0    ,0 ,    0
 
 EA       ./assets_xpm/pixel_spring64.xpm
 WE  ./assets_xpm/pixel_autumn64.xpm

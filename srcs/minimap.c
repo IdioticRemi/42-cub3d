@@ -63,10 +63,10 @@ void	draw_minimap(t_cub *cub, int shift_x, int shift_y, char obstacle)
 	int		b;
 
 	a = -1;
-	while (++a < TILE_SIZE * MINIMAP_SCALE - 1)
+	while (++a < TILE_SIZE * MINIMAP_SCALE)
 	{
 		b = -1;
-		while (++b < TILE_SIZE * MINIMAP_SCALE - 1)
+		while (++b < TILE_SIZE * MINIMAP_SCALE)
 		{
 			if (obstacle == '1')
 				mlx_img_pixel_put(cub, shift_x + a, shift_y + b, BLACK);

@@ -27,7 +27,9 @@ void	init_info(t_cub *cub)
 	cub->info.w_path = NULL;
 	cub->info.e_path = NULL;
 	cub->info.floor = 0;
+	cub->info.f_parsed = 0;
 	cub->info.ceiling = 0;
+	cub->info.c_parsed = 0;
 	cub->keys.key_w = 0;
 	cub->keys.key_s = 0;
 	cub->keys.key_a = 0;
@@ -46,6 +48,7 @@ static void	init_camera(t_cub *cub, char dir)
 		cub->cam.yaw = PI / 2;
 	else if (dir == 'W')
 		cub->cam.yaw = PI;
+	cub->cam.yaw -= FOV / 2;
 }
 
 void	init_player(t_cub *cub)

@@ -27,6 +27,7 @@
 
 # define KEYPRESS	2
 # define KEYRELEASE	3
+# define EVENT_EXIT			17
 
 // Constants
 # define PI					3.1415926535
@@ -35,7 +36,7 @@
 
 // Screen Size
 # define SCREEN_WIDTH		1600
-# define SCREEN_HEIGHT		1200
+# define SCREEN_HEIGHT		900
 
 // Map settings
 # define TILE_SIZE			100.0
@@ -43,15 +44,14 @@
 
 // Player settings
 # define MOVE_SPEED			10
-# define ROTATE_SPEED		0.05
+# define ROTATE_SPEED		0.02
 
 // Camera settings
-# define FOV				PI3
+# define FOV				PI2
 
 // Render settings
 # define STRIP_WIDTH		2
 # define STRIP_COUNT		800
-# define FOV_SHIFT			0.00130899693
 
 //Colors
 # define BLACK				0x00010101
@@ -80,10 +80,6 @@
 #  define KEY_RIGHT 124
 #  define KEY_ESC 53
 # endif
-
-// Exit
-
-# define EVENT_EXIT			17
 
 typedef enum e_side
 {
@@ -128,7 +124,8 @@ typedef struct s_info
 	char			*e_path;
 	unsigned int	floor;
 	unsigned int	ceiling;
-
+	int				c_parsed;
+	int				f_parsed;
 }	t_info;
 
 typedef struct s_map
@@ -189,7 +186,7 @@ typedef struct s_strip
 {
 	double	d;
 	int		len;
-	int 	img_x;
+	int		img_x;
 	int		before;
 	t_rgba	color;
 }	t_strip;

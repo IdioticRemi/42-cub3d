@@ -17,6 +17,8 @@ void	mlx_img_pixel_put(t_cub *cub, int x, int y, unsigned int color)
 	char	*dest;
 	t_image	screen;
 
+	if (x < 0 || y < 0 || x > SCREEN_WIDTH || y > SCREEN_HEIGHT)
+		return ;
 	screen = cub->screen;
 	dest = screen.addr + (y * screen.ln + x
 			* (screen.bpp / 8));

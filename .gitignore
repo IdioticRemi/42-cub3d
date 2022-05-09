@@ -1,2 +1,6 @@
 .idea
 .vscode
+objs/
+cub3D
+*.o
+*.a

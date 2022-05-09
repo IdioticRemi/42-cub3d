@@ -36,6 +36,8 @@ t_vect	check_lines(t_cub *cub, char **lines, int *pc, int *i)
 		if (*i < 6 && ((*i < 5 && !lines[*i + 1])
 				|| check_texture_info(cub, lines[*i])))
 			error_message_exit(cub, "Texture format is wrong.");
+		if (*i == 6 && !(cub->info.c_parsed && cub->info.f_parsed))
+			error_message_exit(cub, "Missing floor or ceiling color.");
 		if (*i >= 6)
 		{
 			if (!(valid_map_content(lines[*i])))

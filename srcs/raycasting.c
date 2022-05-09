@@ -50,7 +50,10 @@ void	cast_ray(t_cub *cub, double angle, int ray_id)
 	static int	max_dist = 100;
 	t_dda		dda;
 
-	angle = fmod(angle, 2 * PI);
+	while (angle >= 2 * PI)
+		angle -= 2 * PI;
+	while (angle < 0)
+		angle += 2 * PI;
 	dda.rel_pos.y = fmod(cub->player.pos.y, TILE_SIZE);
 	dda.rel_pos.x = fmod(cub->player.pos.x, TILE_SIZE);
 	dda.dist = 0;
@@ -59,7 +62,7 @@ void	cast_ray(t_cub *cub, double angle, int ray_id)
 	dda.dist = 0;
 	calc_vertical(cub, &dda, angle, max_dist);
 	get_vertical_dist(cub, &dda, max_dist);
-	angle = cos(ray_id * FOV_SHIFT - FOV / 2);
+	angle = cos(angle - cub->cam.yaw - FOV / 2);
 	dda.dist_final = fmin(dda.dist_hori, dda.dist_vert) * angle;
 	draw_strip(cub, ray_id, dda);
 }
@@ -67,15 +70,18 @@ void	cast_ray(t_cub *cub, double angle, int ray_id)
 void	raycaster(t_cub *cub)
 {
 	t_vect	mini_player;
-	double	delta_cam;
+	double	d_plane;
+	double	d_cam;
 	int		i;
 
 	handle_movement(cub);
+	d_plane = 2.0 * tan(FOV / 2) / STRIP_COUNT;
 	i = -1;
 	while (++i != STRIP_COUNT)
 	{
-		delta_cam = (double)i * FOV_SHIFT;
-		cast_ray(cub, cub->cam.yaw + delta_cam, i);
+		d_cam = -atan2(1.0, (i - (STRIP_COUNT / 2.0)) * d_plane);
+		d_cam += PI2 + FOV / 2;
+		cast_ray(cub, cub->cam.yaw + d_cam, i);
 	}
 	render_minimap(cub);
 	mini_player = vector_multi(cub->player.pos, MINIMAP_SCALE);

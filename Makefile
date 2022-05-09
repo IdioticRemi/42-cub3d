@@ -1,9 +1,9 @@
 # Program name
-NAME	= cub3d
+NAME	= cub3D
 NAME^^	= $(shell echo $(NAME) | tr 'a-z' 'A-Z')
+NAME--	= $(shell echo $(NAME) | tr 'A-Z' 'a-z')
 
 # Directories
-
 INC_DIR	= include/
 SRC_DIR	= srcs/
 OBJ_DIR	= objs/
@@ -17,12 +17,11 @@ OBJS	= $(addprefix $(OBJ_DIR), $(__SRCS:.c=.o))
 # Compile
 CC		= clang
 
-CFLAGS	= -Wall -Werror -Wextra -march=native #-g3 -fsanitize=address #-ggdb3 #-O3
+CFLAGS	= -Wall -Werror -Wextra -march=native #-O3
 INCLUDE	= -I $(INC_DIR) -I ./mlx -I ./libft
 LIBS	= -L ./libft -lft -L ./mlx -lmlx -framework OpenGL -framework AppKit
 
 # Format
-
 OFFSET		= 25
 OFFSET_OBJ	= 60
 
@@ -41,7 +40,7 @@ FG_GREE		= \033[0;32m
 # Rules
 all: $(NAME)
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c $(INC_DIR)$(NAME).h
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c $(INC_DIR)$(NAME--).h
 	mkdir -p $(OBJ_DIR)
 	printf "$(FG_BGRAY)[ $(NAME^^) ] $(FG_BCYAN)OBJ\033[$(OFFSET)G$(FG_BWHIT): $(FG_WHIT)$@ $(FG_BCYAN)\033[$(OFFSET_OBJ)G[.]$(RESET)\r"
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
