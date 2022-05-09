@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: tjolivea <tjolivea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 15:49:45 by selee             #+#    #+#             */
-/*   Updated: 2022/05/06 17:21:43 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/05/09 12:11:30 by tjolivea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,9 +115,9 @@ typedef struct s_image
 {
 	void	*ptr;
 	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
+	int		bpp;
+	int		ln;
+	int		e;
 }	t_image;
 
 typedef struct s_info
@@ -135,8 +135,8 @@ typedef struct s_map
 {
 	char	**array;
 	char	*_array;
-	int		row_count;
-	int		column_count;
+	int		h;
+	int		w;
 }	t_map;
 
 typedef struct s_texture
@@ -185,6 +185,15 @@ typedef struct s_keys
 	int	key_left;
 }	t_keys;
 
+typedef struct s_strip
+{
+	double	d;
+	int		len;
+	int 	img_x;
+	int		before;
+	t_rgba	color;
+}	t_strip;
+
 typedef struct s_cub
 {
 	void		*mlx;
@@ -193,7 +202,7 @@ typedef struct s_cub
 	t_info		info;
 	t_image		screen;
 	t_player	player;
-	t_texture	texture;
+	t_texture	tx;
 	t_camera	cam;
 	t_map		map;
 	char		*file;
@@ -206,9 +215,11 @@ void		init_player(t_cub *cub);
 // Parsing
 int			read_cub_file(t_cub *cub, char *filename);
 void		check_file(t_cub *cub);
-
-// Parsing utils
-const char	*skip_spaces(const char *s);
+int			check_texture_info(t_cub *cub, char *line);
+int			check_file_extension(char *filename, char *ext);
+void		check_file(t_cub *cub);
+int			floodfill(char **map, int width, int height, t_vect pos);
+char		*skip_spaces(char *s);
 int			ft_strcnt(const char *s, char c);
 int			is_number(char *s);
 int			is_valid_color(const char *s);
@@ -216,11 +227,10 @@ int			is_valid_color(const char *s);
 // Render
 t_side		get_side_hit(t_dda dda);
 double		get_img_x(t_dda dda);
-void		mlx_img_pixel_put(t_cub *cub, int x, int y, unsigned int color);
 void		draw_strip(t_cub *cub, int rayID, t_dda dda);
 
 // Error, exit
-void		error_message_exit(char *message);
+void		error_message_exit(t_cub *cub, char *message);
 int			exit_hook(t_cub *cub);
 
 // Free
@@ -235,6 +245,8 @@ void		rotate(t_cub *cub, double rot_angle);
 void		handle_movement(t_cub *cub);
 
 // Raycaster
+void		get_horizontal_dist(t_cub *cub, t_dda *dda, int max_dist);
+void		get_vertical_dist(t_cub *cub, t_dda *dda, int max_dist);
 void		calc_horizontal(t_cub *cub, t_dda *dda, double angle, int max_dist);
 void		calc_vertical(t_cub *cub, t_dda *dda, double angle, int max_dist);
 void		raycaster(t_cub *cub);
@@ -252,6 +264,10 @@ void		bresenham(t_cub *cub, t_vect src, t_vect dest, int color);
 
 // Math utils
 double		math_dist(t_vect origin, t_vect arrival);
+
+// MLX_IMAGE utils
+t_rgba		mlx_img_pixel_get(t_image *img, int x, int y);
+void		mlx_img_pixel_put(t_cub *cub, int x, int y, unsigned int color);
 
 // Utils
 uint64_t	ft_get_ms(void);

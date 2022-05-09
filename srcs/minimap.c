@@ -3,38 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: tjolivea <tjolivea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 16:34:14 by selee             #+#    #+#             */
-/*   Updated: 2022/05/05 14:27:23 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/05/09 12:22:09 by tjolivea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// void	render_map(t_cub *cub)
-// {
-// 	for (int x = 0; x < cub->map.column_count; x++)
-// 	{
-// 		for (int y = 0; y < cub->map.row_count; y++)
-// 		{
-// 			int shift_x = x * TILE_SIZE * MINIMAP_SCALE;
-// 			int shift_y = y * TILE_SIZE * MINIMAP_SCALE;
-// 			char tile = cub->map.array[x][y];
-// 			char obstacle = tile == '1';
-// 			for (int a = 0; a < TILE_SIZE * MINIMAP_SCALE; a++)
-// 			{
-// 				for (int b = 0; b < TILE_SIZE * MINIMAP_SCALE; b++)
-// 				{
-// 					if (obstacle)
-// 						mlx_img_pixel_put(cub, shift_x + a, shift_y + b, BLACK);
-// 					else
-// 						mlx_img_pixel_put(cub, shift_x + a, shift_y + b, WHITE);
-// 				}
-// 			}
-// 		}
-// 	}
-// }
 void	bresenham(t_cub *cub, t_vect src, t_vect dest, int color)
 {
 	double	step_x;
@@ -95,6 +72,8 @@ void	draw_minimap(t_cub *cub, int shift_x, int shift_y, char obstacle)
 				mlx_img_pixel_put(cub, shift_x + a, shift_y + b, BLACK);
 			else if (obstacle == '0')
 				mlx_img_pixel_put(cub, shift_x + a, shift_y + b, WHITE);
+			else if (obstacle == '.')
+				mlx_img_pixel_put(cub, shift_x + a, shift_y + b, RED);
 		}
 	}
 }
@@ -108,10 +87,10 @@ void	render_minimap(t_cub *cub)
 	char	obstacle;
 
 	x = -1;
-	while (++x < cub->map.column_count)
+	while (++x < cub->map.w)
 	{
 		y = -1;
-		while (++y < cub->map.row_count)
+		while (++y < cub->map.h)
 		{
 			shift_x = x * TILE_SIZE * MINIMAP_SCALE;
 			shift_y = y * TILE_SIZE * MINIMAP_SCALE;

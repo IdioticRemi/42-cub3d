@@ -3,25 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: tjolivea <tjolivea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 12:49:50 by selee             #+#    #+#             */
-/*   Updated: 2022/05/05 15:26:48 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/05/09 12:17:42 by tjolivea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	mlx_img_pixel_put(t_cub *cub, int x, int y, unsigned int color)
-{
-	char	*dest;
-	t_image	screen;
-
-	screen = cub->screen;
-	dest = screen.addr + (y * screen.line_length + x
-			* (screen.bits_per_pixel / 8));
-	*(unsigned int *)dest = color;
-}
 
 t_rgba	get_side_texture_pixel(t_cub *cub, t_dda dda, int x, int y)
 {
@@ -29,13 +18,13 @@ t_rgba	get_side_texture_pixel(t_cub *cub, t_dda dda, int x, int y)
 
 	side = get_side_hit(dda);
 	if (side == E)
-		return (cub->texture.e[x][y]);
+		return (cub->tx.e[x][y]);
 	else if (side == W)
-		return (cub->texture.w[x][y]);
+		return (cub->tx.w[x][y]);
 	else if (side == N)
-		return (cub->texture.n[x][y]);
+		return (cub->tx.n[x][y]);
 	else
-		return (cub->texture.s[x][y]);
+		return (cub->tx.s[x][y]);
 }
 
 void	apply_depth(t_rgba *color, double dist)
@@ -79,42 +68,42 @@ void	draw_background(t_cub *cub, int len, int rayID)
 	}
 }
 
-void	draw_strip(t_cub *cub, int rayID, t_dda dda)
+void	strip_calc(t_cub *cub, t_dda dda, t_strip s, int rayID)
 {
-	int		len;
-	double	d;
-	int		x;
-	int		y;
-	int		img_x;
-	int		before;
-	t_rgba	color;
+	int	x;
+	int	y;
 
-	d = (dda.dist_final / TILE_SIZE) - 0.1;
-	len = fmax(SCREEN_HEIGHT / (dda.dist_final / TILE_SIZE), 50);
-	img_x = get_img_x(dda) / TILE_SIZE * 64.0;
-	before = 0;
-	color = get_side_texture_pixel(cub, dda, img_x, before);
-	apply_depth(&color, d);
-	draw_background(cub, len, rayID);
-	if (SCREEN_HEIGHT < len)
-		y = len / 2 - SCREEN_HEIGHT / 2 - 1;
+	if (SCREEN_HEIGHT < s.len)
+		y = s.len / 2 - SCREEN_HEIGHT / 2 - 1;
 	else
 		y = -1;
-	while (++y < len)
+	while (++y < s.len)
 	{
-		if (SCREEN_HEIGHT / 2 - len / 2 + y > SCREEN_HEIGHT)
+		if (SCREEN_HEIGHT / 2 - s.len / 2 + y > SCREEN_HEIGHT)
 			break ;
-		if ((double)y / (double)len * 64.0 != before)
+		if ((double)y / (double)s.len * 64.0 != s.before)
 		{
-			before = (double)y / (double)len * 64.0;
-			color = get_side_texture_pixel(cub, dda, img_x, before);
-			apply_depth(&color, d);
+			s.before = (double)y / (double)s.len * 64.0;
+			s.color = get_side_texture_pixel(cub, dda, s.img_x, s.before);
+			apply_depth(&s.color, s.d);
 		}
 		x = -1;
 		while (++x < STRIP_WIDTH)
-		{
 			mlx_img_pixel_put(cub, rayID * STRIP_WIDTH + x,
-				SCREEN_HEIGHT / 2 - len / 2 + y, color.value);
-		}
+				SCREEN_HEIGHT / 2 - s.len / 2 + y, s.color.value);
 	}
+}
+
+void	draw_strip(t_cub *cub, int rayID, t_dda dda)
+{
+	t_strip	s;
+
+	s.d = (dda.dist_final / TILE_SIZE) - 0.1;
+	s.len = fmax(SCREEN_HEIGHT / (dda.dist_final / TILE_SIZE), 50);
+	s.img_x = get_img_x(dda) / TILE_SIZE * 64.0;
+	s.before = 0;
+	s.color = get_side_texture_pixel(cub, dda, s.img_x, s.before);
+	apply_depth(&s.color, s.d);
+	draw_background(cub, s.len, rayID);
+	strip_calc(cub, dda, s, rayID);
 }

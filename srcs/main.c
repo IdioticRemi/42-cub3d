@@ -3,99 +3,89 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: selee <selee@student.42lyon.fr>            +#+  +:+       +#+        */
+/*   By: tjolivea <tjolivea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 12:49:39 by selee             #+#    #+#             */
-/*   Updated: 2022/05/06 17:25:26 by selee            ###   ########lyon.fr   */
+/*   Updated: 2022/05/09 12:20:18 by tjolivea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+void	init_img(t_cub *cub)
+{
+	cub->tx.north.ptr = mlx_xpm_file_to_image(cub->mlx, cub->info.n_path,
+			&cub->keys.key_w, &cub->keys.key_w);
+	if (!cub->tx.north.ptr)
+		error_message_exit(cub, "Invalid tx name or path.");
+	cub->tx.north.addr = mlx_get_data_addr(cub->tx.north.ptr,
+			&cub->tx.north.bpp, &cub->tx.north.ln, &cub->tx.north.e);
+	cub->tx.south.ptr = mlx_xpm_file_to_image(cub->mlx, cub->info.s_path,
+			&cub->keys.key_w, &cub->keys.key_w);
+	if (!cub->tx.south.ptr)
+		error_message_exit(cub, "Invalid tx name or path.");
+	cub->tx.south.addr = mlx_get_data_addr(cub->tx.south.ptr,
+			&cub->tx.south.bpp, &cub->tx.south.ln, &cub->tx.south.e);
+	cub->tx.east.ptr = mlx_xpm_file_to_image(cub->mlx, cub->info.e_path,
+			&cub->keys.key_w, &cub->keys.key_w);
+	if (!cub->tx.east.ptr)
+		error_message_exit(cub, "Invalid tx name or path.");
+	cub->tx.east.addr = mlx_get_data_addr(cub->tx.east.ptr, &cub->tx.east.bpp,
+			&cub->tx.east.ln, &cub->tx.east.e);
+	cub->tx.west.ptr = mlx_xpm_file_to_image(cub->mlx, cub->info.w_path,
+			&cub->keys.key_w, &cub->keys.key_w);
+	if (!cub->tx.west.ptr)
+		error_message_exit(cub, "Invalid tx name or path.");
+	cub->tx.west.addr = mlx_get_data_addr(cub->tx.west.ptr, &cub->tx.west.bpp,
+			&cub->tx.west.ln, &cub->tx.west.e);
+	cub->keys.key_w = 0;
+}
+
+void	do_floodfill(t_cub *cub)
+{
+	int	x;
+	int	y;
+
+	if (floodfill(cub->map.array, cub->map.w, cub->map.h, vector_multi(
+				vector_subs(cub->player.pos, set_vector(
+						TILE_SIZE / 2, TILE_SIZE / 2)), 1.0 / TILE_SIZE)))
+		error_message_exit(cub, "Input map is not closed.");
+	x = -1;
+	while (++x < cub->map.w)
+	{
+		y = -1;
+		while (++y < cub->map.h)
+			if (cub->map.array[x][y] == '.')
+				cub->map.array[x][y] = '0';
+	}
+}
+
 void	test_parsing(t_cub *cub)
 {
-	// cub->info.floor = GRAY;
-	// cub->info.ceiling = GRAY;
-	// cub->info.n_path = ft_strdup("./assets_xpm/pixel_winter64.xpm");
-	// cub->info.s_path = ft_strdup("./assets_xpm/pixel_summer64.xpm");
-	// cub->info.w_path = ft_strdup("./assets_xpm/pixel_autumn64.xpm");
-	// cub->info.e_path = ft_strdup("./assets_xpm/pixel_spring64.xpm");
-	// cub->map.column_count = 33;
-	// cub->map.row_count = 17;
-	// cub->map._array = ft_strdup("        1111111111111111111111111        1000000000110000000000001        1011000001110000000000001        100100000000000000000000111111111101100000111000000000000110000000001100000111011111111111111110111111111011100000010001    11110111111111011101010010001    11000000110101011100000010001    10000000000000001100000010001    10000000000000001101010010001    11000001110101011111011110N0111  11110111 1110101 101111010001    11111111 1111111 111111111111    1                                1                                11111                            ");
-	// cub->map._array = ft_strdup("abcabc");
-	char *test;
+	char	*test;
+	int		x;
+	int		y;
 
-	test = ft_calloc(sizeof(char), cub->map.column_count * cub->map.row_count);
-	ft_memset(test, ' ', cub->map.column_count * cub->map.row_count);
-	// for (int i = 0; i < cub->map.column_count; i++)
-	// {
-	// 	for (int j = 0; j < cub->map.row_count; j++)
-	// 	{
-	// 		test[j * cub->map.column_count + i] = cub->map._array[i * cub->map.row_count + j];
-	// 	}
-	// }
-	// test = cub->map._array;
-	// for (int i = 0; i < cub->map.column_count * cub->map.row_count; i++)
-	// {
-	// 	if (i % cub->map.column_count == 0)
-	// 		dprintf(1, "\n");
-	// 	dprintf(1, "%c", cub->map._array[i]);
-	// }
-	// dprintf(1, "\n");
-
-	int width = cub->map.column_count, height = cub->map.row_count;
-
-	for (int x = 0; x < width; x++)
+	test = ft_calloc(sizeof(char), cub->map.w * cub->map.h);
+	ft_memset(test, ' ', cub->map.w * cub->map.h);
+	x = -1;
+	while (++x < cub->map.w)
 	{
-		for (int y = 0; y < height; y++)
-		{
-			*(test + (x * height) + y) = *(cub->map._array + (y * width) + x);
-		}
+		y = -1;
+		while (++y < cub->map.h)
+			*(test + (x * cub->map.h) + y) = *(cub->map._array
+					+ (y * cub->map.w) + x);
 	}
-	// for (int i = 0; i < cub->map.column_count * cub->map.row_count; i++)
-	// {
-	// 	if (i % cub->map.row_count == 0)
-	// 		dprintf(1, "\n");
-	// 	dprintf(1, "%c", test[i]);
-	// }
 	free(cub->map._array);
 	cub->map._array = test;
-
-	cub->map.array = malloc(sizeof(char *) * cub->map.column_count);
-	for (int i = 0; i < cub->map.column_count; i++)
-	{
-		cub->map.array[i] = &cub->map._array[i * cub->map.row_count];
-	}
-	// for (int i = 0; i < cub->map.column_count; i++)
-	// {
-	// 	for (int j = 0; j < cub->map.row_count; j++)
-	// 	{
-	// 		ft_putchar_fd(cub->map.array[i][j], 1);
-	// 	}
-	// 	ft_putchar_fd('\n', 1);
-	// }
-	cub->texture.north.ptr = mlx_xpm_file_to_image(cub->mlx, cub->info.n_path, &cub->keys.key_w, &cub->keys.key_w);
-	cub->texture.north.addr = mlx_get_data_addr(cub->texture.north.ptr, &cub->texture.north.bits_per_pixel, &cub->texture.north.line_length, &cub->texture.north.endian);
-
-	cub->texture.south.ptr = mlx_xpm_file_to_image(cub->mlx, cub->info.s_path, &cub->keys.key_w, &cub->keys.key_w);
-	cub->texture.south.addr = mlx_get_data_addr(cub->texture.south.ptr, &cub->texture.south.bits_per_pixel, &cub->texture.south.line_length, &cub->texture.south.endian);
-
-	cub->texture.east.ptr = mlx_xpm_file_to_image(cub->mlx, cub->info.e_path, &cub->keys.key_w, &cub->keys.key_w);
-	cub->texture.east.addr = mlx_get_data_addr(cub->texture.east.ptr, &cub->texture.east.bits_per_pixel, &cub->texture.east.line_length, &cub->texture.east.endian);
-
-	cub->texture.west.ptr = mlx_xpm_file_to_image(cub->mlx, cub->info.w_path, &cub->keys.key_w, &cub->keys.key_w);
-	cub->texture.west.addr = mlx_get_data_addr(cub->texture.west.ptr, &cub->texture.west.bits_per_pixel, &cub->texture.west.line_length, &cub->texture.west.endian);
-
-	cub->keys.key_w = 0;
-	cub->keys.key_s= 0;
-	cub->keys.key_a = 0;
-	cub->keys.key_d = 0;
-	cub->keys.key_right = 0;
-	cub->keys.key_left = 0;
-	
+	cub->map.array = malloc(sizeof(char *) * cub->map.w);
+	x = -1;
+	while (++x < cub->map.w)
+		cub->map.array[x] = &cub->map._array[x * cub->map.h];
 	init_player(cub);
+	init_img(cub);
 	precalc_all(cub);
+	do_floodfill(cub);
 }
 
 int	game_loop(t_cub *cub)
@@ -109,7 +99,7 @@ int	game_loop(t_cub *cub)
 		raycaster(cub);
 		mlx_put_image_to_window(cub->mlx, cub->win, cub->screen.ptr, 0, 0);
 		dprintf(1, "FPS: %.0f.\r", 1.0 / (((double)ft_get_ms() - (
-					double)start) / 1000.0));
+						double)start) / 1000.0));
 	}
 	return (0);
 }
@@ -120,7 +110,7 @@ int	main(int argc, char **argv)
 	t_cub	cub;
 
 	if (argc != 2)
-		error_message_exit("Invalid argument");
+		error_message_exit(NULL, "Invalid argument");
 	map_path = argv[1];
 	init_game(&cub);
 	read_cub_file(&cub, map_path);

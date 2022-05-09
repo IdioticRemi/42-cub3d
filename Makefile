@@ -17,7 +17,7 @@ OBJS	= $(addprefix $(OBJ_DIR), $(__SRCS:.c=.o))
 # Compile
 CC		= clang
 
-CFLAGS	= -Wall -Werror -Wextra -march=native #-O3 #-g3 -fsanitize=address
+CFLAGS	= -Wall -Werror -Wextra -march=native #-g3 -fsanitize=address #-ggdb3 #-O3
 INCLUDE	= -I $(INC_DIR) -I ./mlx -I ./libft
 LIBS	= -L ./libft -lft -L ./mlx -lmlx -framework OpenGL -framework AppKit
 
@@ -49,19 +49,19 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c $(INC_DIR)$(NAME).h
 
 $(NAME): $(OBJS)
 	make -C ./libft
-	make -C ./mlx
+	make -s -C ./mlx
 	$(CC) $(CFLAGS) $(INCLUDE) $(OBJS) -o $(NAME) $(LIBS)
 	printf "$(FG_BGRAY)[ $(NAME^^) ] $(FG_BGREE)BUILD\033[$(OFFSET)G$(FG_BWHIT): $(FG_BWHIT)$(NAME)$(RESET)\n"
 
 clean:
 	make -C ./libft clean
-	make -C ./mlx clean
+	make -s -C ./mlx clean
 	rm -rf $(OBJ_DIR)
 	printf "$(FG_BGRAY)[ $(NAME^^) ] $(FG_BMAGE)CLEAN\033[$(OFFSET)G$(FG_BWHIT): $(FG_WHIT).o files cleaned$(RESET)\n"
 
 fclean: clean
 	make -C ./libft fclean
-	make -C ./mlx clean
+	make -s -C ./mlx clean
 	rm -f $(NAME)
 	printf "$(FG_BGRAY)[ $(NAME^^) ] $(FG_BMAGE)FCLEAN\033[$(OFFSET)G$(FG_BWHIT): $(FG_WHIT)executable cleaned$(RESET)\n"
 
