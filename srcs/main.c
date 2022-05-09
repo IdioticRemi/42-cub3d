@@ -112,6 +112,7 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		error_message_exit(NULL, "Invalid argument");
 	map_path = argv[1];
+	check_file_extension(map_path, ".cub");
 	init_game(&cub);
 	read_cub_file(&cub, map_path);
 	check_file(&cub);
