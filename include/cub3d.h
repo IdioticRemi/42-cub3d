@@ -50,8 +50,8 @@
 # define FOV				PI2
 
 // Render settings
-# define STRIP_WIDTH		4
-# define STRIP_COUNT		400
+# define STRIP_WIDTH		2
+# define STRIP_COUNT		800
 
 //Colors
 # define BLACK				0x00010101
