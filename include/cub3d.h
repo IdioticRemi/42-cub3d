@@ -44,14 +44,14 @@
 
 // Player settings
 # define MOVE_SPEED			10
-# define ROTATE_SPEED		0.02
+# define ROTATE_SPEED		0.03
 
 // Camera settings
 # define FOV				PI2
 
 // Render settings
-# define STRIP_WIDTH		2
-# define STRIP_COUNT		800
+# define STRIP_WIDTH		4
+# define STRIP_COUNT		400
 
 //Colors
 # define BLACK				0x00010101
@@ -208,6 +208,7 @@ typedef struct s_cub
 // Init
 void		init_game(t_cub *cub);
 void		init_player(t_cub *cub);
+void		init_mlx(t_cub *cub);
 
 // Parsing
 int			read_cub_file(t_cub *cub, char *filename);

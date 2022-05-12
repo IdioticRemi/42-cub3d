@@ -17,7 +17,7 @@ OBJS	= $(addprefix $(OBJ_DIR), $(__SRCS:.c=.o))
 # Compile
 CC		= clang
 
-CFLAGS	= -Wall -Werror -Wextra -march=native #-O3
+CFLAGS	= -Wall -Werror -Wextra -march=native #-g3 -fsanitize=address #-O3
 INCLUDE	= -I $(INC_DIR) -I ./mlx -I ./libft
 LIBS	= -L ./libft -lft -L ./mlx -lmlx -framework OpenGL -framework AppKit
 

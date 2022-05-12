@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-t_rgba	get_side_texture_pixel(t_cub *cub, t_dda dda, int x, int y)
+static t_rgba	get_side_texture_pixel(t_cub *cub, t_dda dda, int x, int y)
 {
 	t_side	side;
 
@@ -27,7 +27,7 @@ t_rgba	get_side_texture_pixel(t_cub *cub, t_dda dda, int x, int y)
 		return (cub->tx.s[x][y]);
 }
 
-void	apply_depth(t_rgba *color, double dist)
+static void	apply_depth(t_rgba *color, double dist)
 {
 	double	scale;
 
@@ -40,7 +40,7 @@ void	apply_depth(t_rgba *color, double dist)
 	}
 }
 
-void	draw_background(t_cub *cub, int len, int rayID)
+static void	draw_background(t_cub *cub, int len, int rayID)
 {
 	int	diff;
 	int	x;
@@ -68,7 +68,7 @@ void	draw_background(t_cub *cub, int len, int rayID)
 	}
 }
 
-void	strip_calc(t_cub *cub, t_dda dda, t_strip s, int rayID)
+static void	strip_calc(t_cub *cub, t_dda dda, t_strip s, int rayID)
 {
 	int	x;
 	int	y;

@@ -20,7 +20,8 @@ static void	clean_all(t_cub *cub)
 	free(cub->info.w_path);
 	free(cub->info.e_path);
 	free(cub->file);
-	mlx_destroy_image(cub->mlx, cub->screen.ptr);
+	if (cub->screen.ptr)
+		mlx_destroy_image(cub->mlx, cub->screen.ptr);
 }
 
 void	error_message_exit(t_cub *cub, char *message)

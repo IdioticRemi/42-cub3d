@@ -12,6 +12,22 @@
 
 #include "cub3d.h"
 
+t_vect	rectify_direction(t_cub *cub, t_vect direction, t_vect final_pos)
+{
+	char	wall;
+
+	wall = cub->map.array[(int)(final_pos.x / TILE_SIZE)]
+	[(int)(final_pos.y / TILE_SIZE)];
+	while (wall == '1')
+	{
+		direction = vector_multi(direction, 0.8);
+		final_pos = vector_add(cub->player.pos, direction);
+		wall = cub->map.array[(int)(final_pos.x / TILE_SIZE)]
+		[(int)(final_pos.y / TILE_SIZE)];
+	}
+	return (direction);
+}
+
 t_vect	collision_handler(t_cub *cub)
 {
 	t_vect	direction;
@@ -38,5 +54,5 @@ t_vect	collision_handler(t_cub *cub)
 	[(int)(final_pos.y / TILE_SIZE)];
 	if (wall == '1')
 		direction.y = 0;
-	return (direction);
+	return (rectify_direction(cub, direction, final_pos));
 }

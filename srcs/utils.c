@@ -20,7 +20,7 @@ uint64_t	ft_get_ms(void)
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
-void	precalc_img(t_image *img, t_rgba tab[64][64])
+static void	precalc_img(t_image *img, t_rgba tab[64][64])
 {
 	int	x;
 	int	y;

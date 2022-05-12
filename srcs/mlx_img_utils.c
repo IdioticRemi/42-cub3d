@@ -35,3 +35,12 @@ t_rgba	mlx_img_pixel_get(t_image *img, int x, int y)
 	color.value = *(unsigned int *)dest;
 	return (color);
 }
+
+void	init_mlx(t_cub *cub)
+{
+	cub->win = mlx_new_window(cub->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "cub3d");
+	cub->screen.ptr = mlx_new_image(cub->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
+	cub->screen.addr = mlx_get_data_addr(cub->screen.ptr,
+			&cub->screen.bpp,
+			&cub->screen.ln, &cub->screen.e);
+}

@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-void	init_img(t_cub *cub)
+static void	init_img(t_cub *cub)
 {
 	cub->tx.north.ptr = mlx_xpm_file_to_image(cub->mlx, cub->info.n_path,
 			&cub->keys.key_w, &cub->keys.key_w);
@@ -41,7 +41,7 @@ void	init_img(t_cub *cub)
 	cub->keys.key_w = 0;
 }
 
-void	do_floodfill(t_cub *cub)
+static void	do_floodfill(t_cub *cub)
 {
 	int	x;
 	int	y;
@@ -60,7 +60,7 @@ void	do_floodfill(t_cub *cub)
 	}
 }
 
-void	test_parsing(t_cub *cub)
+static void	reverse_map_and_floodfill(t_cub *cub)
 {
 	char	*test;
 	int		x;
@@ -88,7 +88,7 @@ void	test_parsing(t_cub *cub)
 	do_floodfill(cub);
 }
 
-int	game_loop(t_cub *cub)
+static int	game_loop(t_cub *cub)
 {
 	uint64_t	start;
 
@@ -116,7 +116,8 @@ int	main(int argc, char **argv)
 	init_game(&cub);
 	read_cub_file(&cub, map_path);
 	check_file(&cub);
-	test_parsing(&cub);
+	reverse_map_and_floodfill(&cub);
+	init_mlx(&cub);
 	raycaster(&cub);
 	mlx_put_image_to_window(cub.mlx, cub.win, cub.screen.ptr, 0, 0);
 	mlx_hook(cub.win, KEYPRESS, 1L << 0, &key_press_event, &cub);

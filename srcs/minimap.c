@@ -25,13 +25,9 @@ void	bresenham(t_cub *cub, t_vect src, t_vect dest, int color)
 	step_y /= i;
 	while ((int)(src.x - dest.x) || (int)(src.y - dest.y))
 	{
-		if (!(src.x >= SCREEN_WIDTH || src.y >= SCREEN_HEIGHT
-				|| src.x < 0 || src.y < 0))
-		{
-			mlx_img_pixel_put(cub, src.x, src.y, color);
-			mlx_img_pixel_put(cub, src.x, src.y + 1, color);
-			mlx_img_pixel_put(cub, src.x + 1, src.y, color);
-		}
+		mlx_img_pixel_put(cub, src.x, src.y, color);
+		mlx_img_pixel_put(cub, src.x, src.y + 1, color);
+		mlx_img_pixel_put(cub, src.x + 1, src.y, color);
 		src.x += step_x;
 		src.y += step_y;
 	}

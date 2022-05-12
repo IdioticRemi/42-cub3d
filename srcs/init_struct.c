@@ -26,6 +26,11 @@ void	init_info(t_cub *cub)
 	cub->info.s_path = NULL;
 	cub->info.w_path = NULL;
 	cub->info.e_path = NULL;
+	cub->tx.north.ptr = NULL;
+	cub->tx.south.ptr = NULL;
+	cub->tx.west.ptr = NULL;
+	cub->tx.east.ptr = NULL;
+	cub->screen.ptr = NULL;
 	cub->info.floor = 0;
 	cub->info.f_parsed = 0;
 	cub->info.ceiling = 0;
@@ -77,12 +82,7 @@ void	init_player(t_cub *cub)
 
 void	init_game(t_cub *cub)
 {
+	cub->mlx = mlx_init();
 	init_struct_map(cub);
 	init_info(cub);
-	cub->mlx = mlx_init();
-	cub->win = mlx_new_window(cub->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "cub3d");
-	cub->screen.ptr = mlx_new_image(cub->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-	cub->screen.addr = mlx_get_data_addr(cub->screen.ptr,
-			&cub->screen.bpp,
-			&cub->screen.ln, &cub->screen.e);
 }

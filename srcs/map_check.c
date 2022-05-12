@@ -52,6 +52,23 @@ t_vect	check_lines(t_cub *cub, char **lines, int *pc, int *i)
 	return (m);
 }
 
+static void	verify_raw_map(t_cub *cub)
+{
+	static char	to_find[3] = "\n.";
+	char		*map_ptr;
+	int			i;
+
+	to_find[1] = cub->map._array[0];
+	map_ptr = ft_strstr(cub->file, to_find) + 1;
+	i = -1;
+	while (map_ptr[++i])
+		if (map_ptr[i] && map_ptr[i] == '\n'
+			&& (map_ptr[i + 1] == '\0' || map_ptr[i + 1] == '\n'))
+			map_ptr[i] = '\0';
+	if (ft_strcnt(map_ptr, '\n') + 1 != cub->map.h)
+		error_message_exit(cub, "Empty line in map.");
+}
+
 void	check_file(t_cub *cub)
 {
 	char	**lines;
@@ -77,6 +94,7 @@ void	check_file(t_cub *cub)
 	if (pc != 1)
 		error_message_exit(cub, "You need at least/most 1 player!");
 	free_char_array(lines);
+	verify_raw_map(cub);
 }
 
 int	check_file_extension(char *filename, char *ext)
