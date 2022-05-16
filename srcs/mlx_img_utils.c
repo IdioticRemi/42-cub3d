@@ -6,7 +6,7 @@
 /*   By: tjolivea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 13:42:16 by tjolivea          #+#    #+#             */
-/*   Updated: 2022/05/09 13:42:17 by tjolivea         ###   ########lyon.fr   */
+/*   Updated: 2022/05/16 14:49:45 by tjolivea         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	mlx_img_pixel_put(t_cub *cub, int x, int y, unsigned int color)
 	char	*dest;
 	t_image	screen;
 
-	if (x < 0 || y < 0 || x > SCREEN_WIDTH || y > SCREEN_HEIGHT)
+	if (x < 0 || y < 0 || x >= SCREEN_WIDTH || y >= SCREEN_HEIGHT)
 		return ;
 	screen = cub->screen;
 	dest = screen.addr + (y * screen.ln + x
